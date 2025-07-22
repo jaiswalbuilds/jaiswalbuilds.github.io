@@ -6,3 +6,5 @@ export default defineConfig({
   plugins: [react()],
   base: './',
 })
+
+// Refactored update: 2025-07-22 check
