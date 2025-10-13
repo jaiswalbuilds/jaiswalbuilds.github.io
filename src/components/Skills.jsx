@@ -62,3 +62,5 @@ const Skills = () => {
 };
 
 export default Skills;
+
+// Refactored update: 2025-10-13 check
