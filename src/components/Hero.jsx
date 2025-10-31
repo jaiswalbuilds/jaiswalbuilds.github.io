@@ -76,3 +76,5 @@ const Hero = ({ onShowResume }) => {
 export default Hero;
 
 // Refactored update: 2025-10-22 check
+
+// Refactored update: 2025-10-31 check
