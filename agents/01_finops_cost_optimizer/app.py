@@ -169,3 +169,5 @@ if query and st.button("Analyze", type="primary"):
         result = agent_executor.invoke({"input": query})
         st.markdown("### 💡 Agent Recommendation")
         st.markdown(result["output"])
+
+# Refactored update: 2025-12-23 check
