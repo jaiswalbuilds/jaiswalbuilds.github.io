@@ -110,3 +110,5 @@ with col2:
             result = executor.invoke({"input": f"Analyze this incident and generate a response playbook: {incident}"})
             st.markdown("### 🎯 Incident Response Playbook")
             st.markdown(result["output"])
+
+# Refactored update: 2026-01-30 check
