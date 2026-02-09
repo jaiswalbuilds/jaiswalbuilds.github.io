@@ -62,3 +62,5 @@ if st.button("🔍 Start Research", type="primary"):
         st.download_button("📥 Download Report", result["output"],
                            file_name=f"research_{topic[:30].replace(' ','_')}.md",
                            mime="text/markdown")
+
+# Refactored update: 2026-02-09 check
