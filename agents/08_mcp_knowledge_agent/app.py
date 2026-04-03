@@ -86,3 +86,5 @@ if query and st.button("Ask", type="primary"):
         result = executor.invoke({"input": query})
     st.markdown("### 💡 Answer")
     st.markdown(result["output"])
+
+# Refactored update: 2026-04-03 check
