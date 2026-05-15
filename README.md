@@ -1,16 +1,79 @@
-# React + Vite
+# 🚀 Manish Jaiswal | AI Engineering Masterpieces
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> **Forward-deployed AI Engineer | ML Systems | Agentic AI | Founder of [Neurals.in](https://neurals.in)**
 
-Currently, two official plugins are available:
+Welcome to the central hub for my AI Engineering portfolio. This repository serves as both my live portfolio website (**[jaiswalbuilds.github.io](https://jaiswalbuilds.github.io)**) and a laboratory for production-grade AI agents and RAG systems.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## 🛠️ Mission
+To bridge the gap between complex enterprise requirements and scalable, reliable AI systems. Every project here is built with **"production-first"** principles: modular, observed, and optimized for real-world performance.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 🤖 Featured AI Agents (Masterpieces)
+I have built **10 specialized AI agents** that you can run, fork, and ship.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+| Agent | What it does | Key Stack |
+| :--- | :--- | :--- |
+| **💰 FinOps Optimizer** | Detects cloud cost anomalies via z-score analysis. | LangChain, FAISS |
+| **🛡️ Threat Intel** | Correlates incident IOCs with MITRE ATT&CK. | RAG, MITRE |
+| **🎙️ Interview Agent** | Multi-turn adaptive interviewer with JSON evaluation. | Memory, GPT-4o |
+| **🧠 Safex (RAG)** | Enterprise knowledge assistant with source citations. | ChromaDB, LlamaIndex |
+| **🤝 Multi-Agent Crew** | Sequential FinOps team (Analyst -> Strategist -> Writer). | CrewAI |
+| **🔧 Code Reviewer** | Static + LLM analysis for security & complexity. | AST, Python |
+| **♾️ MCP Knowledge** | Intent-based routing across internal & external docs. | MCP Pattern |
+| **📡 Pipeline Monitor** | Detects data drift & performance degradation. | MLOps, Drift |
+| **📄 Doc Intelligence** | Cross-document semantic Q&A and metrics extraction. | Multi-doc RAG |
+| **🔍 Research Analyst** | Autonomous multi-pass web research & report generation. | DuckDuckGo |
+
+👉 **[Browse Agent Source Code](./agents/)**
+
+---
+
+## ⚡ Quick Start (Local Run)
+
+Every agent follows a unified run pattern. To launch an agent (e.g., the FinOps Optimizer):
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/jaiswalbuilds/jaiswalbuilds.github.io.git
+
+# 2. Navigate to the agent
+cd agents/01_finops_cost_optimizer
+
+# 3. Install requirements
+pip install -r requirements.txt
+
+# 4. Export your API Key
+export OPENAI_API_KEY='sk-...'
+
+# 5. Run with Streamlit
+streamlit run app.py
+```
+
+---
+
+## 🧪 Technical Stack
+*   **LLM Orchestration**: LangChain, LlamaIndex, CrewAI, AutoGen
+*   **Models**: GPT-4o, Claude 3.5 Sonnet, Gemini 1.5 Pro, Llama 3 (Local)
+*   **Vector Infrastructure**: FAISS, ChromaDB, Pinecone
+*   **Frameworks**: React (Portfolio), Streamlit (Agent UIs), Python, Node.js
+*   **Observability**: MLflow, Custom Drift Detection
+
+---
+
+## 👨‍💻 About Me
+I'm an AI Engineer with **10+ years** of experience in production ML systems. I specialize in:
+*   **Agentic AI Pipelines**: Designing multi-agent systems that solve business logic.
+*   **Advanced RAG**: Building context-aware systems for enterprise data.
+*   **FinOps Automation**: Reducing cloud spend through AI-driven governance at **Neurals.in**.
+
+**Connect with me:**
+- 🌐 [Portfolio Site](https://jaiswalbuilds.github.io)
+- 💼 [LinkedIn](https://www.linkedin.com/in/manish-kumar-74ab6210a/)
+- 📧 [Email](mailto:jaiswalmanish060@gmail.com)
+
+---
+
+> *"The future is not just LLMs; it's the agentic workflows we build around them."*

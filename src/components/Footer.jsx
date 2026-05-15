@@ -24,7 +24,7 @@ const Footer = () => {
               <a href="mailto:jaiswalmanish060@gmail.com" className="footer-link">
                 <Mail size={18} /> jaiswalmanish060@gmail.com
               </a>
-              <a href="https://github.com/jaiswalwrites" target="_blank" rel="noopener noreferrer" className="footer-link">
+              <a href="https://github.com/jaiswalbuilds" target="_blank" rel="noopener noreferrer" className="footer-link">
                 <FaGithub size={18} /> GitHub
               </a>
               <a href="https://www.linkedin.com/in/manish-kumar-74ab6210a/" target="_blank" rel="noopener noreferrer" className="footer-link">
