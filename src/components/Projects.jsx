@@ -1,82 +1,232 @@
-import React from 'react';
-import { ExternalLink, Box } from 'lucide-react';
+import React, { useState } from 'react';
+import { ExternalLink, Box, ChevronDown, ChevronUp, Cpu } from 'lucide-react';
 import { FaGithub } from 'react-icons/fa';
 import './Projects.css';
 
-// Importing generated assets
 import safexImg from '../assets/safex_dashboard_1778827701816.png';
 import interviewImg from '../assets/llm_interview_agent_1778827717107.png';
 
-const projects = [
+const agents = [
   {
-    title: 'Autonomous LLM Interview Agent',
-    description: 'Multi-turn agentic system with memory, tool use, chain-of-thought style reasoning, and LLM evaluation pipeline for automated interviewing processes.',
-    tags: ['Agentic AI', 'LLMs', 'Python', 'Memory Management'],
-    image: interviewImg,
-    links: { github: '#', live: '#' }
+    id: '01',
+    title: 'FinOps Cost Optimizer Agent',
+    emoji: '💰',
+    description: 'Agentic RAG system that analyzes cloud cost data, detects spending anomalies with z-score analysis, and generates LLM-powered optimization recommendations.',
+    tags: ['LangChain', 'FAISS', 'ReAct Agent', 'Anomaly Detection'],
+    architecture: 'CSV Cost Data → FAISS Embeddings → ReAct Agent (Anomaly + Spend tools) → LLM Reasoning → Recommendations',
+    domain: 'FinOps',
+    image: null,
+    github: 'https://github.com/jaiswalbuilds/jaiswalbuilds.github.io/tree/main/agents/01_finops_cost_optimizer',
   },
   {
-    title: 'Safex — Enterprise AI Assistant',
-    description: 'Full-stack LLM assistant built with FAISS and vector embeddings, yielding a 60% accuracy gain and 75% latency reduction in production.',
-    tags: ['RAG', 'FAISS', 'Prompt Engineering', 'FastAPI'],
+    id: '02',
+    title: 'Cybersecurity Threat Intel Agent',
+    emoji: '🛡️',
+    description: 'RAG-powered agent that correlates incident IOCs against a MITRE ATT&CK knowledge base and auto-generates incident response playbooks.',
+    tags: ['RAG', 'FAISS', 'MITRE ATT&CK', 'LangChain'],
+    architecture: 'Incident IOCs → FAISS Threat KB → RAG Retrieval → LLM Correlation → IR Playbook',
+    domain: 'Cybersecurity',
     image: safexImg,
-    links: { github: '#', live: '#' }
+    github: 'https://github.com/jaiswalbuilds/jaiswalbuilds.github.io/tree/main/agents/02_cybersec_threat_intel',
   },
   {
-    title: 'Financial Strategy AI Engine',
-    description: 'Real-time ML pipeline with feature engineering, predictive scoring, and RAG-based risk alerting for robust financial strategies.',
-    tags: ['Scikit-learn', 'Predictive AI', 'RAG', 'Pandas'],
-    image: null,
-    links: { github: '#', live: '#' }
+    id: '03',
+    title: 'Enterprise RAG Assistant (Safex)',
+    emoji: '🧠',
+    description: 'Production-style RAG assistant that indexes enterprise documents, enables semantic Q&A, and returns cited answers — the architecture behind Safex at Safe Security.',
+    tags: ['ChromaDB', 'LlamaIndex', 'RetrievalQA', 'Citations'],
+    architecture: 'Documents → Chunking → ChromaDB Embeddings → RetrievalQAWithSources → LLM → Answer + Citations',
+    domain: 'Enterprise AI',
+    image: safexImg,
+    github: 'https://github.com/jaiswalbuilds/jaiswalbuilds.github.io/tree/main/agents/03_enterprise_rag_assistant',
   },
   {
-    title: 'FinOps Agentic Automation',
-    description: 'Agentic cloud cost optimisation across AWS, GCP, and Azure using anomaly detection algorithms.',
-    tags: ['FinOps', 'Anomaly Detection', 'Cloud', 'Automation'],
+    id: '04',
+    title: 'Autonomous LLM Interview Agent',
+    emoji: '🎙️',
+    description: 'Multi-turn agentic interviewer with conversation memory, adaptive question difficulty, and a structured JSON evaluation pipeline scoring candidates on 4 dimensions.',
+    tags: ['ConversationMemory', 'LangChain', 'Evaluation', 'Multi-turn'],
+    architecture: 'Role Config → System Prompt → ConversationChain (Memory) → 5-turn Interview Loop → JSON Evaluator → Score Report',
+    domain: 'HR Tech / AI',
+    image: interviewImg,
+    github: 'https://github.com/jaiswalbuilds/jaiswalbuilds.github.io/tree/main/agents/04_llm_interview_agent',
+  },
+  {
+    id: '05',
+    title: 'AI Deep Research Analyst',
+    emoji: '🔍',
+    description: 'Autonomous agent that uses DuckDuckGo web search iteratively to research a topic, synthesizes findings, and produces structured reports at configurable depth.',
+    tags: ['ReAct Agent', 'DuckDuckGo', 'Web Search', 'Report Generation'],
+    architecture: 'Query → ReAct Agent → Web Search (DuckDuckGo) → Multi-step Reasoning → Synthesized Report',
+    domain: 'Research',
     image: null,
-    links: { github: '#', live: '#' }
-  }
+    github: 'https://github.com/jaiswalbuilds/jaiswalbuilds.github.io/tree/main/agents/05_ai_research_analyst',
+  },
+  {
+    id: '06',
+    title: 'Multi-Agent FinOps Team',
+    emoji: '🤝',
+    description: 'Three specialized CrewAI agents collaborate sequentially: Cost Analyst → Optimization Strategist → Executive Report Writer — each handing off findings to the next.',
+    tags: ['CrewAI', 'Multi-agent', 'Sequential Process', 'FinOps'],
+    architecture: 'Cloud Config → [Cost Analyst Agent] → [Optimizer Agent] → [Writer Agent] → Executive Report',
+    domain: 'FinOps / Multi-agent',
+    image: null,
+    github: 'https://github.com/jaiswalbuilds/jaiswalbuilds.github.io/tree/main/agents/06_multi_agent_finops_team',
+  },
+  {
+    id: '07',
+    title: 'Autonomous Code Reviewer',
+    emoji: '🔧',
+    description: 'AI agent with AST-based static analysis tools that reviews Python code for SQL injection, hardcoded secrets, O(n²) complexity, and best practice violations.',
+    tags: ['AST Analysis', 'ReAct Agent', 'Security', 'Python'],
+    architecture: 'Code Input → AST Tools (Security + Complexity) → ReAct Agent → LLM Review → Structured Report + Fixes',
+    domain: 'DevSecOps',
+    image: null,
+    github: 'https://github.com/jaiswalbuilds/jaiswalbuilds.github.io/tree/main/agents/07_autonomous_code_reviewer',
+  },
+  {
+    id: '08',
+    title: 'MCP Knowledge Base Agent',
+    emoji: '♾️',
+    description: 'Multi-source knowledge agent with MCP-style tool routing across internal docs (FAISS), real-time web search, and API status monitoring — unified into one answer.',
+    tags: ['MCP Pattern', 'FAISS', 'Tool Routing', 'Multi-source RAG'],
+    architecture: 'Query → Intent → Tool Router → [Internal FAISS | Web Search | API Monitor] → Synthesized Answer',
+    domain: 'Knowledge Management',
+    image: null,
+    github: 'https://github.com/jaiswalbuilds/jaiswalbuilds.github.io/tree/main/agents/08_mcp_knowledge_agent',
+  },
+  {
+    id: '09',
+    title: 'ML Pipeline Monitor Agent',
+    emoji: '📡',
+    description: 'Monitors ML model accuracy, data drift (z-score), and latency SLAs across all deployed models — agent auto-generates remediation runbooks on degradation.',
+    tags: ['MLOps', 'Drift Detection', 'ReAct Agent', 'Monitoring'],
+    architecture: 'Metrics Feed → Anomaly Tools (Drift + Perf + Latency) → ReAct Agent → LLM → Remediation Runbook',
+    domain: 'MLOps',
+    image: null,
+    github: 'https://github.com/jaiswalbuilds/jaiswalbuilds.github.io/tree/main/agents/09_pipeline_monitor_agent',
+  },
+  {
+    id: '10',
+    title: 'Document Intelligence Agent',
+    emoji: '📄',
+    description: 'Multi-document RAG agent that ingests multiple files, builds a unified FAISS index, and answers cross-document questions with source citations.',
+    tags: ['Multi-doc RAG', 'FAISS', 'Citations', 'LangChain'],
+    architecture: 'Multi-doc Upload → Chunking → FAISS Unified Index → RetrievalQAWithSources → Cited Cross-doc Answers',
+    domain: 'Enterprise AI',
+    image: null,
+    github: 'https://github.com/jaiswalbuilds/jaiswalbuilds.github.io/tree/main/agents/10_document_intelligence_agent',
+  },
 ];
 
+const domainColors = {
+  'FinOps': '#06b6d4',
+  'Cybersecurity': '#ef4444',
+  'Enterprise AI': '#8b5cf6',
+  'HR Tech / AI': '#3b82f6',
+  'Research': '#f59e0b',
+  'FinOps / Multi-agent': '#06b6d4',
+  'DevSecOps': '#10b981',
+  'Knowledge Management': '#8b5cf6',
+  'MLOps': '#f97316',
+};
+
+const AgentCard = ({ agent }) => {
+  const [expanded, setExpanded] = useState(false);
+  const color = domainColors[agent.domain] || '#3b82f6';
+
+  return (
+    <div className={`agent-card glass-panel ${expanded ? 'expanded' : ''}`}>
+      <div className="agent-card-top">
+        {agent.image && (
+          <div className="agent-img-container">
+            <img src={agent.image} alt={agent.title} className="agent-img" />
+          </div>
+        )}
+        <div className="agent-card-header">
+          <div className="agent-number-row">
+            <span className="agent-id">Agent {agent.id}</span>
+            <span className="agent-domain" style={{ color, borderColor: color, background: `${color}15` }}>
+              {agent.domain}
+            </span>
+          </div>
+          <h3 className="agent-title">
+            <span className="agent-emoji">{agent.emoji}</span> {agent.title}
+          </h3>
+          <p className="agent-description">{agent.description}</p>
+          <div className="agent-tags">
+            {agent.tags.map((tag, i) => (
+              <span key={i} className="tag">{tag}</span>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <button className="expand-btn" onClick={() => setExpanded(!expanded)}>
+        <Cpu size={16} />
+        {expanded ? 'Hide Architecture' : 'View Architecture'}
+        {expanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+      </button>
+
+      {expanded && (
+        <div className="architecture-panel">
+          <div className="architecture-flow">
+            {agent.architecture.split('→').map((step, i, arr) => (
+              <React.Fragment key={i}>
+                <div className="arch-step" style={{ borderColor: `${color}50`, background: `${color}08` }}>
+                  {step.trim()}
+                </div>
+                {i < arr.length - 1 && <div className="arch-arrow" style={{ color }}>→</div>}
+              </React.Fragment>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <div className="agent-links">
+        <a href={agent.github} target="_blank" rel="noopener noreferrer" className="agent-link-btn">
+          <FaGithub size={16} /> View Code
+        </a>
+      </div>
+    </div>
+  );
+};
+
 const Projects = () => {
+  const [filter, setFilter] = useState('All');
+  const domains = ['All', ...new Set(agents.map(a => a.domain))];
+  const filtered = filter === 'All' ? agents : agents.filter(a => a.domain === filter);
+
   return (
     <section id="projects" className="projects-section">
-      <div className="bg-gradient-glow" style={{ top: '20%', right: '-10%' }}></div>
+      <div className="bg-gradient-glow" style={{ top: '10%', right: '-15%' }}></div>
       <div className="container">
         <h2 className="section-title text-gradient">AI Engineering Masterpieces</h2>
-        
-        <div className="projects-grid">
-          {projects.map((project, index) => (
-            <div key={index} className="project-card glass-panel">
-              {project.image ? (
-                <div className="project-image-container">
-                  <img src={project.image} alt={project.title} className="project-image" />
-                  <div className="project-overlay">
-                    <a href={project.links.github} className="project-link"><FaGithub size={20} /></a>
-                    <a href={project.links.live} className="project-link"><ExternalLink size={20} /></a>
-                  </div>
-                </div>
-              ) : (
-                <div className="project-image-container placeholder-img">
-                  <Box size={48} className="placeholder-icon" />
-                  <div className="project-overlay">
-                    <a href={project.links.github} className="project-link"><FaGithub size={20} /></a>
-                    <a href={project.links.live} className="project-link"><ExternalLink size={20} /></a>
-                  </div>
-                </div>
-              )}
-              
-              <div className="project-content">
-                <h3 className="project-title">{project.title}</h3>
-                <p className="project-description">{project.description}</p>
-                <div className="project-tags">
-                  {project.tags.map((tag, i) => (
-                    <span key={i} className="tag">{tag}</span>
-                  ))}
-                </div>
-              </div>
-            </div>
+        <p className="section-subtitle">
+          10 production-ready AI agents — clone, customize, and ship. Each with full source code and architecture.
+        </p>
+
+        <div className="github-cta glass-panel">
+          <div>
+            <strong>⭐ All agents are open source</strong>
+            <span> — clone the repo and run any agent in 3 commands</span>
+          </div>
+          <a href="https://github.com/jaiswalbuilds/jaiswalbuilds.github.io/tree/main/agents"
+             target="_blank" rel="noopener noreferrer" className="btn btn-primary">
+            <FaGithub size={18} /> Browse All Agents
+          </a>
+        </div>
+
+        <div className="filter-row">
+          {domains.map(d => (
+            <button key={d} className={`filter-btn ${filter === d ? 'active' : ''}`} onClick={() => setFilter(d)}>
+              {d}
+            </button>
           ))}
+        </div>
+
+        <div className="agents-grid">
+          {filtered.map(agent => <AgentCard key={agent.id} agent={agent} />)}
         </div>
       </div>
     </section>

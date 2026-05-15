@@ -1,0 +1,7 @@
+langchain>=0.3
+langchain-openai>=0.2
+langchain-community>=0.3
+duckduckgo-search>=7.0
+openai>=1.0
+streamlit>=1.40
+
