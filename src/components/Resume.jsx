@@ -16,6 +16,7 @@ const Resume = ({ onBack }) => {
       </div>
 
       <div className="resume-paper" id="resume-content">
+        {/* Header */}
         <header className="resume-header">
           <h1>Manish Jaiswal</h1>
           <h2 className="tagline">AI Engineer · ML Systems · Agentic AI · LLMs</h2>
@@ -28,15 +29,18 @@ const Resume = ({ onBack }) => {
           </div>
         </header>
 
+        {/* Professional Summary */}
         <section className="resume-section">
           <h3>Professional Summary</h3>
           <p className="summary-text">
-            AI Engineer with <strong>10+ years</strong> experience building production ML systems and Agentic AI pipelines. Expert in RAG, multi-agent orchestration, and MLOps at cloud scale. Currently optimizing LLM inference on <strong>SambaNova stacks</strong> and translating enterprise requirements into production AI.
+            AI Engineer with <strong>10+ years</strong> experience building production ML systems and Agentic AI pipelines. Expert in RAG, multi-agent orchestration, and MLOps at cloud scale. Currently optimizing LLM inference on <strong>SambaNova custom accelerator stacks</strong> and translating complex enterprise requirements into production-ready AI systems.
           </p>
         </section>
 
-        <div className="resume-grid">
-          <div className="resume-left">
+        {/* Body Grid */}
+        <div className="resume-body-grid">
+          {/* Experience Column */}
+          <div className="resume-left-col">
             <section className="resume-section">
               <h3>Professional Experience</h3>
               
@@ -48,8 +52,8 @@ const Resume = ({ onBack }) => {
                 <div className="exp-sub">AI Engineer — Inference & Forward Deployment (Contract)</div>
                 <ul className="exp-list">
                   <li>Optimizing AI inference pipelines on <strong>SambaNova custom accelerators</strong>.</li>
-                  <li>Translating enterprise use cases into production-ready AI solutions.</li>
-                  <li>Driving LLM optimization, prompt engineering, and quality evaluation tooling.</li>
+                  <li>Translating enterprise customer use cases into production AI solutions.</li>
+                  <li>Driving LLM optimization, prompt engineering, and response quality evaluation.</li>
                 </ul>
               </div>
 
@@ -60,9 +64,9 @@ const Resume = ({ onBack }) => {
                 </div>
                 <div className="exp-sub">AI Platform Engineer — LLM Systems, RAG & API Infrastructure</div>
                 <ul className="exp-list">
-                  <li><strong>Led Safex:</strong> GenAI assistant with <strong>60% accuracy gain</strong> and <strong>75% latency reduction</strong>.</li>
+                  <li><strong>Led Safex Engineering:</strong> GenAI assistant with <strong>60% accuracy gain</strong> and <strong>75% latency reduction</strong> using RAG + FAISS over enterprise docs.</li>
                   <li>Built Python ML pipelines for risk scoring and threat intelligence.</li>
-                  <li>Deployed Agentic workflows with multi-step reasoning and memory management.</li>
+                  <li>Deployed Agentic AI workflows with multi-step reasoning and memory management.</li>
                   <li>Owned 400+ REST APIs; reduced developer friction by 50%.</li>
                 </ul>
               </div>
@@ -74,14 +78,14 @@ const Resume = ({ onBack }) => {
                 </div>
                 <div className="exp-sub">DevOps & Platform Engineer — CI/CD & Cloud Infrastructure</div>
                 <ul className="exp-list">
-                  <li>Built CI/CD pipelines for K8s deployments across GCP/AWS/JFrog.</li>
+                  <li>Built CI/CD pipelines for K8s deployments across GCP, AWS, and JFrog.</li>
                   <li>Developed internal automation to reduce manual overhead and improve release quality.</li>
                 </ul>
               </div>
 
               <div className="experience-item">
                 <div className="exp-header">
-                  <strong>Arcana Network · Marlin · 1Kosmos</strong>
+                  <strong>Arcana · Marlin · 1Kosmos</strong>
                   <span>2018 — 2021</span>
                 </div>
                 <div className="exp-sub">AI SDK & Developer Platform Engineer</div>
@@ -91,23 +95,17 @@ const Resume = ({ onBack }) => {
                 </ul>
               </div>
             </section>
-
-            <section className="resume-section">
-              <h3>Featured Projects</h3>
-              <div className="project-item"><strong>Interview Agent:</strong> Multi-turn LLM system with adaptive scoring.</div>
-              <div className="project-item"><strong>Safex Assistant:</strong> RAG-based LLM with 60% accuracy gain.</div>
-              <div className="project-item"><strong>FinOps AI:</strong> Agentic cloud cost optimization across AWS/GCP.</div>
-            </section>
           </div>
 
-          <div className="resume-right">
+          {/* Sidebar Column */}
+          <div className="resume-right-col">
             <section className="resume-section">
               <h3>Key Achievements</h3>
               <div className="achievement-grid">
                 <div className="achievement-badge">60% Accuracy</div>
                 <div className="achievement-badge">75% Speedup</div>
                 <div className="achievement-badge">400+ APIs</div>
-                <div className="achievement-badge">50% Support↓</div>
+                <div className="achievement-badge">50% Tickets↓</div>
               </div>
             </section>
 
@@ -119,21 +117,21 @@ const Resume = ({ onBack }) => {
               </div>
               <div className="skill-group">
                 <strong>Deep Learning</strong>
-                <p>PyTorch, TensorFlow, Transformers, Fine-tuning, ONNX</p>
+                <p>PyTorch, TensorFlow, Transformers, Fine-tuning, ONNX, Embeddings</p>
               </div>
               <div className="skill-group">
                 <strong>Data Science</strong>
-                <p>NumPy, Pandas, Scikit-learn, SciPy, Matplotlib</p>
+                <p>NumPy, Pandas, Scikit-learn, SciPy, Matplotlib, Jupyter</p>
               </div>
               <div className="skill-group">
                 <strong>Infra & Vector</strong>
-                <p>Docker, K8s, Terraform, FAISS, Pinecone, Chroma, AWS, GCP</p>
+                <p>Docker, K8s, Terraform, FAISS, Pinecone, Chroma, AWS, GCP, Azure</p>
               </div>
             </section>
 
             <section className="resume-section">
               <h3>Certifications</h3>
-              <p className="edu-text">AI Engineer 2025 · DevOps MasterClass · Solidity · OpenAPI</p>
+              <p className="cert-text">AI Engineer 2025 · DevOps MasterClass · Ethereum & Solidity · OpenAPI</p>
             </section>
 
             <section className="resume-section">
@@ -142,6 +140,14 @@ const Resume = ({ onBack }) => {
             </section>
           </div>
         </div>
+
+        {/* Featured Projects - Full Width at Bottom */}
+        <section className="resume-section" style={{ marginTop: '5px' }}>
+          <h3>Featured AI Masterpieces</h3>
+          <div className="project-item"><strong>Autonomous LLM Interview Agent:</strong> Multi-turn system with memory and CoT reasoning.</div>
+          <div className="project-item"><strong>Safex — Enterprise AI Assistant:</strong> Production deployment with 60% accuracy gain.</div>
+          <div className="project-item"><strong>FinOps Agentic Automation:</strong> Agentic cloud cost optimization using anomaly detection.</div>
+        </section>
       </div>
     </div>
   );
