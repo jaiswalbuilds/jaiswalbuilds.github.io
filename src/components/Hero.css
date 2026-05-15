@@ -16,7 +16,7 @@
   background-size: cover;
   background-position: center;
   z-index: -2;
-  opacity: 0.6;
+  opacity: 0.5;
 }
 
 .hero-overlay {
@@ -27,7 +27,7 @@
   height: 100%;
   background: linear-gradient(
     to bottom,
-    rgba(5, 5, 5, 0.4) 0%,
+    rgba(5, 5, 5, 0.5) 0%,
     rgba(5, 5, 5, 0.8) 50%,
     var(--bg-primary) 100%
   );
@@ -37,10 +37,69 @@
 .hero-container {
   position: relative;
   z-index: 10;
+  width: 100%;
+  padding: 4rem 2rem;
+}
+
+/* Two-column layout */
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 4rem;
+  align-items: center;
+  max-width: 1100px;
 }
 
 .hero-content {
-  max-width: 800px;
+  max-width: 650px;
+}
+
+/* Profile image */
+.hero-image-wrapper {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.hero-image-glow {
+  position: absolute;
+  inset: -4px;
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+  border-radius: 2rem;
+  filter: blur(20px);
+  opacity: 0.35;
+  z-index: -1;
+  transition: opacity 0.5s ease;
+}
+
+.hero-image-wrapper:hover .hero-image-glow {
+  opacity: 0.6;
+}
+
+.hero-image-panel {
+  width: 280px;
+  height: 380px;
+  border-radius: 2rem;
+  overflow: hidden;
+  padding: 0.5rem;
+  transform: translateY(0);
+  transition: transform 0.5s ease;
+}
+
+.hero-image-wrapper:hover .hero-image-panel {
+  transform: translateY(-8px);
+}
+
+.hero-profile-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 1.5rem;
+  opacity: 0.9;
+  transition: opacity 0.4s ease;
+}
+
+.hero-image-wrapper:hover .hero-profile-img {
+  opacity: 1;
 }
 
 .badge {
@@ -65,16 +124,17 @@
 }
 
 .hero-title {
-  font-size: clamp(3rem, 5vw, 4.5rem);
+  font-size: clamp(2.5rem, 4.5vw, 4rem);
   margin-bottom: 1.5rem;
   letter-spacing: -0.02em;
 }
 
 .hero-subtitle {
-  font-size: 1.25rem;
+  font-size: 1.15rem;
   color: var(--text-secondary);
   margin-bottom: 2.5rem;
-  max-width: 600px;
+  max-width: 560px;
+  line-height: 1.7;
 }
 
 .hero-actions {
@@ -84,7 +144,7 @@
 }
 
 .social-links {
-  margin-top: 3rem;
+  margin-top: 2.5rem;
   display: flex;
   gap: 1.5rem;
 }
@@ -98,3 +158,32 @@
   color: var(--accent-blue);
   transform: translateY(-2px) scale(1.1);
 }
+
+/* Responsive */
+@media (max-width: 900px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .hero-image-wrapper {
+    display: flex;
+    justify-content: center;
+    order: -1;
+  }
+
+  .hero-image-panel {
+    width: 220px;
+    height: 300px;
+  }
+
+  .hero-content {
+    max-width: 100%;
+  }
+
+  .hero-actions,
+  .social-links {
+    justify-content: center;
+  }
+}
+
