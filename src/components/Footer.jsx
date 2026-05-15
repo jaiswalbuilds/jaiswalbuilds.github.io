@@ -27,7 +27,7 @@ const Footer = () => {
               <a href="https://github.com/jaiswalwrites" target="_blank" rel="noopener noreferrer" className="footer-link">
                 <FaGithub size={18} /> GitHub
               </a>
-              <a href="https://linkedin.com/in/manish-kumar-74ab6210a" target="_blank" rel="noopener noreferrer" className="footer-link">
+              <a href="https://www.linkedin.com/in/manish-kumar-74ab6210a/" target="_blank" rel="noopener noreferrer" className="footer-link">
                 <FaLinkedin size={18} /> LinkedIn
               </a>
             </div>

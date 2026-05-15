@@ -46,7 +46,7 @@ const Hero = () => {
               <a href="https://github.com/jaiswalwrites" target="_blank" rel="noopener noreferrer" className="social-icon">
                 <FaGithub size={24} />
               </a>
-              <a href="https://linkedin.com/in/manish-kumar-74ab6210a" target="_blank" rel="noopener noreferrer" className="social-icon">
+              <a href="https://www.linkedin.com/in/manish-kumar-74ab6210a/" target="_blank" rel="noopener noreferrer" className="social-icon">
                 <FaLinkedin size={24} />
               </a>
               <a href="mailto:jaiswalmanish060@gmail.com" className="social-icon">
