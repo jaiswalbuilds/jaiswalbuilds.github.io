@@ -7,11 +7,11 @@ const Resume = ({ onBack }) => {
   return (
     <div className="resume-overlay">
       <div className="resume-actions no-print">
-        <button onClick={onBack} className="btn btn-outline btn-sm" style={{ padding: '0.5rem 1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-          <ArrowLeft size={16} /> Back to Site
+        <button onClick={onBack} className="btn btn-outline btn-sm" style={{ padding: '0.4rem 0.8rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+          <ArrowLeft size={14} /> Back to Site
         </button>
-        <button onClick={() => window.print()} className="btn btn-primary btn-sm" style={{ padding: '0.5rem 1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-          <Download size={16} /> Download PDF
+        <button onClick={() => window.print()} className="btn btn-primary btn-sm" style={{ padding: '0.4rem 0.8rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+          <Download size={14} /> Download PDF
         </button>
       </div>
 
@@ -32,12 +32,9 @@ const Resume = ({ onBack }) => {
         </header>
 
         <section className="resume-section">
-          <h3>Summary</h3>
+          <h3>Professional Summary</h3>
           <p className="summary-text">
-            AI Engineer with <strong>10+ years</strong> building production ML systems, Agentic AI pipelines, and LLM-driven solutions. 
-            Currently contributing to <strong>AI inference at SambaNova Systems</strong> in a high-performance LLM deployment environment. 
-            Expert in RAG pipelines, multi-agent orchestration, and MLOps at cloud scale. Forward-deployed engineer with a 
-            track record of translating complex enterprise requirements into production-ready AI systems.
+            AI Engineer with <strong>10+ years</strong> experience building production ML systems, Agentic AI pipelines, and LLM-driven solutions across cybersecurity, FinOps, Web3, and enterprise AI. Expert in RAG pipelines, multi-agent orchestration, and MLOps at cloud scale. Currently driving AI inference optimization on custom AI accelerator stacks and translating complex enterprise requirements into production-ready AI systems.
           </p>
         </section>
 
@@ -49,14 +46,15 @@ const Resume = ({ onBack }) => {
               
               <div className="experience-item">
                 <div className="exp-header">
-                  <strong>SambaNova Systems</strong>
+                  <strong>Neurals.in</strong>
                   <span>Jan 2026 — Present</span>
                 </div>
-                <div className="exp-sub">AI Engineer — Inference & Forward Deployment</div>
+                <div className="exp-sub">AI Engineer — Inference & Forward Deployment (Contract)</div>
                 <ul className="exp-list">
-                  <li>Optimizing AI inference pipelines on SambaNova's custom AI accelerator stack.</li>
-                  <li>Translating enterprise use cases into production AI solutions for complex environments.</li>
-                  <li>Driving LLM pipeline optimization, prompt engineering, and response quality evaluation (Python).</li>
+                  <li>Contributing to AI inference pipeline configuration and optimization on <strong>SambaNova's custom AI accelerator stack</strong>.</li>
+                  <li>Translating enterprise customer use cases into production-ready AI solutions across complex environments.</li>
+                  <li>Driving LLM pipeline optimization, prompt engineering, structured output schemas, and response quality evaluation.</li>
+                  <li>Collaborating with engineering and customer success teams to accelerate enterprise AI adoption.</li>
                 </ul>
               </div>
 
@@ -67,10 +65,10 @@ const Resume = ({ onBack }) => {
                 </div>
                 <div className="exp-sub">AI Platform Engineer — LLM Systems, RAG & API Infrastructure</div>
                 <ul className="exp-list">
-                  <li><strong>Led Safex Engineering:</strong> Built in-house GenAI assistant using RAG + FAISS, achieving <strong>60% accuracy gain</strong> and <strong>75% latency reduction</strong>.</li>
-                  <li>Developed Python ML pipelines for risk scoring, anomaly detection, and threat intelligence.</li>
-                  <li>Deployed Agentic workflows with multi-step reasoning and structured output schemas.</li>
-                  <li>Managed 400+ REST APIs on OpenAPI/Swagger, reducing developer friction by 50%.</li>
+                  <li><strong>Led full-stack engineering of Safex:</strong> In-house GenAI assistant using RAG over enterprise ML docs with FAISS, achieving <strong>60% accuracy gain</strong> and <strong>75% latency reduction</strong>.</li>
+                  <li>Built Python ML pipelines using Pandas, NumPy, and Scikit-learn for risk scoring and anomaly detection.</li>
+                  <li>Designed Agentic AI workflows with multi-step reasoning, memory management, and structured output schemas.</li>
+                  <li>Owned 400+ REST APIs on OpenAPI/Swagger; reduced developer friction by 50%.</li>
                 </ul>
               </div>
 
@@ -81,35 +79,23 @@ const Resume = ({ onBack }) => {
                 </div>
                 <div className="exp-sub">DevOps & Platform Engineer — CI/CD & Cloud Infrastructure</div>
                 <ul className="exp-list">
-                  <li>Built CI/CD pipelines for K8s deployments across GCP, AWS, and JFrog.</li>
-                  <li>Developed internal automation tooling to reduce manual overhead and improve release quality.</li>
+                  <li>Built CI/CD pipeline configurations for containerized builds and Kubernetes deployments across GCP/AWS.</li>
+                  <li>Developed internal automation tooling to reduce manual engineering overhead and improve release quality.</li>
                   <li>Contributed to beta-to-GA delivery of the DevSecOps platform within 3 months.</li>
                 </ul>
               </div>
 
               <div className="experience-item">
                 <div className="exp-header">
-                  <strong>Arcana · Marlin · 1Kosmos</strong>
+                  <strong>Arcana Network · Marlin · 1Kosmos</strong>
                   <span>2018 — 2021</span>
                 </div>
                 <div className="exp-sub">AI SDK & Developer Platform Engineer</div>
                 <ul className="exp-list">
-                  <li>Built Python/TS SDKs and automated CI/CD for decentralized AI compute infrastructure.</li>
-                  <li>Developed EVM smart contracts (Solidity) for on-chain coordination and DeFi primitives.</li>
+                  <li>Built Python and TypeScript SDKs, REST API integrations, and automated CI/CD pipelines.</li>
+                  <li>Contributed to decentralized AI compute infrastructure, workload distribution, and node monitoring.</li>
+                  <li>Developed EVM smart contracts in Solidity for on-chain coordination patterns.</li>
                 </ul>
-              </div>
-            </section>
-
-            <section className="resume-section">
-              <h3>Featured AI Masterpieces</h3>
-              <div className="project-item">
-                <strong>Autonomous LLM Interview Agent:</strong> Multi-turn agentic system with memory and CoT reasoning.
-              </div>
-              <div className="project-item">
-                <strong>Safex — Enterprise AI:</strong> Full-stack LLM assistant with 60% accuracy gain.
-              </div>
-              <div className="project-item">
-                <strong>FinOps Agentic Automation:</strong> Cloud cost optimization using anomaly detection (Scikit-learn).
               </div>
             </section>
           </div>
@@ -120,42 +106,40 @@ const Resume = ({ onBack }) => {
               <h3>Key Achievements</h3>
               <div className="achievement-badge"><strong>60%</strong> Accuracy Gain (RAG)</div>
               <div className="achievement-badge"><strong>75%</strong> Latency Reduction</div>
-              <div className="achievement-badge"><strong>50%</strong> Dev Query Reduction</div>
-              <div className="achievement-badge"><strong>400+</strong> APIs Owned</div>
+              <div className="achievement-badge"><strong>400+</strong> REST APIs Owned</div>
+              <div className="achievement-badge"><strong>50%</strong> Query Reduction</div>
             </section>
 
             <section className="resume-section">
               <h3>Core ML Stack</h3>
               <div className="skill-group">
-                <strong>Deep Learning & GenAI</strong>
-                <p>PyTorch, TensorFlow, LangChain, LlamaIndex, CrewAI, AutoGen, Hugging Face, RAG, Agentic AI</p>
+                <strong>GenAI & Orchestration</strong>
+                <p>LangChain, LlamaIndex, CrewAI, AutoGen, Agentic AI, RAG, Prompt Engineering</p>
+              </div>
+              <div className="skill-group">
+                <strong>Deep Learning</strong>
+                <p>PyTorch, TensorFlow, Hugging Face, Transformers, Fine-tuning, ONNX</p>
               </div>
               <div className="skill-group">
                 <strong>Data Science</strong>
-                <p>NumPy, Pandas, Scikit-learn, Matplotlib, SciPy</p>
+                <p>NumPy, Pandas, Scikit-learn, Matplotlib, SciPy, Jupyter</p>
               </div>
               <div className="skill-group">
                 <strong>Infrastructure</strong>
-                <p>Docker, K8s, Terraform, AWS, GCP, FAISS, Pinecone, ChromaDB, PostgreSQL</p>
+                <p>Docker, K8s, Terraform, FAISS, Pinecone, ChromaDB, AWS, GCP, Azure</p>
               </div>
             </section>
 
             <section className="resume-section">
-              <h3>Certifications</h3>
-              <ul className="cert-list">
-                <li>AI Engineer Bootcamp 2025</li>
-                <li>DevOps MasterClass (K8s)</li>
-                <li>Ethereum & Solidity</li>
-              </ul>
+              <h3>Featured Projects</h3>
+              <div className="project-item"><strong>Interview Agent:</strong> Multi-turn LLM system.</div>
+              <div className="project-item"><strong>Safex Assistant:</strong> 60% accuracy gain.</div>
+              <div className="project-item"><strong>FinOps AI:</strong> Cost optimization agent.</div>
             </section>
 
             <section className="resume-section">
               <h3>Education</h3>
-              <p className="edu-text">
-                <strong>B.Tech — CSE</strong><br/>
-                Vel Tech University, Chennai<br/>
-                CGPA 7.34
-              </p>
+              <p className="edu-text"><strong>B.Tech — CSE</strong><br/>Vel Tech University<br/>CGPA 7.34</p>
             </section>
           </div>
         </div>
