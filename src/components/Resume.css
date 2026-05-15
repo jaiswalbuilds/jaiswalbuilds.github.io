@@ -1,0 +1,177 @@
+.resume-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--bg-primary);
+  z-index: 2000;
+  overflow-y: auto;
+  padding: 40px 20px;
+  color: #333;
+}
+
+.resume-actions {
+  max-width: 800px;
+  margin: 0 auto 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.resume-paper {
+  width: 100%;
+  max-width: 800px;
+  min-height: 1050px;
+  margin: 0 auto;
+  background: white;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+  padding: 40px;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  line-height: 1.5;
+  color: #1a1a1a;
+  position: relative;
+}
+
+.resume-header {
+  border-bottom: 2px solid #f0f0f0;
+  padding-bottom: 20px;
+  margin-bottom: 25px;
+}
+
+.resume-header h1 {
+  font-size: 2.5rem;
+  margin: 0;
+  color: #000;
+  letter-spacing: -0.03em;
+}
+
+.resume-header h2 {
+  font-size: 1.1rem;
+  margin: 5px 0 15px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.contact-grid span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.resume-body {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 40px;
+}
+
+.resume-sidebar section {
+  margin-bottom: 25px;
+}
+
+.resume-sidebar h3, 
+.resume-main h3 {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #000;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 5px;
+  margin-bottom: 12px;
+}
+
+.skills-list {
+  list-style: none;
+  padding: 0;
+  font-size: 0.85rem;
+}
+
+.skills-list li {
+  margin-bottom: 8px;
+}
+
+.resume-project {
+  margin-bottom: 15px;
+}
+
+.resume-project strong {
+  display: block;
+  font-size: 0.85rem;
+}
+
+.resume-project p {
+  font-size: 0.8rem;
+  color: #666;
+  margin: 2px 0;
+}
+
+.job {
+  margin-bottom: 20px;
+}
+
+.job-header {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.job-sub {
+  color: var(--accent-blue);
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+}
+
+.job ul {
+  padding-left: 18px;
+  font-size: 0.85rem;
+  color: #444;
+}
+
+.job li {
+  margin-bottom: 4px;
+}
+
+.resume-main p {
+  font-size: 0.9rem;
+  color: #444;
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  .resume-overlay {
+    position: static;
+    padding: 0;
+    background: white;
+  }
+  .resume-paper {
+    box-shadow: none;
+    margin: 0;
+    width: 100%;
+    padding: 0;
+  }
+  body {
+    background: white;
+  }
+}
+
+@media (max-width: 768px) {
+  .resume-body {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+}

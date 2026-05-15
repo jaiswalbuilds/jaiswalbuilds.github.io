@@ -1,17 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Experience from './components/Experience';
 import Projects from './components/Projects';
 import Skills from './components/Skills';
 import Footer from './components/Footer';
+import Resume from './components/Resume';
 
 function App() {
+  const [showResume, setShowResume] = useState(false);
+
+  if (showResume) {
+    return <Resume onBack={() => setShowResume(false)} />;
+  }
+
   return (
     <div className="app-container">
       <Navbar />
       <main>
-        <Hero />
+        <Hero onShowResume={() => setShowResume(true)} />
         <Experience />
         <Projects />
         <Skills />
@@ -22,3 +29,4 @@ function App() {
 }
 
 export default App;
+
