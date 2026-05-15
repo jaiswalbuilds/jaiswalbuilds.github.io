@@ -1,6 +1,7 @@
 import React from 'react';
 import './Resume.css';
-import { Mail, Github, Linkedin, Globe, Download, ArrowLeft } from 'lucide-react';
+import { Mail, Globe, Download, ArrowLeft } from 'lucide-react';
+import { FaGithub, FaLinkedin } from 'react-icons/fa';
 
 const Resume = ({ onBack }) => {
   return (
@@ -23,8 +24,8 @@ const Resume = ({ onBack }) => {
             <div className="contact-grid">
               <span><Mail size={14} /> jaiswalmanish060@gmail.com</span>
               <span><Globe size={14} /> jaiswalbuilds.github.io</span>
-              <span><Linkedin size={14} /> linkedin.com/in/manish-kumar-74ab6210a</span>
-              <span><Github size={14} /> github.com/jaiswalbuilds</span>
+              <span><FaLinkedin size={14} /> linkedin.com/in/manish-kumar-74ab6210a</span>
+              <span><FaGithub size={14} /> github.com/jaiswalbuilds</span>
             </div>
           </div>
         </header>
