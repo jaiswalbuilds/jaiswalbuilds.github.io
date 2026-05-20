@@ -234,3 +234,5 @@ const Projects = () => {
 };
 
 export default Projects;
+
+// Refactored update: 2026-05-20 check
