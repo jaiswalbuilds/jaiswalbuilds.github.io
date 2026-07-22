@@ -94,17 +94,3 @@ if st.button("🚀 Launch Agent Team", type="primary"):
     st.success("✅ Agent team completed!")
     st.markdown("## 📊 FinOps Optimization Report")
     st.markdown(str(result))
-
-# Refactored update: 2026-03-03 check
-
-# Refactored update: 2026-03-10 check
-
-# Refactored update: 2026-04-08 check
-
-# Refactored update: 2026-05-19 check
-
-# Refactored update: 2026-06-03 check
-
-# Refactored update: 2026-06-17 check
-
-# Refactored update: 2026-07-17 check

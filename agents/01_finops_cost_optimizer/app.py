@@ -169,25 +169,3 @@ if query and st.button("Analyze", type="primary"):
         result = agent_executor.invoke({"input": query})
         st.markdown("### 💡 Agent Recommendation")
         st.markdown(result["output"])
-
-# Refactored update: 2025-12-23 check
-
-# Refactored update: 2025-12-31 check
-
-# Refactored update: 2026-02-03 check
-
-# Refactored update: 2026-03-20 check
-
-# Refactored update: 2026-03-20 check
-
-# Refactored update: 2026-03-30 check
-
-# Refactored update: 2026-05-27 check
-
-# Refactored update: 2026-06-03 check
-
-# Refactored update: 2026-06-18 check
-
-# Refactored update: 2026-07-09 check
-
-# Refactored update: 2026-07-15 check

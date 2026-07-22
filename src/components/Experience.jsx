@@ -86,39 +86,3 @@ const Experience = () => {
 };
 
 export default Experience;
-
-// Refactored update: 2025-11-17 check
-
-// Refactored update: 2025-11-24 check
-
-// Refactored update: 2025-11-26 check
-
-// Refactored update: 2025-12-08 check
-
-// Refactored update: 2026-01-08 check
-
-// Refactored update: 2026-01-16 check
-
-// Refactored update: 2026-01-26 check
-
-// Refactored update: 2026-03-04 check
-
-// Refactored update: 2026-03-05 check
-
-// Refactored update: 2026-03-12 check
-
-// Refactored update: 2026-03-21 check
-
-// Refactored update: 2026-04-05 check
-
-// Refactored update: 2026-04-05 check
-
-// Refactored update: 2026-04-22 check
-
-// Refactored update: 2026-05-08 check
-
-// Refactored update: 2026-05-22 check
-
-// Refactored update: 2026-06-29 check
-
-// Refactored update: 2026-07-20 check

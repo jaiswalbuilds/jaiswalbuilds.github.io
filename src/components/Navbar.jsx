@@ -56,37 +56,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
-// Refactored update: 2025-10-03 check
-
-// Refactored update: 2025-10-04 check
-
-// Refactored update: 2025-10-07 check
-
-// Refactored update: 2025-10-17 check
-
-// Refactored update: 2025-10-17 check
-
-// Refactored update: 2025-10-21 check
-
-// Refactored update: 2025-12-01 check
-
-// Refactored update: 2026-01-04 check
-
-// Refactored update: 2026-01-05 check
-
-// Refactored update: 2026-01-08 check
-
-// Refactored update: 2026-01-26 check
-
-// Refactored update: 2026-02-09 check
-
-// Refactored update: 2026-03-02 check
-
-// Refactored update: 2026-04-03 check
-
-// Refactored update: 2026-04-28 check
-
-// Refactored update: 2026-05-15 check
-
-// Refactored update: 2026-06-29 check

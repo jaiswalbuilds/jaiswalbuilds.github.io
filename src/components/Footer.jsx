@@ -44,35 +44,3 @@ const Footer = () => {
 };
 
 export default Footer;
-
-// Refactored update: 2025-09-11 check
-
-// Refactored update: 2025-09-18 check
-
-// Refactored update: 2025-10-09 check
-
-// Refactored update: 2025-10-20 check
-
-// Refactored update: 2025-10-21 check
-
-// Refactored update: 2025-11-18 check
-
-// Refactored update: 2025-11-18 check
-
-// Refactored update: 2025-12-24 check
-
-// Refactored update: 2026-01-20 check
-
-// Refactored update: 2026-01-21 check
-
-// Refactored update: 2026-02-16 check
-
-// Refactored update: 2026-03-10 check
-
-// Refactored update: 2026-04-02 check
-
-// Refactored update: 2026-04-03 check
-
-// Refactored update: 2026-05-22 check
-
-// Refactored update: 2026-06-24 check

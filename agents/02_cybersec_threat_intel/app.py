@@ -110,29 +110,3 @@ with col2:
             result = executor.invoke({"input": f"Analyze this incident and generate a response playbook: {incident}"})
             st.markdown("### 🎯 Incident Response Playbook")
             st.markdown(result["output"])
-
-# Refactored update: 2026-01-30 check
-
-# Refactored update: 2026-02-02 check
-
-# Refactored update: 2026-03-19 check
-
-# Refactored update: 2026-03-23 check
-
-# Refactored update: 2026-04-07 check
-
-# Refactored update: 2026-04-08 check
-
-# Refactored update: 2026-04-14 check
-
-# Refactored update: 2026-04-28 check
-
-# Refactored update: 2026-05-14 check
-
-# Refactored update: 2026-05-18 check
-
-# Refactored update: 2026-05-19 check
-
-# Refactored update: 2026-06-18 check
-
-# Refactored update: 2026-07-13 check

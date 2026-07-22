@@ -116,17 +116,3 @@ if st.button("🔍 Review Code", type="primary"):
         st.code(analyze_syntax(code), language="text")
         st.markdown("**Complexity:**")
         st.code(count_complexity(code), language="text")
-
-# Refactored update: 2026-02-11 check
-
-# Refactored update: 2026-03-10 check
-
-# Refactored update: 2026-03-11 check
-
-# Refactored update: 2026-04-14 check
-
-# Refactored update: 2026-05-12 check
-
-# Refactored update: 2026-05-28 check
-
-# Refactored update: 2026-06-04 check

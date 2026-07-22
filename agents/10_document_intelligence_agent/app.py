@@ -91,11 +91,3 @@ with col2:
             result = qa_chain({"question": "Summarize all key financial metrics, product launches, and risks across all documents in a structured table format."})
         st.markdown("### 📊 Document Summary")
         st.markdown(result["answer"])
-
-# Refactored update: 2026-04-21 check
-
-# Refactored update: 2026-05-06 check
-
-# Refactored update: 2026-06-15 check
-
-# Refactored update: 2026-06-22 check

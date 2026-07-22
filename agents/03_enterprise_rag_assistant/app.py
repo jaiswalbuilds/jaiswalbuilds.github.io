@@ -99,17 +99,3 @@ if query := st.chat_input("Ask about your enterprise docs..."):
                 full += f"\n\n📎 **Sources:** `{sources}`"
             st.markdown(full)
             st.session_state.messages.append({"role": "assistant", "content": full})
-
-# Refactored update: 2026-01-10 check
-
-# Refactored update: 2026-01-13 check
-
-# Refactored update: 2026-02-19 check
-
-# Refactored update: 2026-02-25 check
-
-# Refactored update: 2026-03-26 check
-
-# Refactored update: 2026-04-02 check
-
-# Refactored update: 2026-05-01 check
