@@ -1,6 +1,6 @@
 # 🚀 Manish Jaiswal | AI Engineering Masterpieces
 
-> **Forward-deployed AI Engineer | ML Systems | Agentic AI | Founder of [Neurals.in](https://neurals.in)**
+> **Forward-deployed AI Engineer | ML Systems | Agentic AI | Founding Engineer of [Neurals.in](https://neurals.in)**
 
 Welcome to the central hub for my AI Engineering portfolio. This repository serves as both my live portfolio website (**[jaiswalbuilds.github.io](https://jaiswalbuilds.github.io)**) and a laboratory for production-grade AI agents and RAG systems.
 
