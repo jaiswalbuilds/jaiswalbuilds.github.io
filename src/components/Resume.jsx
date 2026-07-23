@@ -47,51 +47,63 @@ const Resume = ({ onBack }) => {
               <div className="experience-item">
                 <div className="exp-header">
                   <strong>Neurals.in</strong>
-                  <span>Jan 2026 — Present</span>
+                  <span>April 2025 — Present</span>
                 </div>
-                <div className="exp-sub">AI Engineer — Inference & Forward Deployment (Contract)</div>
+                <div className="exp-sub">Founding AI Engineer — FinOps Automation</div>
                 <ul className="exp-list">
-                  <li>Optimizing AI inference pipelines on <strong>SambaNova custom accelerators</strong>.</li>
-                  <li>Translating enterprise customer use cases into production AI solutions.</li>
-                  <li>Driving LLM optimization, prompt engineering, and response quality evaluation.</li>
+                  <li>Architected a FinOps multi-agent orchestration platform using **LangGraph** for automated cloud-cost analysis and governance.</li>
+                  <li>Implemented stateful cyclic state machines with human-in-the-loop approvals, yielding **30-40% cloud cost reductions**.</li>
+                  <li>Built an autonomous anomaly detector (*Agent 01*) running rolling z-score analysis on CSV billing logs.</li>
+                  <li>Engineered a deep-research analyst agent (*Agent 05*) that reduced market report compilation latency by **85%**.</li>
                 </ul>
               </div>
 
               <div className="experience-item">
                 <div className="exp-header">
                   <strong>Safe Security</strong>
-                  <span>Aug 2023 — Feb 2026</span>
+                  <span>August 2023 — March 2025</span>
                 </div>
-                <div className="exp-sub">AI Platform Engineer — LLM Systems, RAG & API Infrastructure</div>
+                <div className="exp-sub">AI Platform Engineer — LLM Systems & RAG Infrastructure</div>
                 <ul className="exp-list">
-                  <li><strong>Led Safex Engineering:</strong> GenAI assistant with <strong>60% accuracy gain</strong> and <strong>75% latency reduction</strong> using RAG + FAISS over enterprise docs.</li>
-                  <li>Built Python ML pipelines for risk scoring and threat intelligence.</li>
-                  <li>Deployed Agentic AI workflows with multi-step reasoning and memory management.</li>
-                  <li>Owned 400+ REST APIs; reduced developer friction by 50%.</li>
+                  <li><strong>Led Safex Engineering:</strong> GenAI assistant using RAG (LangChain + LlamaIndex + FAISS) with **60% accuracy gains** and **75% latency cuts**.</li>
+                  <li>Built automated AI evaluation suites measuring groundedness, hallucination risk, and citation accuracy before production releases.</li>
+                  <li>Engineered high-throughput knowledge ingestion pipelines and managed **400+ REST API integrations**.</li>
                 </ul>
               </div>
 
               <div className="experience-item">
                 <div className="exp-header">
                   <strong>Harness.io</strong>
-                  <span>Mar 2021 — Jul 2023</span>
+                  <span>March 2021 — July 2023</span>
                 </div>
-                <div className="exp-sub">DevOps & Platform Engineer — CI/CD & Cloud Infrastructure</div>
+                <div className="exp-sub">DevOps & Platform Engineer</div>
                 <ul className="exp-list">
-                  <li>Built CI/CD pipelines for K8s deployments across GCP, AWS, and JFrog.</li>
-                  <li>Developed internal automation to reduce manual overhead and improve release quality.</li>
+                  <li>Built cloud-native CI/CD pipelines for Kubernetes workloads across AWS and GCP environments.</li>
+                  <li>Automated release workflows using Docker, Terraform, and GitHub Actions to minimize engineering overhead.</li>
                 </ul>
               </div>
 
               <div className="experience-item">
                 <div className="exp-header">
-                  <strong>Arcana · Marlin · 1Kosmos</strong>
-                  <span>2018 — 2021</span>
+                  <strong>McAfee</strong>
+                  <span>November 2018 — April 2021</span>
                 </div>
-                <div className="exp-sub">AI SDK & Developer Platform Engineer</div>
+                <div className="exp-sub">Cloud Security Platform Engineer</div>
                 <ul className="exp-list">
-                  <li>Built Python/TS SDKs and automated CI/CD for decentralized AI infrastructure.</li>
-                  <li>Developed Solidity smart contracts for on-chain coordination patterns.</li>
+                  <li>Designed secure cloud integration workflows for McAfee CASB (Cloud Access Security Broker) and IAM systems.</li>
+                  <li>Automated end-to-end integration test suites and API validation frameworks for production releases.</li>
+                </ul>
+              </div>
+
+              <div className="experience-item">
+                <div className="exp-header">
+                  <strong>KanTime</strong>
+                  <span>December 2015 — November 2018</span>
+                </div>
+                <div className="exp-sub">Software Engineer</div>
+                <ul className="exp-list">
+                  <li>Developed healthcare SaaS platform backend and features utilizing Java, SQL, and XML schemas.</li>
+                  <li>Collaborated with core engineering teams on code debugging, functional validation, and hotfix deployments.</li>
                 </ul>
               </div>
             </section>

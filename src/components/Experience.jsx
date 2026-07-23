@@ -5,47 +5,60 @@ import './Experience.css';
 const experiences = [
   {
     company: 'Neurals.in',
-    role: 'AI Engineer — Inference & Forward Deployment',
-    period: 'Jan 2026 – Present',
-    location: 'Remote / India',
+    logo: 'https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://neurals.in&size=128',
+    role: 'Founding AI Engineer',
+    period: 'April 2025 – Present',
+    location: 'Remote',
     description: [
-      "Contributing to AI inference pipeline configuration and optimisation on custom AI accelerator stacks.",
-      "Translating enterprise customer use cases into production-ready AI solutions across complex environments.",
-      "Driving LLM pipeline optimisation, prompt engineering, structured output schemas, and response quality evaluation using Python-based tooling.",
-      "Collaborating with engineering and customer success teams to accelerate enterprise AI adoption."
+      "Architected an enterprise FinOps multi-agent orchestration platform using LangGraph, enabling automated cloud cost analysis, anomaly detection, and governance.",
+      "Implemented stateful cyclic graph state machines with human-in-the-loop approvals for resource adjustments, leading to 30-40% cloud cost reductions.",
+      "Developed Agent 01, an autonomous FinOps optimizer executing rolling z-score anomaly detection on CSV billing logs.",
+      "Engineered Agent 05, a deep-research analyst utilizing web search tools to compile market reports, reducing compilation latency by 85%."
     ]
   },
   {
     company: 'Safe Security',
-    role: 'AI Platform Engineer — LLM Systems, RAG & API Infra',
-    period: 'Aug 2023 – Feb 2026',
+    logo: 'https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://safe.security&size=128',
+    role: 'AI Platform Engineer — LLM Systems & RAG Infra',
+    period: 'August 2023 – March 2025',
     location: 'Bangalore, India',
     description: [
-      "Led full-stack engineering of Safex, an in-house GenAI assistant using RAG over enterprise ML docs with FAISS, vector embeddings, and LLM inference.",
-      "Improved query accuracy by 60% and reduced latency by 75% through embedding optimisation and retrieval re-ranking.",
-      "Designed and deployed Agentic AI workflows with multi-step reasoning, memory management, and structured output schemas.",
-      "Owned 400+ REST APIs on OpenAPI/Swagger and reduced developer friction by 50%."
+      "Led engineering of Safex, an in-house GenAI assistant using RAG (LangChain + LlamaIndex + FAISS) with 60% accuracy gains and 75% latency cuts.",
+      "Built automated AI evaluation suites measuring groundedness, hallucination risk, and citation accuracy before production releases.",
+      "Engineered high-throughput knowledge ingestion pipelines and managed 400+ REST API integrations."
     ]
   },
   {
     company: 'Harness.io',
-    role: 'DevOps & Platform Engineer — CI/CD & Cloud Infra',
-    period: 'Mar 2021 – Jul 2023',
+    logo: 'https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://harness.io&size=128',
+    role: 'DevOps & Platform Engineer',
+    period: 'March 2021 – July 2023',
     location: 'Bangalore, India',
     description: [
-      "Built and owned CI/CD pipeline configurations for containerised builds, Kubernetes deployments, and multi-cloud artifact delivery.",
-      "Developed internal automation tooling to reduce manual engineering overhead and improve release quality.",
-      "Contributed to beta-to-GA delivery of the DevSecOps platform within 3 months."
+      "Built cloud-native CI/CD pipelines for Kubernetes workloads across AWS and GCP environments.",
+      "Automated release engineering workflows using Docker, Terraform, and GitHub Actions, reducing release cycle time."
     ]
   },
   {
-    company: 'Arcana Network · Marlin Protocol · 1Kosmos',
-    role: 'AI SDK & Developer Platform Engineer',
-    period: '2018 – 2021',
-    location: 'Remote',
+    company: 'McAfee',
+    logo: 'https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://mcafee.com&size=128',
+    role: 'Cloud Security Platform Engineer',
+    period: 'November 2018 – April 2021',
+    location: 'Bangalore, India',
     description: [
-      "Built Python and TypeScript SDKs, REST API integrations, and automated CI/CD pipelines for Web3 and decentralised storage.",
-      "Contributed to decentralised AI compute infrastructure at Marlin, including data pipelines and workload distribution."
+      "Designed and implemented secure cloud integration workflows for McAfee CASB (Cloud Access Security Broker) and IAM systems.",
+      "Automated end-to-end integration test suites and API validation frameworks to secure production deployments."
+    ]
+  },
+  {
+    company: 'KanTime',
+    logo: 'https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://kantime.com&size=128',
+    role: 'Software Engineer',
+    period: 'December 2015 – November 2018',
+    location: 'Bangalore, India',
+    description: [
+      "Developed healthcare SaaS platform backend and features utilizing Java, SQL, and XML schemas.",
+      "Collaborated with core engineering teams on code debugging, functional validation, and hotfix deployments."
     ]
   }
 ];
@@ -61,9 +74,19 @@ const Experience = () => {
             <div key={index} className="timeline-item glass-panel">
               <div className="timeline-dot"></div>
               <div className="timeline-content">
-                <div className="exp-header">
-                  <h3 className="exp-role">{exp.role}</h3>
-                  <div className="exp-company">{exp.company}</div>
+                <div className="exp-header-wrapper" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
+                  {exp.logo && (
+                    <img 
+                      src={exp.logo} 
+                      alt={`${exp.company} logo`} 
+                      style={{ width: '2rem', height: '2rem', objectFit: 'contain', backgroundColor: 'white', borderRadius: '4px', padding: '2px', flexShrink: 0 }}
+                      onError={(e) => { e.target.style.display = 'none' }}
+                    />
+                  )}
+                  <div>
+                    <h3 className="exp-role" style={{ margin: 0, fontSize: '1.25rem', fontWeight: 600 }}>{exp.role}</h3>
+                    <div className="exp-company" style={{ opacity: 0.8, fontSize: '0.95rem' }}>{exp.company}</div>
+                  </div>
                 </div>
                 
                 <div className="exp-meta">
