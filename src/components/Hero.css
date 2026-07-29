@@ -338,3 +338,104 @@
     padding: 1.5rem;
   }
 }
+
+/* Terminal Simulator Styles */
+.bento-terminal-card {
+  grid-column: span 2;
+  grid-row: span 2;
+  background: #020208;
+  border: 1px solid rgba(0, 255, 255, 0.15);
+  font-family: 'Courier New', Courier, monospace;
+  padding: 1.25rem;
+  justify-content: flex-start;
+  gap: 1rem;
+}
+
+.terminal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding-bottom: 0.5rem;
+  flex-shrink: 0;
+}
+
+.terminal-dots {
+  display: flex;
+  gap: 6px;
+}
+
+.t-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+.t-dot.red { background-color: #ef4444; }
+.t-dot.yellow { background-color: #eab308; }
+.t-dot.green { background-color: #22c55e; }
+
+.terminal-title {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.terminal-console {
+  flex-grow: 1;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 12px;
+  padding: 1rem;
+  overflow-y: auto;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  height: 200px;
+  max-height: 220px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.log-line {
+  word-break: break-all;
+  white-space: pre-wrap;
+}
+
+.log-line.system { color: #8b5cf6; }
+.log-line.router { color: #38bdf8; }
+.log-line.tool { color: #f59e0b; }
+.log-line.eval { color: #ec4899; }
+.log-line.success { color: #22c55e; font-weight: bold; }
+.log-line.anomaly { color: #ef4444; }
+.log-line.text { color: #e2e8f0; }
+
+.terminal-actions-row {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+}
+
+.terminal-btn {
+  padding: 0.4rem 0.8rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.terminal-btn:hover:not(:disabled) {
+  border-color: var(--text-accent);
+  color: #ffffff;
+  background: rgba(0, 255, 255, 0.05);
+}
+
+.terminal-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
