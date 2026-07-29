@@ -193,6 +193,7 @@ const Hero = ({ onShowResume, onLaunchStudio }) => {
                 }}
                 whileHover={{ scale: 1.03, backgroundColor: 'rgba(0, 255, 255, 0.05)' }}
                 whileTap={{ scale: 0.98 }}
+                title="Open the interactive Neural Graph Studio to configure datasets, model parameters, and visualize multi-agent workflows in a live DAG canvas."
               >
                 <Cpu size={18} /> Launch Graph Studio
               </motion.button>
@@ -264,6 +265,7 @@ const Hero = ({ onShowResume, onLaunchStudio }) => {
                 className="terminal-btn" 
                 disabled={isRunning}
                 style={{ padding: '0.5rem 1.25rem', width: '100%', display: 'flex', justifyContent: 'center', gap: '0.5rem' }}
+                title="Simulate a live multi-agent execution run. Outputs real-time routing traces, tool calls, and automated validation gates."
               >
                 <Play size={12} style={{ display: 'inline' }} /> Execute Agent Simulation Trace
               </button>

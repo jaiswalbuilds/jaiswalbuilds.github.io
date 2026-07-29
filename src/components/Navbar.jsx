@@ -56,6 +56,7 @@ const Navbar = ({ onLaunchStudio }) => {
               onLaunchStudio();
               setMobileMenuOpen(false);
             }}
+            title="Open the interactive Neural Graph Studio workspace"
           >
             Launch Studio
           </button>
