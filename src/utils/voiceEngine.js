@@ -238,30 +238,29 @@ export const speak = async (text, callbacks = {}) => {
   if (!text?.trim()) return 'noop';
   const { onStart, onEnd } = callbacks;
 
-  // 1. ElevenLabs (if key present)
-  if (import.meta.env.VITE_ELEVENLABS_API_KEY) {
-    const ok = await speakElevenLabs(text, { onStart, onEnd });
-    if (ok) return 'elevenlabs';
-  }
+  // 1. Edge TTS (Microsoft Neural) — Default Everywhere (FREE, no key)
+  const edgeOk = await speakEdgeTTS(text, { onStart, onEnd });
+  if (edgeOk) return 'edge-tts';
 
-  // 2. Sarvam AI (if key present)
+  // 2. Sarvam AI (Fallback if Edge TTS fails)
   if (import.meta.env.VITE_SARVAM_API_KEY) {
     const ok = await speakSarvam(text, { onStart, onEnd });
     if (ok) return 'sarvam';
   }
 
-  // 3. Edge TTS — Microsoft Neural Indian voices, FREE, no key
-  const edgeOk = await speakEdgeTTS(text, { onStart, onEnd });
-  if (edgeOk) return 'edge-tts';
+  // 3. ElevenLabs (Fallback)
+  if (import.meta.env.VITE_ELEVENLABS_API_KEY) {
+    const ok = await speakElevenLabs(text, { onStart, onEnd });
+    if (ok) return 'elevenlabs';
+  }
 
-  // 4. Web Speech API fallback
+  // 4. Web Speech API (Browser local fallback)
   speakWebSpeech(text, { onStart, onEnd });
   return 'webspeech';
 };
 
 // ─── Provider label for UI ────────────────────────────────────
 export const getVoiceProvider = () => {
-  if (import.meta.env.VITE_ELEVENLABS_API_KEY) return '✨ ElevenLabs';
-  if (import.meta.env.VITE_SARVAM_API_KEY)    return '🇮🇳 Sarvam AI';
   return '🔊 Microsoft Neural (Free)';
 };
+
