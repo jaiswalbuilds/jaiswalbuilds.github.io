@@ -238,15 +238,15 @@ export const speak = async (text, callbacks = {}) => {
   if (!text?.trim()) return 'noop';
   const { onStart, onEnd } = callbacks;
 
-  // 1. Edge TTS (Microsoft Neural) — Default Everywhere (FREE, no key)
-  const edgeOk = await speakEdgeTTS(text, { onStart, onEnd });
-  if (edgeOk) return 'edge-tts';
-
-  // 2. Sarvam AI (Fallback if Edge TTS fails)
+  // 1. Sarvam AI (Indian Native Voice) — Default Everywhere
   if (import.meta.env.VITE_SARVAM_API_KEY) {
     const ok = await speakSarvam(text, { onStart, onEnd });
     if (ok) return 'sarvam';
   }
+
+  // 2. Edge TTS (Microsoft Neural) — Fallback
+  const edgeOk = await speakEdgeTTS(text, { onStart, onEnd });
+  if (edgeOk) return 'edge-tts';
 
   // 3. ElevenLabs (Fallback)
   if (import.meta.env.VITE_ELEVENLABS_API_KEY) {
@@ -261,6 +261,7 @@ export const speak = async (text, callbacks = {}) => {
 
 // ─── Provider label for UI ────────────────────────────────────
 export const getVoiceProvider = () => {
+  if (import.meta.env.VITE_SARVAM_API_KEY) return '🇮🇳 Sarvam AI';
   return '🔊 Microsoft Neural (Free)';
 };
 

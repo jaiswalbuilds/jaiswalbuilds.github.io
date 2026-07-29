@@ -28,7 +28,7 @@ function App() {
         {/* data-section tells AIAssistant which hover context to load */}
         <div data-section="hero">
           <Hero
-            onShowResume={() => setShowResume(true)}
+            onShowResume={() => window.open('https://drive.google.com/file/d/1I5X8MmdWmbdW7c6QikuV-0RwRc0JrG-A/view?usp=sharing', '_blank')}
             onLaunchStudio={() => setShowStudio(true)}
           />
         </div>
