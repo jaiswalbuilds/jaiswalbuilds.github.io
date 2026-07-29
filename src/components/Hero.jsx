@@ -119,11 +119,11 @@ const Hero = ({ onShowResume, onLaunchStudio }) => {
 
   // Run Trace Simulation
   const runSimulation = async (key) => {
-    if (isRunning) return;
+    if (isRunning || !PRESETS[key]) return;
     setIsRunning(true);
     setConsoleLogs([]);
 
-    const steps = PRESETS[key];
+    const steps = PRESETS[key] || [];
     for (let i = 0; i < steps.length; i++) {
       await new Promise(resolve => setTimeout(resolve, 800));
       setConsoleLogs(prev => [...prev, steps[i]]);
@@ -225,8 +225,10 @@ const Hero = ({ onShowResume, onLaunchStudio }) => {
               <select 
                 value={selectedPreset} 
                 onChange={(e) => {
-                  setSelectedPreset(e.target.value);
-                  setConsoleLogs([{ type: 'system', text: `[SYSTEM] Preset set to ${e.target.value.toUpperCase()}. Ready.` }]);
+                  if (PRESETS[e.target.value]) {
+                    setSelectedPreset(e.target.value);
+                    setConsoleLogs([{ type: 'system', text: `[SYSTEM] Preset set to ${e.target.value.toUpperCase()}. Ready.` }]);
+                  }
                 }}
                 className="terminal-btn"
                 style={{ background: 'rgba(0,0,0,0.6)', border: '1px solid rgba(255,255,255,0.1)', cursor: 'pointer', outline: 'none', fontStyle: 'normal' }}

@@ -264,7 +264,7 @@ const GraphStudio = ({ onBack }) => {
     }
   }, [logs]);
 
-  const activeDataset = DATASET_FEEDS[selectedDataset];
+  const activeDataset = DATASET_FEEDS[selectedDataset] || DATASET_FEEDS['csv_billing'];
 
   const modelConfig = {
     claude: { promptPrice: 0.000003, compPrice: 0.000015, latencyMult: 1.0 },
@@ -273,6 +273,7 @@ const GraphStudio = ({ onBack }) => {
   };
 
   const handleDatasetChange = (key) => {
+    if (!DATASET_FEEDS[key]) return;
     setSelectedDataset(key);
     setActiveNodes([]);
     setCompletedNodes([]);
@@ -587,14 +588,14 @@ const GraphStudio = ({ onBack }) => {
               <div>
                 <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '2px' }}>Node Inputs:</span>
                 <div className="inspector-data-box">
-                  {JSON.stringify(activeDataset.nodes[selectedNode]?.inputs || {}, null, 2)}
+                  {JSON.stringify(activeDataset?.nodes?.[selectedNode]?.inputs || {}, null, 2)}
                 </div>
               </div>
 
               <div>
                 <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '2px' }}>Node Outputs:</span>
                 <div className="inspector-data-box" style={{ maxHeight: '160px' }}>
-                  {JSON.stringify(activeDataset.nodes[selectedNode]?.outputs || {}, null, 2)}
+                  {JSON.stringify(activeDataset?.nodes?.[selectedNode]?.outputs || {}, null, 2)}
                 </div>
               </div>
             </div>
