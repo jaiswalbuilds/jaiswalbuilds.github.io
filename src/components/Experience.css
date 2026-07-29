@@ -1,34 +1,47 @@
-:root {
-  --card-width: 65%;
-  --card-width-half: 32.5%;
-  --card-gap: 2rem;
-}
-
-@media (max-width: 768px) {
-  :root {
-    --card-width: 85%;
-    --card-width-half: 42.5%;
-    --card-gap: 1rem;
-  }
-}
-
 .experience-section {
   background-color: var(--bg-secondary);
   overflow: hidden;
   position: relative;
-  padding: 5rem 0;
+  padding: 5rem 0 7rem;
 }
 
 .section-header-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 3rem;
+  margin-bottom: 1.5rem;
   flex-wrap: wrap;
   gap: 1rem;
-  padding: 0 1rem;
 }
 
+/* Dot indicators */
+.slider-dots {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-bottom: 2.5rem;
+}
+
+.slider-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.15);
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  outline: none;
+}
+
+.slider-dot.active {
+  background: var(--accent-purple);
+  width: 24px;
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(123, 97, 255, 0.6);
+}
+
+/* Nav arrow buttons */
 .slider-controls {
   display: flex;
   gap: 0.75rem;
@@ -49,74 +62,76 @@
   outline: none;
 }
 
-.slider-btn:hover {
+.slider-btn:hover:not(:disabled) {
   background: rgba(0, 255, 255, 0.06);
   border-color: var(--text-accent);
   color: #ffffff;
   transform: scale(1.05);
 }
 
+/* Slider viewport — clips overflowing side cards */
 .experience-slider-wrapper {
   position: relative;
   width: 100%;
-  overflow: visible; /* Allows scaling cards to pop out beyond container boundaries */
+  overflow: hidden;
+  /* Fade out left/right edges using mask */
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 12%,
+    black 88%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 12%,
+    black 88%,
+    transparent 100%
+  );
+  padding: 2rem 0 3rem;
 }
 
+/* Track — Framer Motion animates x on this */
 .experience-track {
   display: flex;
-  gap: var(--card-gap);
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  gap: 2rem;
   width: 100%;
-  padding: 1.5rem 0;
+  /* No transition here — Framer Motion spring handles it */
+  will-change: transform;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
+/* Individual card */
 .experience-card {
-  flex: 0 0 var(--card-width);
-  max-width: 680px;
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
+  flex: 0 0 65%;
+  max-width: 720px;
   border-radius: 24px;
-  padding: 2.25rem;
+  padding: 2.5rem;
   display: flex;
   flex-direction: column;
   min-height: 420px;
   max-height: 460px;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), 
-              opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), 
-              filter 0.6s cubic-bezier(0.16, 1, 0.3, 1), 
-              border-color 0.6s cubic-bezier(0.16, 1, 0.3, 1), 
-              box-shadow 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  /* No CSS transitions on card itself — Framer handles */
+  will-change: transform, opacity, filter;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
-/* Inactive Cards: Smaller, greyed out, slightly visible */
-.experience-card.inactive {
-  transform: scale(0.86);
-  opacity: 0.35;
-  filter: grayscale(80%) blur(1px);
-  cursor: pointer;
-  pointer-events: auto; /* Clickable to center the card */
-}
-
-.experience-card.inactive:hover {
-  opacity: 0.55;
-  filter: grayscale(40%);
-}
-
-/* Active Center Card: Pops out */
-.experience-card.active {
-  transform: scale(1);
-  opacity: 1;
-  filter: none;
-  border-color: rgba(123, 97, 255, 0.4);
-  box-shadow: 0 15px 45px rgba(123, 97, 255, 0.25);
-  pointer-events: auto;
+@media (max-width: 768px) {
+  .experience-card {
+    flex: 0 0 82%;
+    padding: 1.75rem;
+    min-height: 400px;
+  }
 }
 
 @media (max-width: 480px) {
   .experience-card {
+    flex: 0 0 88%;
     padding: 1.5rem;
-    min-height: 400px;
+    min-height: 380px;
   }
 }
 
@@ -149,18 +164,19 @@
   font-size: 1rem;
   color: var(--text-accent);
   font-weight: 500;
+  margin-top: 0.2rem;
 }
 
 .exp-card-meta {
   display: flex;
   flex-direction: row;
   gap: 1.5rem;
+  flex-wrap: wrap;
   margin-bottom: 1.5rem;
   color: var(--text-secondary);
   font-size: 0.85rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   padding-bottom: 1rem;
-  flex-wrap: wrap;
 }
 
 .meta-item {
@@ -169,6 +185,7 @@
   gap: 0.5rem;
 }
 
+/* Description bullets — scrollable, no scrollbar */
 .exp-card-bullets {
   list-style: none;
   font-size: 0.88rem;
@@ -176,19 +193,18 @@
   overflow-y: auto;
   flex-grow: 1;
   padding-right: 4px;
-  /* Remove visual scrollbar representation entirely while keeping scrolling active */
-  scrollbar-width: none; 
+  scrollbar-width: none;
 }
 
 .exp-card-bullets::-webkit-scrollbar {
-  display: none; 
+  display: none;
 }
 
 .exp-card-bullets li {
   position: relative;
   padding-left: 1.25rem;
-  margin-bottom: 0.6rem;
-  line-height: 1.5;
+  margin-bottom: 0.7rem;
+  line-height: 1.55;
 }
 
 .exp-card-bullets li::before {

@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Calendar, MapPin, ChevronLeft, ChevronRight } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, useMotionValue, useAnimation } from 'framer-motion';
 import './Experience.css';
 
 const experiences = [
@@ -12,7 +12,7 @@ const experiences = [
     location: 'Remote',
     description: [
       "Architected an enterprise FinOps multi-agent orchestration platform using LangGraph, enabling automated cloud cost analysis, anomaly detection, and governance.",
-      "Implemented stateful cyclic graph state machines with human-in-the-loop approvals for resource adjustments, leading to 30-40% cloud cost reductions.",
+      "Implemented stateful cyclic graph state machines with human-in-the-loop approvals for resource adjustments, leading to 30–40% cloud cost reductions.",
       "Developed Agent 01, an autonomous FinOps optimizer executing rolling z-score anomaly detection on CSV billing logs.",
       "Engineered Agent 05, a deep-research analyst utilizing web search tools to compile market reports, reducing compilation latency by 85%."
     ]
@@ -47,7 +47,7 @@ const experiences = [
     period: 'November 2018 – April 2021',
     location: 'Bangalore, India',
     description: [
-      "Designed and implemented secure cloud integration workflows for McAfee CASB (Cloud Access Security Broker) and IAM systems.",
+      "Designed and implemented secure cloud integration workflows for McAfee CASB and IAM systems.",
       "Automated end-to-end integration test suites and API validation frameworks to secure production deployments."
     ]
   },
@@ -64,74 +64,154 @@ const experiences = [
   }
 ];
 
+const CARD_WIDTH_PERCENT = 0.65; // 65% of container
+const CARD_GAP = 32; // px
+
 const Experience = () => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
+  const containerRef = useRef(null);
+  const x = useMotionValue(0);
+  const controls = useAnimation();
 
-  const slideLeft = () => {
-    setActiveIndex((prev) => Math.max(0, prev - 1));
+  const getCardWidth = () => {
+    if (!containerRef.current) return 600;
+    return containerRef.current.offsetWidth * CARD_WIDTH_PERCENT;
   };
 
-  const slideRight = () => {
-    setActiveIndex((prev) => Math.min(experiences.length - 1, prev + 1));
+  const getOffset = (index) => {
+    const cardWidth = getCardWidth();
+    const containerWidth = containerRef.current ? containerRef.current.offsetWidth : window.innerWidth;
+    // Center the active card
+    return (containerWidth / 2) - (cardWidth / 2) - index * (cardWidth + CARD_GAP);
+  };
+
+  const snapToIndex = (index) => {
+    const clamped = Math.max(0, Math.min(experiences.length - 1, index));
+    setActiveIndex(clamped);
+    controls.start({
+      x: getOffset(clamped),
+      transition: { type: 'spring', stiffness: 300, damping: 35, mass: 0.8 }
+    });
+  };
+
+  const handleDragStart = () => {
+    setIsDragging(true);
+  };
+
+  const handleDragEnd = (_, info) => {
+    setIsDragging(false);
+    const cardWidth = getCardWidth();
+    const threshold = cardWidth * 0.2; // 20% card width to trigger a slide
+    const velocity = info.velocity.x;
+
+    if (velocity < -300 || info.offset.x < -threshold) {
+      snapToIndex(activeIndex + 1);
+    } else if (velocity > 300 || info.offset.x > threshold) {
+      snapToIndex(activeIndex - 1);
+    } else {
+      // Snap back to current
+      snapToIndex(activeIndex);
+    }
   };
 
   return (
     <section id="experience" className="experience-section">
       <div className="container">
         <div className="section-header-row">
-          <h2 className="section-title text-gradient" style={{ margin: 0 }}>
+          <motion.h2
+            className="section-title text-gradient"
+            style={{ margin: 0 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
             Professional Experience
-          </h2>
+          </motion.h2>
           <div className="slider-controls">
-            <button 
-              onClick={slideLeft} 
-              className="slider-btn" 
+            <button
+              onClick={() => snapToIndex(activeIndex - 1)}
+              className="slider-btn"
               disabled={activeIndex === 0}
               style={{ opacity: activeIndex === 0 ? 0.3 : 1, cursor: activeIndex === 0 ? 'default' : 'pointer' }}
-              aria-label="Slide Left"
-              title="Slide Left"
+              aria-label="Previous"
             >
               <ChevronLeft size={20} />
             </button>
-            <button 
-              onClick={slideRight} 
-              className="slider-btn" 
+            <button
+              onClick={() => snapToIndex(activeIndex + 1)}
+              className="slider-btn"
               disabled={activeIndex === experiences.length - 1}
               style={{ opacity: activeIndex === experiences.length - 1 ? 0.3 : 1, cursor: activeIndex === experiences.length - 1 ? 'default' : 'pointer' }}
-              aria-label="Slide Right"
-              title="Slide Right"
+              aria-label="Next"
             >
               <ChevronRight size={20} />
             </button>
           </div>
         </div>
 
-        <div className="experience-slider-wrapper">
-          <div 
+        {/* Dot indicators */}
+        <div className="slider-dots">
+          {experiences.map((_, i) => (
+            <button
+              key={i}
+              className={`slider-dot ${i === activeIndex ? 'active' : ''}`}
+              onClick={() => snapToIndex(i)}
+              aria-label={`Go to card ${i + 1}`}
+            />
+          ))}
+        </div>
+
+        {/* Drag slider */}
+        <div ref={containerRef} className="experience-slider-wrapper">
+          <motion.div
             className="experience-track"
-            style={{
-              transform: `translateX(calc(50% - var(--card-width-half) - (${activeIndex} * (var(--card-width) + var(--card-gap)))))`
-            }}
+            drag="x"
+            dragElastic={0.08}
+            dragMomentum={false}
+            animate={controls}
+            style={{ x }}
+            initial={{ x: 0 }}
+            onDragStart={handleDragStart}
+            onDragEnd={handleDragEnd}
+            onViewportBoxUpdate={() => {}}
           >
             {experiences.map((exp, index) => {
               const isActive = index === activeIndex;
+              const distance = Math.abs(index - activeIndex);
               return (
-                <div 
-                  key={index} 
-                  className={`experience-card glass-panel ${isActive ? 'active' : 'inactive'}`}
-                  onClick={() => {
-                    if (!isActive) {
-                      setActiveIndex(index);
-                    }
+                <motion.div
+                  key={index}
+                  className="experience-card glass-panel"
+                  onClick={() => { if (!isDragging && !isActive) snapToIndex(index); }}
+                  animate={{
+                    scale: isActive ? 1.04 : Math.max(0.82, 1 - distance * 0.09),
+                    opacity: isActive ? 1 : Math.max(0.28, 1 - distance * 0.38),
+                    filter: isActive
+                      ? 'grayscale(0%) blur(0px)'
+                      : `grayscale(${Math.min(90, distance * 55)}%) blur(${distance * 0.8}px)`,
+                    y: isActive ? -12 : distance * 6,
+                    zIndex: isActive ? 10 : Math.max(0, 5 - distance)
+                  }}
+                  transition={{ type: 'spring', stiffness: 320, damping: 32 }}
+                  style={{
+                    cursor: isActive ? 'grab' : 'pointer',
+                    boxShadow: isActive
+                      ? '0 30px 80px rgba(123, 97, 255, 0.35), 0 0 0 1px rgba(123, 97, 255, 0.4)'
+                      : '0 4px 20px rgba(0,0,0,0.2)',
+                    border: isActive
+                      ? '1px solid rgba(123, 97, 255, 0.5)'
+                      : '1px solid var(--glass-border)'
                   }}
                 >
                   <div className="exp-card-header">
                     {exp.logo && (
-                      <img 
-                        src={exp.logo} 
-                        alt={`${exp.company} logo`} 
+                      <img
+                        src={exp.logo}
+                        alt={`${exp.company} logo`}
                         className="exp-card-logo"
-                        onError={(e) => { e.target.style.display = 'none' }}
+                        onError={(e) => { e.target.style.display = 'none'; }}
                       />
                     )}
                     <div>
@@ -150,10 +230,10 @@ const Experience = () => {
                       <li key={i}>{item}</li>
                     ))}
                   </ul>
-                </div>
+                </motion.div>
               );
             })}
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>
