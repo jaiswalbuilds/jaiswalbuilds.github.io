@@ -65,8 +65,8 @@
 .config-sidebar {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
-  background: rgba(8, 4, 28, 0.4);
+  gap: 1.25rem;
+  background: rgba(8, 4, 28, 0.45);
   padding: 1.5rem;
   border-radius: 20px;
   border: 1px solid var(--glass-border);
@@ -77,15 +77,15 @@
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--text-accent);
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
   font-weight: 600;
 }
 
 .form-group {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
+  gap: 0.4rem;
+  margin-bottom: 0.75rem;
 }
 
 .form-group label {
@@ -169,11 +169,11 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  background: rgba(2, 2, 8, 0.8);
+  background: rgba(2, 2, 8, 0.85);
   border-radius: 20px;
   border: 1px solid var(--glass-border);
   padding: 1.5rem;
-  min-height: 480px;
+  min-height: 520px;
   overflow: hidden;
 }
 
@@ -181,71 +181,88 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   z-index: 10;
+  flex-shrink: 0;
+}
+
+.canvas-scroll-container {
+  flex-grow: 1;
+  overflow-x: auto;
+  overflow-y: hidden;
+  position: relative;
+  display: flex;
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.2);
 }
 
 .canvas-visual-area {
-  flex-grow: 1;
+  width: 1200px;
+  height: 480px;
   position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 1rem;
+  flex-shrink: 0;
 }
 
 /* Directed Graph Nodes & Connections */
-.nodes-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 3.5rem;
-  align-items: center;
+.nodes-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   z-index: 5;
-}
-
-.graph-row {
-  display: flex;
-  gap: 4rem;
-  justify-content: center;
-  align-items: center;
+  pointer-events: none;
 }
 
 .graph-node {
-  background: rgba(16, 24, 35, 0.8);
+  position: absolute;
+  background: rgba(8, 4, 28, 0.9);
   border: 1px solid var(--glass-border);
-  border-radius: 12px;
-  padding: 0.75rem 1.25rem;
-  min-width: 160px;
+  border-radius: 14px;
+  padding: 0.6rem 1rem;
+  min-width: 150px;
   text-align: center;
   cursor: pointer;
-  position: relative;
+  pointer-events: auto;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translate(-50%, -50%);
 }
 
 .graph-node:hover {
-  transform: translateY(-2px);
+  transform: translate(-50%, -52%) scale(1.03);
   border-color: var(--accent-purple);
+  box-shadow: 0 4px 20px rgba(123, 97, 255, 0.15);
 }
 
+/* Node Variants styling */
+.graph-node.type-input { border-color: rgba(56, 189, 248, 0.4); }
+.graph-node.type-neural { border-color: rgba(123, 97, 255, 0.4); }
+.graph-node.type-tool { border-color: rgba(245, 158, 11, 0.4); }
+.graph-node.type-verification { border-color: rgba(236, 72, 153, 0.4); }
+.graph-node.type-approval { border-color: rgba(34, 197, 94, 0.4); }
+.graph-node.type-output { border-color: rgba(0, 255, 255, 0.4); }
+
 .graph-node.active {
-  border-color: var(--text-accent);
-  box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+  border-color: var(--text-accent) !important;
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.4) !important;
   background: rgba(0, 255, 255, 0.05);
 }
 
 .graph-node.completed {
-  border-color: #22c55e;
-  box-shadow: 0 0 15px rgba(34, 197, 94, 0.2);
+  border-color: #22c55e !important;
+  box-shadow: 0 0 15px rgba(34, 197, 94, 0.15);
 }
 
 .node-title {
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   font-weight: 600;
-  margin-bottom: 0.2rem;
+  margin-bottom: 0.1rem;
+  white-space: nowrap;
 }
 
 .node-type {
-  font-size: 0.65rem;
+  font-size: 0.55rem;
   text-transform: uppercase;
   color: var(--text-secondary);
 }
@@ -263,25 +280,26 @@
 
 .edge-path {
   fill: none;
-  stroke: var(--glass-border);
-  stroke-width: 2;
-  transition: stroke 0.3s ease;
+  stroke: rgba(255, 255, 255, 0.04);
+  stroke-width: 1.5;
+  transition: all 0.3s ease;
 }
 
 .edge-path.active {
   stroke: var(--text-accent);
-  stroke-dasharray: 8 4;
-  animation: dash 1s linear infinite;
+  stroke-width: 2.5;
+  filter: drop-shadow(0 0 3px rgba(0, 255, 255, 0.5));
 }
 
 .edge-path.completed {
-  stroke: #22c55e;
+  stroke: rgba(34, 197, 94, 0.3);
+  stroke-width: 2;
 }
 
-@keyframes dash {
-  to {
-    stroke-dashoffset: -12;
-  }
+/* Firing signal animation along edges */
+.firing-signal {
+  fill: var(--text-accent);
+  filter: drop-shadow(0 0 4px var(--text-accent));
 }
 
 /* Payload/State Inspector */
@@ -292,7 +310,7 @@
 }
 
 .inspector-card {
-  background: rgba(8, 4, 28, 0.4);
+  background: rgba(8, 4, 28, 0.45);
   border: 1px solid var(--glass-border);
   border-radius: 20px;
   padding: 1.25rem;
@@ -305,6 +323,7 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   padding-bottom: 0.5rem;
   margin-bottom: 0.75rem;
+  flex-shrink: 0;
 }
 
 .inspector-title {
@@ -321,7 +340,7 @@
   color: #cbd5e1;
   overflow-y: auto;
   flex-grow: 1;
-  max-height: 240px;
+  max-height: 180px;
 }
 
 /* Console logs */
@@ -333,9 +352,10 @@
   margin-top: 1rem;
   font-family: monospace;
   font-size: 0.75rem;
-  height: 120px;
+  height: 110px;
   overflow-y: auto;
   color: #94a3b8;
+  flex-shrink: 0;
 }
 
 .metric-grid-mini {
@@ -363,12 +383,4 @@
 .mini-metric-lbl {
   font-size: 0.65rem;
   color: var(--text-secondary);
-}
-
-/* User Input query row */
-.input-query-group {
-  display: flex;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
-  flex-shrink: 0;
 }
