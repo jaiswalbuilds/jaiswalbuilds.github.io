@@ -1,116 +1,154 @@
 .experience-section {
   background-color: var(--bg-secondary);
+  overflow: hidden;
 }
 
-.timeline {
-  position: relative;
-  max-width: 900px;
-  margin: 0 auto;
+.section-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 
-.timeline::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 24px;
-  height: 100%;
-  width: 2px;
-  background: linear-gradient(to bottom, var(--accent-cyan), var(--accent-purple));
-  opacity: 0.3;
+.slider-controls {
+  display: flex;
+  gap: 0.75rem;
 }
 
-.timeline-item {
-  position: relative;
-  margin-left: 60px;
-  margin-bottom: 3rem;
-  padding: 2rem;
-}
-
-.timeline-dot {
-  position: absolute;
-  top: 32px;
-  left: -43px;
-  width: 14px;
-  height: 14px;
+.slider-btn {
+  width: 42px;
+  height: 42px;
   border-radius: 50%;
-  background: var(--bg-primary);
-  border: 2px solid var(--accent-blue);
-  box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
-  z-index: 2;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--text-secondary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  outline: none;
 }
 
-.exp-header {
-  margin-bottom: 1rem;
+.slider-btn:hover {
+  background: rgba(0, 255, 255, 0.06);
+  border-color: var(--text-accent);
+  color: #ffffff;
+  transform: scale(1.05);
 }
 
-.exp-role {
-  font-size: 1.5rem;
+.experience-slider-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.experience-track {
+  display: flex;
+  gap: 1.5rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  padding: 1.25rem 0.25rem;
+  scrollbar-width: none; /* Hide Firefox scrollbar */
+}
+
+.experience-track::-webkit-scrollbar {
+  display: none; /* Hide Chrome/Safari scrollbar */
+}
+
+.experience-card {
+  flex: 0 0 380px;
+  scroll-snap-align: start;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  min-height: 440px;
+  max-height: 480px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.25);
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+@media (max-width: 480px) {
+  .experience-card {
+    flex: 0 0 290px;
+    padding: 1.5rem;
+    min-height: 420px;
+  }
+}
+
+.exp-card-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.exp-card-logo {
+  width: 2.5rem;
+  height: 2.5rem;
+  object-fit: contain;
+  background-color: white;
+  border-radius: 6px;
+  padding: 3px;
+  flex-shrink: 0;
+}
+
+.exp-card-role {
+  font-size: 1.2rem;
+  font-weight: 700;
   color: var(--text-primary);
-  margin-bottom: 0.25rem;
+  margin: 0;
+  line-height: 1.2;
 }
 
-.exp-company {
-  font-size: 1.1rem;
-  color: var(--accent-cyan);
+.exp-card-company {
+  font-size: 0.95rem;
+  color: var(--text-accent);
   font-weight: 500;
 }
 
-.exp-meta {
+.exp-card-meta {
   display: flex;
-  gap: 1.5rem;
+  flex-direction: column;
+  gap: 0.4rem;
   margin-bottom: 1.5rem;
   color: var(--text-secondary);
-  font-size: 0.9rem;
+  font-size: 0.85rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  padding-bottom: 1rem;
 }
 
 .meta-item {
   display: flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.5rem;
 }
 
-.exp-description {
+.exp-card-bullets {
   list-style: none;
+  font-size: 0.85rem;
   color: var(--text-secondary);
+  overflow-y: auto;
+  flex-grow: 1;
+  padding-right: 4px;
 }
 
-.exp-description li {
+.exp-card-bullets li {
   position: relative;
-  padding-left: 1.5rem;
-  margin-bottom: 0.75rem;
-  line-height: 1.6;
+  padding-left: 1.25rem;
+  margin-bottom: 0.6rem;
+  line-height: 1.5;
 }
 
-.exp-description li::before {
+.exp-card-bullets li::before {
   content: '▹';
   position: absolute;
   left: 0;
   color: var(--accent-purple);
   font-weight: bold;
-}
-
-@media (max-width: 768px) {
-  .timeline::before {
-    left: 16px;
-  }
-  
-  .timeline-item {
-    margin-left: 40px;
-    padding: 1.5rem;
-  }
-  
-  .timeline-dot {
-    left: -31px;
-    width: 12px;
-    height: 12px;
-  }
-  
-  .exp-role {
-    font-size: 1.25rem;
-  }
-  
-  .exp-meta {
-    flex-direction: column;
-    gap: 0.5rem;
-  }
 }

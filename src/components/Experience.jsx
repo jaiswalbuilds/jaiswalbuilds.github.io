@@ -1,5 +1,5 @@
-import React from 'react';
-import { Briefcase, Calendar, MapPin } from 'lucide-react';
+import React, { useRef } from 'react';
+import { Calendar, MapPin, ChevronLeft, ChevronRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import './Experience.css';
 
@@ -65,60 +65,84 @@ const experiences = [
 ];
 
 const Experience = () => {
+  const scrollRef = useRef(null);
+
+  const scroll = (direction) => {
+    if (scrollRef.current) {
+      const { scrollLeft } = scrollRef.current;
+      // Scroll by card width (380px) + gap (24px)
+      const offset = direction === 'left' ? -404 : 404;
+      scrollRef.current.scrollTo({
+        left: scrollLeft + offset,
+        behavior: 'smooth'
+      });
+    }
+  };
+
   return (
     <section id="experience" className="experience-section">
       <div className="container">
-        <motion.h2 
-          className="section-title text-gradient"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6 }}
-        >
-          Professional Experience
-        </motion.h2>
-        
-        <div className="timeline">
-          {experiences.map((exp, index) => (
-            <motion.div 
-              key={index} 
-              className="timeline-item glass-panel"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        <div className="section-header-row">
+          <h2 className="section-title text-gradient" style={{ margin: 0 }}>
+            Professional Experience
+          </h2>
+          <div className="slider-controls">
+            <button 
+              onClick={() => scroll('left')} 
+              className="slider-btn" 
+              aria-label="Slide Left"
+              title="Slide Left"
             >
-              <div className="timeline-dot"></div>
-              <div className="timeline-content">
-                <div className="exp-header-wrapper" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
+              <ChevronLeft size={20} />
+            </button>
+            <button 
+              onClick={() => scroll('right')} 
+              className="slider-btn" 
+              aria-label="Slide Right"
+              title="Slide Right"
+            >
+              <ChevronRight size={20} />
+            </button>
+          </div>
+        </div>
+
+        <div className="experience-slider-wrapper">
+          <div ref={scrollRef} className="experience-track">
+            {experiences.map((exp, index) => (
+              <motion.div 
+                key={index} 
+                className="experience-card glass-panel"
+                whileHover={{ y: -8, scale: 1.02 }}
+                transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+              >
+                <div className="exp-card-header">
                   {exp.logo && (
-                    <motion.img 
+                    <img 
                       src={exp.logo} 
                       alt={`${exp.company} logo`} 
-                      style={{ width: '2rem', height: '2rem', objectFit: 'contain', backgroundColor: 'white', borderRadius: '4px', padding: '2px', flexShrink: 0 }}
+                      className="exp-card-logo"
                       onError={(e) => { e.target.style.display = 'none' }}
-                      whileHover={{ scale: 1.1, rotate: 5 }}
                     />
                   )}
                   <div>
-                    <h3 className="exp-role" style={{ margin: 0, fontSize: '1.25rem', fontWeight: 600 }}>{exp.role}</h3>
-                    <div className="exp-company" style={{ opacity: 0.8, fontSize: '0.95rem' }}>{exp.company}</div>
+                    <h3 className="exp-card-role">{exp.role}</h3>
+                    <div className="exp-card-company">{exp.company}</div>
                   </div>
                 </div>
-                
-                <div className="exp-meta">
-                  <span className="meta-item"><Calendar size={16} /> {exp.period}</span>
-                  <span className="meta-item"><MapPin size={16} /> {exp.location}</span>
+
+                <div className="exp-card-meta">
+                  <span className="meta-item"><Calendar size={14} style={{ flexShrink: 0 }} /> {exp.period}</span>
+                  <span className="meta-item"><MapPin size={14} style={{ flexShrink: 0 }} /> {exp.location}</span>
                 </div>
-                
-                <ul className="exp-description">
+
+                <ul className="exp-card-bullets">
                   {exp.description.map((item, i) => (
                     <li key={i}>{item}</li>
                   ))}
                 </ul>
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
