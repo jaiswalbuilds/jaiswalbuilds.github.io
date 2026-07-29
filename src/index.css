@@ -1,24 +1,24 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
 
 :root {
-  --bg-primary: #050505;
-  --bg-secondary: #0a0a0f;
-  --bg-tertiary: #11111a;
+  --bg-primary: #030014;
+  --bg-secondary: #080321;
+  --bg-tertiary: #0f0933;
   
-  --text-primary: #ffffff;
-  --text-secondary: #9ca3af;
-  --text-accent: #60a5fa;
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-accent: #38bdf8;
   
-  --accent-blue: #3b82f6;
+  --accent-blue: #38bdf8;
   --accent-cyan: #06b6d4;
   --accent-purple: #8b5cf6;
   
-  --glass-bg: rgba(15, 15, 20, 0.6);
-  --glass-border: rgba(255, 255, 255, 0.08);
-  --glass-glow: rgba(59, 130, 246, 0.15);
+  --glass-bg: rgba(8, 4, 28, 0.5);
+  --glass-border: rgba(139, 92, 246, 0.12);
+  --glass-glow: rgba(139, 92, 246, 0.2);
   
   --font-sans: 'Inter', sans-serif;
-  --font-display: 'Outfit', sans-serif;
+  --font-display: 'Space Grotesk', sans-serif;
 }
 
 * {
@@ -30,6 +30,10 @@
 body {
   font-family: var(--font-sans);
   background-color: var(--bg-primary);
+  background-image: 
+    linear-gradient(rgba(139, 92, 246, 0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(139, 92, 246, 0.015) 1px, transparent 1px);
+  background-size: 50px 50px;
   color: var(--text-primary);
   line-height: 1.6;
   overflow-x: hidden;
