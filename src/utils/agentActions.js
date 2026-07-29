@@ -15,7 +15,7 @@ export const CONTACT = {
   discord: 'manishjaiswal9689',
   website: 'https://jaiswalbuilds.github.io/',
   calendly: 'https://calendly.com/jaiswalmanish060/book-a-call-with-manish',
-  resume: '/resume.pdf',
+  resume: 'https://drive.google.com/file/d/1I5X8MmdWmbdW7c6QikuV-0RwRc0JrG-A/view?usp=sharing',
 };
 
 // ─── EmailJS Config (set in .env) ────────────────────────────
