@@ -1,5 +1,6 @@
 import React from 'react';
 import { Briefcase, Calendar, MapPin } from 'lucide-react';
+import { motion } from 'framer-motion';
 import './Experience.css';
 
 const experiences = [
@@ -67,20 +68,36 @@ const Experience = () => {
   return (
     <section id="experience" className="experience-section">
       <div className="container">
-        <h2 className="section-title text-gradient">Professional Experience</h2>
+        <motion.h2 
+          className="section-title text-gradient"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+        >
+          Professional Experience
+        </motion.h2>
         
         <div className="timeline">
           {experiences.map((exp, index) => (
-            <div key={index} className="timeline-item glass-panel">
+            <motion.div 
+              key={index} 
+              className="timeline-item glass-panel"
+              initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            >
               <div className="timeline-dot"></div>
               <div className="timeline-content">
                 <div className="exp-header-wrapper" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
                   {exp.logo && (
-                    <img 
+                    <motion.img 
                       src={exp.logo} 
                       alt={`${exp.company} logo`} 
                       style={{ width: '2rem', height: '2rem', objectFit: 'contain', backgroundColor: 'white', borderRadius: '4px', padding: '2px', flexShrink: 0 }}
                       onError={(e) => { e.target.style.display = 'none' }}
+                      whileHover={{ scale: 1.1, rotate: 5 }}
                     />
                   )}
                   <div>
@@ -100,7 +117,7 @@ const Experience = () => {
                   ))}
                 </ul>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { ExternalLink, Box, ChevronDown, ChevronUp, Cpu } from 'lucide-react';
+import { ExternalLink, ChevronDown, ChevronUp, Cpu } from 'lucide-react';
 import { FaGithub } from 'react-icons/fa';
+import { motion, AnimatePresence } from 'framer-motion';
 import './Projects.css';
 
 import safexImg from '../assets/safex_dashboard_1778827701816.png';
@@ -136,7 +137,12 @@ const AgentCard = ({ agent }) => {
   const color = domainColors[agent.domain] || '#3b82f6';
 
   return (
-    <div className={`agent-card glass-panel ${expanded ? 'expanded' : ''}`}>
+    <motion.div 
+      layout
+      className={`agent-card glass-panel ${expanded ? 'expanded' : ''}`}
+      whileHover={{ scale: 1.02, translateY: -5 }}
+      transition={{ duration: 0.3 }}
+    >
       <div className="agent-card-top">
         {agent.image && (
           <div className="agent-img-container">
@@ -168,27 +174,36 @@ const AgentCard = ({ agent }) => {
         {expanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
       </button>
 
-      {expanded && (
-        <div className="architecture-panel">
-          <div className="architecture-flow">
-            {agent.architecture.split('→').map((step, i, arr) => (
-              <React.Fragment key={i}>
-                <div className="arch-step" style={{ borderColor: `${color}50`, background: `${color}08` }}>
-                  {step.trim()}
-                </div>
-                {i < arr.length - 1 && <div className="arch-arrow" style={{ color }}>→</div>}
-              </React.Fragment>
-            ))}
-          </div>
-        </div>
-      )}
+      <AnimatePresence>
+        {expanded && (
+          <motion.div 
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            className="architecture-panel"
+            style={{ overflow: 'hidden' }}
+          >
+            <div className="architecture-flow">
+              {agent.architecture.split('→').map((step, i, arr) => (
+                <React.Fragment key={i}>
+                  <div className="arch-step" style={{ borderColor: `${color}50`, background: `${color}08` }}>
+                    {step.trim()}
+                  </div>
+                  {i < arr.length - 1 && <div className="arch-arrow" style={{ color }}>→</div>}
+                </React.Fragment>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <div className="agent-links">
         <a href={agent.github} target="_blank" rel="noopener noreferrer" className="agent-link-btn">
           <FaGithub size={16} /> View Code
         </a>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
@@ -201,12 +216,32 @@ const Projects = () => {
     <section id="projects" className="projects-section">
       <div className="bg-gradient-glow" style={{ top: '10%', right: '-15%' }}></div>
       <div className="container">
-        <h2 className="section-title text-gradient">AI Engineering Masterpieces</h2>
-        <p className="section-subtitle">
+        <motion.h2 
+          className="section-title text-gradient"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+        >
+          AI Engineering Masterpieces
+        </motion.h2>
+        <motion.p 
+          className="section-subtitle"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+        >
           10 production-ready AI agents — clone, customize, and ship. Each with full source code and architecture.
-        </p>
+        </motion.p>
 
-        <div className="github-cta glass-panel">
+        <motion.div 
+          className="github-cta glass-panel"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
           <div>
             <strong>⭐ All agents are open source</strong>
             <span> — clone the repo and run any agent in 3 commands</span>
@@ -215,7 +250,7 @@ const Projects = () => {
              target="_blank" rel="noopener noreferrer" className="btn btn-primary">
             <FaGithub size={18} /> Browse All Agents
           </a>
-        </div>
+        </motion.div>
 
         <div className="filter-row">
           {domains.map(d => (
@@ -225,9 +260,11 @@ const Projects = () => {
           ))}
         </div>
 
-        <div className="agents-grid">
-          {filtered.map(agent => <AgentCard key={agent.id} agent={agent} />)}
-        </div>
+        <motion.div layout className="agents-grid">
+          <AnimatePresence mode="popLayout">
+            {filtered.map(agent => <AgentCard key={agent.id} agent={agent} />)}
+          </AnimatePresence>
+        </motion.div>
       </div>
     </section>
   );

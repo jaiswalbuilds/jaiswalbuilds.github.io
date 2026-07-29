@@ -1,5 +1,6 @@
 import React from 'react';
 import { Database, Code2, Cpu, Network, PenTool } from 'lucide-react';
+import { motion } from 'framer-motion';
 import './Skills.css';
 
 const skillCategories = [
@@ -36,26 +37,72 @@ const skillCategories = [
 ];
 
 const Skills = () => {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.1
+      }
+    }
+  };
+
+  const cardVariants = {
+    hidden: { y: 30, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] }
+    }
+  };
+
   return (
     <section id="skills" className="skills-section">
       <div className="container">
-        <h2 className="section-title text-gradient">Core ML Stack & Skills</h2>
+        <motion.h2 
+          className="section-title text-gradient"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+        >
+          Core ML Stack & Skills
+        </motion.h2>
         
-        <div className="skills-grid">
+        <motion.div 
+          className="skills-grid"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+        >
           {skillCategories.map((category, index) => (
-            <div key={index} className="skill-card glass-panel">
+            <motion.div 
+              key={index} 
+              className="skill-card glass-panel"
+              variants={cardVariants}
+              whileHover={{ scale: 1.03, translateY: -4 }}
+              transition={{ duration: 0.3 }}
+            >
               <div className="skill-header">
                 {category.icon}
                 <h3 className="skill-title">{category.title}</h3>
               </div>
               <div className="skill-list">
                 {category.skills.map((skill, i) => (
-                  <span key={i} className="skill-badge">{skill}</span>
+                  <motion.span 
+                    key={i} 
+                    className="skill-badge"
+                    whileHover={{ scale: 1.1, backgroundColor: 'rgba(59, 130, 246, 0.2)', borderColor: 'rgba(59, 130, 246, 0.5)' }}
+                  >
+                    {skill}
+                  </motion.span>
                 ))}
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
