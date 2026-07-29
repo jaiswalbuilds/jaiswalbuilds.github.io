@@ -278,7 +278,7 @@ const GraphStudio = ({ onBack }) => {
     setActiveNodes([]);
     setCompletedNodes([]);
     setSelectedNode('ingest');
-    setLogs([{ type: 'system', text: `[SYSTEM] Switched dataset feed to ${DATASET_FEEDS[key].name}. Ready.` }]);
+    setLogs([`[SYSTEM] Switched dataset feed to ${DATASET_FEEDS[key].name}. Ready.`]);
     setMetrics({ latency: 0, promptTokens: 0, completionTokens: 0, cost: 0.00 });
   };
 
