@@ -79,9 +79,8 @@ export const speakElevenLabs = async (text, { voiceId, onStart, onEnd } = {}) =>
 };
 
 // ─── Provider 2: Sarvam AI ────────────────────────────────────
-// Indian English speakers: meera (F warm), pavithra (F pro), maitreyi (F clear),
-//                          arvind (M), amol (M), amartya (M)
-export const speakSarvam = async (text, { speaker = 'meera', onStart, onEnd } = {}) => {
+// Best compatible Indian English speakers for bulbul:v3: ritu, priya, neha, rahul, pooja, rohan
+export const speakSarvam = async (text, { speaker = 'ritu', onStart, onEnd } = {}) => {
   const apiKey = import.meta.env.VITE_SARVAM_API_KEY;
   if (!apiKey) return false;
   onStart?.();
@@ -98,7 +97,7 @@ export const speakSarvam = async (text, { speaker = 'meera', onStart, onEnd } = 
         loudness: 1.5,
         speech_sample_rate: 22050,
         enable_preprocessing: true,
-        model: 'bulbul:v1',
+        model: 'bulbul:v3',
       }),
     });
     if (!res.ok) return false;
