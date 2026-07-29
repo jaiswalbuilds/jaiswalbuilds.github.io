@@ -34,7 +34,7 @@ const PRESETS = {
   ]
 };
 
-const Hero = ({ onShowResume }) => {
+const Hero = ({ onShowResume, onLaunchStudio }) => {
   const [time, setTime] = useState('');
   const [consoleLogs, setConsoleLogs] = useState([
     { type: 'system', text: '[SYSTEM] Agent command console ready. Click a preset below to run agent trace...' }
@@ -129,15 +129,22 @@ const Hero = ({ onShowResume }) => {
               >
                 <FileText size={18} /> View Resume
               </motion.button>
-              <motion.a 
-                href="#projects" 
+              <motion.button 
+                onClick={onLaunchStudio} 
                 className="btn btn-outline" 
-                style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}
-                whileHover={{ scale: 1.03 }}
+                style={{ 
+                  cursor: 'pointer', 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  gap: '0.5rem', 
+                  borderColor: 'var(--accent-cyan)', 
+                  color: 'var(--text-accent)' 
+                }}
+                whileHover={{ scale: 1.03, backgroundColor: 'rgba(0, 255, 255, 0.05)' }}
                 whileTap={{ scale: 0.98 }}
               >
-                <Terminal size={18} /> View Projects
-              </motion.a>
+                <Cpu size={18} /> Launch Graph Studio
+              </motion.button>
             </div>
           </motion.div>
 

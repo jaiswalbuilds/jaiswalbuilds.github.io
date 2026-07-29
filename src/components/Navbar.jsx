@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Menu, X, BrainCircuit } from 'lucide-react';
 import './Navbar.css';
 
-const Navbar = () => {
+const Navbar = ({ onLaunchStudio }) => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -42,6 +42,23 @@ const Navbar = () => {
               {link.name}
             </a>
           ))}
+          <button 
+            className="btn btn-outline" 
+            style={{ 
+              padding: '0.4rem 0.8rem', 
+              fontSize: '0.8rem', 
+              cursor: 'pointer', 
+              borderColor: 'rgba(0, 255, 255, 0.4)', 
+              color: 'var(--text-accent)',
+              marginLeft: '0.5rem'
+            }}
+            onClick={() => {
+              onLaunchStudio();
+              setMobileMenuOpen(false);
+            }}
+          >
+            Launch Studio
+          </button>
         </nav>
 
         <button 
