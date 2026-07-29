@@ -5,21 +5,104 @@
   padding: 5rem 0 7rem;
 }
 
+/* ─── Impact Banner ─────────────────────────────────── */
+.impact-banner {
+  margin-bottom: 3.5rem;
+}
+
+.impact-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--accent-purple);
+  margin-bottom: 1rem;
+}
+
+.impact-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+
+@media (max-width: 900px) {
+  .impact-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 480px) {
+  .impact-grid { grid-template-columns: 1fr; }
+}
+
+.impact-tile {
+  padding: 1.5rem 1.25rem;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg);
+  position: relative;
+  overflow: hidden;
+}
+
+.impact-tile::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent-purple), var(--accent-cyan));
+  opacity: 0.6;
+}
+
+.impact-icon {
+  color: var(--accent-purple);
+  margin-bottom: 0.25rem;
+}
+
+.impact-value {
+  font-size: 1.6rem;
+  font-weight: 800;
+  font-family: var(--font-display);
+  background: linear-gradient(135deg, #fff 30%, var(--accent-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.1;
+}
+
+.impact-metric-label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.impact-sub {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+/* ─── Header Row ─────────────────────────────────────── */
 .section-header-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   flex-wrap: wrap;
   gap: 1rem;
 }
 
-/* Dot indicators */
+.exp-subtitle {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  letter-spacing: 0.02em;
+}
+
+/* ─── Dot Indicators ─────────────────────────────────── */
 .slider-dots {
   display: flex;
   gap: 0.5rem;
   justify-content: center;
-  margin-bottom: 2.5rem;
+  margin-bottom: 2rem;
 }
 
 .slider-dot {
@@ -41,15 +124,15 @@
   box-shadow: 0 0 10px rgba(123, 97, 255, 0.6);
 }
 
-/* Nav arrow buttons */
+/* ─── Nav Arrow Buttons ──────────────────────────────── */
 .slider-controls {
   display: flex;
   gap: 0.75rem;
 }
 
 .slider-btn {
-  width: 42px;
-  height: 42px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.02);
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -65,134 +148,153 @@
 .slider-btn:hover:not(:disabled) {
   background: rgba(0, 255, 255, 0.06);
   border-color: var(--text-accent);
-  color: #ffffff;
+  color: #fff;
   transform: scale(1.05);
 }
 
-/* Slider viewport — clips overflowing side cards */
+/* ─── Slider Viewport ────────────────────────────────── */
 .experience-slider-wrapper {
   position: relative;
   width: 100%;
   overflow: hidden;
-  /* Fade out left/right edges using mask */
-  -webkit-mask-image: linear-gradient(
-    to right,
-    transparent 0%,
-    black 12%,
-    black 88%,
-    transparent 100%
-  );
-  mask-image: linear-gradient(
-    to right,
-    transparent 0%,
-    black 12%,
-    black 88%,
-    transparent 100%
-  );
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
   padding: 2rem 0 3rem;
 }
 
-/* Track — Framer Motion animates x on this */
+/* ─── Track ──────────────────────────────────────────── */
 .experience-track {
   display: flex;
   gap: 2rem;
   width: 100%;
-  /* No transition here — Framer Motion spring handles it */
   will-change: transform;
   user-select: none;
   -webkit-user-select: none;
 }
 
-/* Individual card */
+/* ─── Card ───────────────────────────────────────────── */
 .experience-card {
   flex: 0 0 65%;
-  max-width: 720px;
+  max-width: 760px;
   border-radius: 24px;
-  padding: 2.5rem;
+  padding: 2rem 2.25rem;
   display: flex;
   flex-direction: column;
-  min-height: 420px;
-  max-height: 460px;
-  /* No CSS transitions on card itself — Framer handles */
+  min-height: 560px;
+  max-height: 600px;
   will-change: transform, opacity, filter;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
+  overflow: hidden;
 }
 
 @media (max-width: 768px) {
-  .experience-card {
-    flex: 0 0 82%;
-    padding: 1.75rem;
-    min-height: 400px;
-  }
+  .experience-card { flex: 0 0 82%; padding: 1.5rem; min-height: 520px; }
 }
 
 @media (max-width: 480px) {
-  .experience-card {
-    flex: 0 0 88%;
-    padding: 1.5rem;
-    min-height: 380px;
-  }
+  .experience-card { flex: 0 0 88%; padding: 1.25rem; min-height: 500px; }
 }
 
+/* ─── Card Header ────────────────────────────────────── */
 .exp-card-header {
   display: flex;
-  align-items: center;
-  gap: 1.25rem;
-  margin-bottom: 1.25rem;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1rem;
 }
 
 .exp-card-logo {
-  width: 2.75rem;
-  height: 2.75rem;
+  width: 2.5rem;
+  height: 2.5rem;
   object-fit: contain;
   background-color: white;
   border-radius: 8px;
   padding: 4px;
   flex-shrink: 0;
+  margin-top: 2px;
 }
 
 .exp-card-role {
-  font-size: 1.3rem;
+  font-size: 1.15rem;
   font-weight: 700;
   color: var(--text-primary);
   margin: 0;
   line-height: 1.2;
 }
 
-.exp-card-company {
-  font-size: 1rem;
-  color: var(--text-accent);
-  font-weight: 500;
-  margin-top: 0.2rem;
+.domain-badge {
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background: rgba(123, 97, 255, 0.12);
+  border: 1px solid rgba(123, 97, 255, 0.3);
+  color: var(--accent-purple);
+  padding: 0.2rem 0.55rem;
+  border-radius: 20px;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
+.exp-card-company {
+  font-size: 0.9rem;
+  color: var(--text-accent);
+  font-weight: 500;
+  margin-top: 0.15rem;
+}
+
+/* ─── Meta Row ───────────────────────────────────────── */
 .exp-card-meta {
   display: flex;
-  flex-direction: row;
-  gap: 1.5rem;
+  gap: 1.25rem;
   flex-wrap: wrap;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   color: var(--text-secondary);
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  padding-bottom: 1rem;
+  padding-bottom: 0.85rem;
 }
 
 .meta-item {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.4rem;
 }
 
-/* Description bullets — scrollable, no scrollbar */
+/* ─── Callouts (Context / Ownership / Leadership) ───── */
+.callout-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-bottom: 1rem;
+}
+
+.callout {
+  font-size: 0.76rem;
+  color: var(--text-secondary);
+  line-height: 1.45;
+}
+
+.callout-label {
+  display: inline;
+  font-weight: 700;
+  color: var(--accent-cyan);
+  margin-right: 0.35rem;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* ─── Bullet Achievements ────────────────────────────── */
 .exp-card-bullets {
   list-style: none;
-  font-size: 0.88rem;
+  font-size: 0.84rem;
   color: var(--text-secondary);
   overflow-y: auto;
   flex-grow: 1;
   padding-right: 4px;
+  margin-bottom: 0.85rem;
   scrollbar-width: none;
 }
 
@@ -202,9 +304,9 @@
 
 .exp-card-bullets li {
   position: relative;
-  padding-left: 1.25rem;
-  margin-bottom: 0.7rem;
-  line-height: 1.55;
+  padding-left: 1.15rem;
+  margin-bottom: 0.5rem;
+  line-height: 1.5;
 }
 
 .exp-card-bullets li::before {
@@ -213,4 +315,26 @@
   left: 0;
   color: var(--accent-purple);
   font-weight: bold;
+}
+
+/* ─── Tech Pills ─────────────────────────────────────── */
+.tech-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+  padding-top: 0.75rem;
+  margin-top: auto;
+}
+
+.tech-pill {
+  font-size: 0.68rem;
+  font-weight: 600;
+  background: rgba(0, 255, 255, 0.05);
+  border: 1px solid rgba(0, 255, 255, 0.15);
+  color: var(--text-accent);
+  padding: 0.2rem 0.55rem;
+  border-radius: 20px;
+  white-space: nowrap;
+  letter-spacing: 0.04em;
 }
