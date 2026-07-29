@@ -118,18 +118,18 @@ const ActionCard = ({ action, onEmailSuccess, onDismiss }) => {
     <div className="action-card">
       <div className="action-card-header">
         <Calendar size={15} className="action-icon" />
-        <span>Get in touch with Manish</span>
+        <span>Book a call with Manish</span>
       </div>
-      <p className="action-desc">Email to schedule a call, or connect directly on LinkedIn.</p>
+      <p className="action-desc">Pick a slot directly from his calendar — no back-and-forth needed.</p>
       <div className="action-btn-row">
-        <button className="action-btn primary" onClick={() => window.open(`mailto:${CONTACT.email}?subject=${encodeURIComponent("Let's connect — Scheduling a call")}`, '_blank')}>
-          <Mail size={13} /> Email to Schedule
+        <button className="action-btn primary" onClick={openSchedule}>
+          <ExternalLink size={13} /> Open Calendly
         </button>
-        <button className="action-btn secondary" onClick={openLinkedIn}>
-          <ExternalLink size={13} /> LinkedIn
+        <button className="action-btn secondary" onClick={() => window.open(`mailto:${CONTACT.email}?subject=${encodeURIComponent("Let's connect — Scheduling a call")}`, '_blank')}>
+          <Mail size={13} /> Email Instead
         </button>
       </div>
-      <p className="action-contact-line">📧 {CONTACT.email} &nbsp;|&nbsp; 📱 (+91) 8015973380</p>
+      <p className="action-contact-line">📱 (+91) 8015973380 &nbsp;|&nbsp; 📧 {CONTACT.email}</p>
     </div>
   );
 

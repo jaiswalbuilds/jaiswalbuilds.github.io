@@ -14,7 +14,8 @@ export const CONTACT = {
   github: 'https://github.com/jaiswalwrites',
   discord: 'manishjaiswal9689',
   website: 'https://jaiswalbuilds.github.io/',
-  resume: '/resume.pdf', // served from /public
+  calendly: 'https://calendly.com/jaiswalmanish060/book-a-call-with-manish',
+  resume: '/resume.pdf',
 };
 
 // ─── EmailJS Config (set in .env) ────────────────────────────
@@ -75,8 +76,8 @@ export const ACTION_RESPONSES = {
     action: 'email_form',
   },
   schedule_call: {
-    text: `Drop Manish a message to schedule a call — email jaiswalmanish060@gmail.com or connect on LinkedIn. Here are all his contact options. 📅`,
-    action: 'contact_card',
+    text: `Let's get a call booked! Pick a time directly from Manish's calendar — no back-and-forth. 📅`,
+    action: 'schedule_card',
   },
   view_resume: {
     text: `Here's Manish's resume — you can view or download it directly. 📄`,
@@ -119,7 +120,7 @@ export const sendEmail = async ({ name, email, message }) => {
 };
 
 // ─── Other Actions ────────────────────────────────────────────
-export const openSchedule = () => window.open(`mailto:${CONTACT.email}?subject=${encodeURIComponent('Let\'s connect — Scheduling a call')}`, '_blank');
+export const openSchedule = () => window.open(CONTACT.calendly, '_blank');
 export const openLinkedIn = () => window.open(CONTACT.linkedin, '_blank');
 export const openGitHub   = () => window.open(CONTACT.github,   '_blank');
 export const openResume   = () => window.open(CONTACT.resume,   '_blank');
