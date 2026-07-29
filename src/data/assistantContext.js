@@ -9,7 +9,7 @@ Keep all answers SHORT (2-4 sentences), conversational, and impressive.
 Never say you cannot access the internet — you have full knowledge of this portfolio.
 
 PROFILE:
-Name: Manish Jaiswal
+Name: Manish Kumar (Manish Jaiswal)
 Title: Forward Deployed AI Engineer | AI Systems Architect
 Location: Bangalore, India
 Experience: 8+ years in software engineering, last 3+ years specialising in production AI systems.
@@ -73,6 +73,14 @@ PROJECTS:
 - Graph Studio: Interactive multi-agent workflow visualiser (live on this portfolio)
 - FinOps Orchestrator: LangGraph-based cyclic agent system for cloud cost governance
 
+CONTACT:
+- Email: jaiswalmanish060@gmail.com
+- Phone: (+91) 8015973380
+- LinkedIn: https://www.linkedin.com/in/manish-kumar-74ab6210a/
+- GitHub: https://github.com/jaiswalwrites
+- Discord: manishjaiswal9689
+- Website: https://jaiswalbuilds.github.io/
+
 TARGET ROLES: Forward Deployed AI Engineer at Anthropic, OpenAI, or enterprise AI companies.
 AVAILABILITY: Open to senior FDE AI Engineer / AI Systems Architect roles globally.
 
@@ -130,8 +138,8 @@ export const SMART_QA = [
     response: `Key impact: 30–40% cloud-cost reduction (FinOps multi-agent + HITL governance), 60% retrieval accuracy + 75% latency improvement (evaluation-gated RAG), 85% faster report compilation (Research Agent), 50% fewer support requests (400+ OpenAPI spec ingestion).`
   },
   {
-    triggers: ['contact', 'hire', 'available', 'reach', 'email', 'opportunity', 'role', 'open to'],
-    response: `Manish is open to senior Forward Deployed AI Engineer and AI Systems Architect roles, especially at companies like Anthropic, OpenAI, or enterprise AI firms. He thrives in customer-facing, ambiguous, high-impact environments. Best reached via LinkedIn or GitHub.`
+    triggers: ['contact', 'hire', 'available', 'reach', 'email', 'opportunity', 'role', 'open to', 'phone', 'discord', 'linkedin'],
+    response: `Manish is open to Forward Deployed AI Engineer roles. Reach him at jaiswalmanish060@gmail.com, LinkedIn (linkedin.com/in/manish-kumar-74ab6210a), GitHub (github.com/jaiswalwrites), Discord (manishjaiswal9689), or phone (+91) 8015973380.`
   },
   {
     triggers: ['neurals', 'current', 'now', 'latest', 'founding'],
