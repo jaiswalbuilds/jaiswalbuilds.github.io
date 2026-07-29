@@ -13,6 +13,7 @@ import {
   sendEmail, openSchedule, openLinkedIn, openGitHub, openResume, copyDiscord,
   CONTACT
 } from '../utils/agentActions';
+import { trackSectionHover, trackAIGuideQuery, trackPortfolioClick } from '../utils/analytics';
 import './AIAssistant.css';
 
 // ─── Gemini API ───────────────────────────────────────────────
@@ -233,6 +234,7 @@ const AIAssistant = () => {
       hoverTimer.current = setTimeout(() => {
         setHoveredSection({ key, ...SECTION_CONTEXTS[key] });
         setTooltipVisible(true);
+        trackSectionHover(key);
       }, 500);
     };
     const onLeave = (e) => {
@@ -269,6 +271,7 @@ const AIAssistant = () => {
     if (!hoveredSection) return;
     if (tooltipSpeaking) { stopVoice(); setTooltipSpeaking(false); return; }
     setTooltipSpeaking(true);
+    trackPortfolioClick(`speak_${hoveredSection.key}`, 'ai_tooltip');
     speak(hoveredSection.voice, {
       onStart: () => setTooltipSpeaking(true),
       onEnd: () => setTooltipSpeaking(false),
@@ -280,6 +283,7 @@ const AIAssistant = () => {
     if (!hoveredSection) return;
     setTooltipVisible(false);
     stopVoice();
+    trackPortfolioClick(`summary_${hoveredSection.key}`, 'ai_tooltip');
     pushMessages([
       { role: 'user', text: `Quick summary of the ${hoveredSection.title} section?`, action: null },
       { role: 'assistant', text: hoveredSection.summary, action: null },
@@ -304,6 +308,8 @@ const AIAssistant = () => {
 
     // Check for agent intent first
     const intent = detectIntent(trimmed);
+    trackAIGuideQuery(trimmed, intent || 'general_qa');
+
     if (intent && ACTION_RESPONSES[intent]) {
       const ar = ACTION_RESPONSES[intent];
       pushMessages([

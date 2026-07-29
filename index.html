@@ -19,6 +19,24 @@
     <meta name="twitter:title" content="Manish Kumar | Forward Deployed AI Engineer" />
     <meta name="twitter:description" content="Portfolio of Manish Kumar. Architecting production multi-agent systems, stateful cyclic graphs, and enterprise RAG platforms." />
     <meta name="twitter:image" content="https://jaiswalbuilds.github.io/assets/llm_interview_agent_1778827717107-CCTl-euJ.png" />
+
+    <!-- Google Analytics (GA4) Tracking -->
+    <script>
+      // Load Google Analytics Measurement ID from Vite env
+      const gaId = "G-HEG531LZZT"; // Let's put a fallback or read directly from React bundle
+      if (gaId) {
+        const script = document.createElement('script');
+        script.async = true;
+        script.src = `https://www.googletagmanager.com/gtag/js?id=${gaId}`;
+        document.head.appendChild(script);
+
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        window.gtag = gtag;
+        gtag('js', new Date());
+        gtag('config', gaId, { send_page_view: true });
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>
