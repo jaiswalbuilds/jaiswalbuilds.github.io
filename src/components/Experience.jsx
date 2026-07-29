@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useState } from 'react';
 import { Calendar, MapPin, ChevronLeft, ChevronRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import './Experience.css';
@@ -65,18 +65,14 @@ const experiences = [
 ];
 
 const Experience = () => {
-  const scrollRef = useRef(null);
+  const [activeIndex, setActiveIndex] = useState(0);
 
-  const scroll = (direction) => {
-    if (scrollRef.current) {
-      const { scrollLeft } = scrollRef.current;
-      // Scroll by card width (380px) + gap (24px)
-      const offset = direction === 'left' ? -404 : 404;
-      scrollRef.current.scrollTo({
-        left: scrollLeft + offset,
-        behavior: 'smooth'
-      });
-    }
+  const slideLeft = () => {
+    setActiveIndex((prev) => Math.max(0, prev - 1));
+  };
+
+  const slideRight = () => {
+    setActiveIndex((prev) => Math.min(experiences.length - 1, prev + 1));
   };
 
   return (
@@ -88,16 +84,20 @@ const Experience = () => {
           </h2>
           <div className="slider-controls">
             <button 
-              onClick={() => scroll('left')} 
+              onClick={slideLeft} 
               className="slider-btn" 
+              disabled={activeIndex === 0}
+              style={{ opacity: activeIndex === 0 ? 0.3 : 1, cursor: activeIndex === 0 ? 'default' : 'pointer' }}
               aria-label="Slide Left"
               title="Slide Left"
             >
               <ChevronLeft size={20} />
             </button>
             <button 
-              onClick={() => scroll('right')} 
+              onClick={slideRight} 
               className="slider-btn" 
+              disabled={activeIndex === experiences.length - 1}
+              style={{ opacity: activeIndex === experiences.length - 1 ? 0.3 : 1, cursor: activeIndex === experiences.length - 1 ? 'default' : 'pointer' }}
               aria-label="Slide Right"
               title="Slide Right"
             >
@@ -107,41 +107,52 @@ const Experience = () => {
         </div>
 
         <div className="experience-slider-wrapper">
-          <div ref={scrollRef} className="experience-track">
-            {experiences.map((exp, index) => (
-              <motion.div 
-                key={index} 
-                className="experience-card glass-panel"
-                whileHover={{ y: -8, scale: 1.02 }}
-                transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-              >
-                <div className="exp-card-header">
-                  {exp.logo && (
-                    <img 
-                      src={exp.logo} 
-                      alt={`${exp.company} logo`} 
-                      className="exp-card-logo"
-                      onError={(e) => { e.target.style.display = 'none' }}
-                    />
-                  )}
-                  <div>
-                    <h3 className="exp-card-role">{exp.role}</h3>
-                    <div className="exp-card-company">{exp.company}</div>
+          <div 
+            className="experience-track"
+            style={{
+              transform: `translateX(calc(50% - var(--card-width-half) - (${activeIndex} * (var(--card-width) + var(--card-gap)))))`
+            }}
+          >
+            {experiences.map((exp, index) => {
+              const isActive = index === activeIndex;
+              return (
+                <div 
+                  key={index} 
+                  className={`experience-card glass-panel ${isActive ? 'active' : 'inactive'}`}
+                  onClick={() => {
+                    if (!isActive) {
+                      setActiveIndex(index);
+                    }
+                  }}
+                >
+                  <div className="exp-card-header">
+                    {exp.logo && (
+                      <img 
+                        src={exp.logo} 
+                        alt={`${exp.company} logo`} 
+                        className="exp-card-logo"
+                        onError={(e) => { e.target.style.display = 'none' }}
+                      />
+                    )}
+                    <div>
+                      <h3 className="exp-card-role">{exp.role}</h3>
+                      <div className="exp-card-company">{exp.company}</div>
+                    </div>
                   </div>
-                </div>
 
-                <div className="exp-card-meta">
-                  <span className="meta-item"><Calendar size={14} style={{ flexShrink: 0 }} /> {exp.period}</span>
-                  <span className="meta-item"><MapPin size={14} style={{ flexShrink: 0 }} /> {exp.location}</span>
-                </div>
+                  <div className="exp-card-meta">
+                    <span className="meta-item"><Calendar size={14} style={{ flexShrink: 0 }} /> {exp.period}</span>
+                    <span className="meta-item"><MapPin size={14} style={{ flexShrink: 0 }} /> {exp.location}</span>
+                  </div>
 
-                <ul className="exp-card-bullets">
-                  {exp.description.map((item, i) => (
-                    <li key={i}>{item}</li>
-                  ))}
-                </ul>
-              </motion.div>
-            ))}
+                  <ul className="exp-card-bullets">
+                    {exp.description.map((item, i) => (
+                      <li key={i}>{item}</li>
+                    ))}
+                  </ul>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
