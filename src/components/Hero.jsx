@@ -14,38 +14,89 @@ const PRESETS = {
     { type: 'anomaly', text: '[ANOMALY] Detected 3 compute cost spikes (Z-Score = 2.89) in EC2' },
     { type: 'text', text: '[THOUGHT] Reasoner: Anomalies correspond to un-scheduled dev-envs on weekends.' },
     { type: 'eval', text: '[EVAL] Groundedness: 0.98 | Citation Accuracy: 1.00 | Hallucination Check: PASS' },
-    { type: 'success', text: '[SUCCESS] Recommendation compiled: Enable spot transition. Est. savings: $14,200/mo.' }
+    { type: 'success', text: '[SUCCESS] Recommendation: Enable spot transition. Savings: $14,200/mo.' }
   ],
   security: [
     { type: 'system', text: '[SYSTEM] Initializing Agent 02 (Threat Intel Analyzer)...' },
     { type: 'router', text: '[ROUTER] Query routed to: MITRE ATT&CK Knowledge Base (ChromaDB)' },
     { type: 'tool', text: '[TOOL] Querying IOC database for IP: 185.190.140.2' },
-    { type: 'anomaly', text: '[THREAT] Matching threat signatures found: APT29 (Cozy Bear) phishing indicators' },
-    { type: 'text', text: '[THOUGHT] Reasoner: Compiling containment and quarantine instructions for firewall.' },
+    { type: 'anomaly', text: '[THREAT] Matching threat signatures found: APT29 Cozy Bear IOC' },
     { type: 'eval', text: '[EVAL] Context Recall: 0.95 | Context Precision: 0.98 | Safety Check: PASS' },
-    { type: 'success', text: '[SUCCESS] Playbook generated: Port blocking + account suspension initiated.' }
+    { type: 'success', text: '[SUCCESS] Playbook generated: Auto quarantine command sent to PaloAlto API.' }
   ],
-  ragVerify: [
-    { type: 'system', text: '[SYSTEM] Initializing RAG Pipeline Verification (Safex)...' },
-    { type: 'text', text: '[DATA] Indexing 420 markdown product specs into ChromaDB...' },
-    { type: 'tool', text: '[EVAL] Running automated benchmark suite: 100 queries...' },
-    { type: 'eval', text: '[METRIC] Faithfulness: 0.96 | Answer Relevance: 0.95 | P99 Latency: 120ms' },
-    { type: 'success', text: '[SUCCESS] Pipeline verification complete. Gated Release: APPROVED.' }
+  rag_docs: [
+    { type: 'system', text: '[SYSTEM] Initializing Agent 03 (Enterprise RAG Assistant)...' },
+    { type: 'router', text: '[ROUTER] Intent: Documentation QA. Target: FAISS Vector store.' },
+    { type: 'tool', text: '[TOOL] Querying embeddings for chunk search (bearer validation)' },
+    { type: 'eval', text: '[EVAL] Faithfulness: 0.96 | Answer Relevance: 0.95 | Citation Accuracy: 1.00' },
+    { type: 'success', text: '[SUCCESS] Output: RS256 signature validation is verified in api_auth.md:L45.' }
+  ],
+  fraud: [
+    { type: 'system', text: '[SYSTEM] Initializing Agent 04 (Fraud Transaction Scanner)...' },
+    { type: 'router', text: '[ROUTER] Triggering parallel runs: FAISS query + Python velocity script' },
+    { type: 'tool', text: '[TOOL:DB] Retrieved user baseline profile matched index score: 0.88' },
+    { type: 'tool', text: '[TOOL:CODE] Velocity check script: 12tx/sec (spike threshold = 5)' },
+    { type: 'eval', text: '[EVAL] Probability of Fraud: 94% | Safety Flag: High' },
+    { type: 'success', text: '[SUCCESS] Output: Card account flagged. quarantine commands triggered.' }
+  ],
+  protein: [
+    { type: 'system', text: '[SYSTEM] Initializing Agent 05 (Protein Align Motif Matcher)...' },
+    { type: 'router', text: '[ROUTER] Routing target: NCBI Web Search + Needleman-Wunsch Alignment' },
+    { type: 'tool', text: '[TOOL:WEB] NCBI hits: GPCR Active Receptors matched sequence identity: 92%' },
+    { type: 'tool', text: '[TOOL:CODE] Alignment calculated matching indices: GPCR-101 target' },
+    { type: 'eval', text: '[EVAL] Motif Groundedness: 0.98 | Alignment confidence: 0.94' },
+    { type: 'success', text: '[SUCCESS] Output: MVLA sequence motif successfully matched active GPCR targets.' }
+  ],
+  sentiment: [
+    { type: 'system', text: '[SYSTEM] Initializing Agent 06 (AppStore Sentiment Auditor)...' },
+    { type: 'router', text: '[ROUTER] Routing alert to reviews scraper...' },
+    { type: 'tool', text: '[TOOL:WEB] Scraped AppStore API reviews: 350 records' },
+    { type: 'eval', text: '[EVAL] Crash frequency spike: 28 mentions | Bug category: critical' },
+    { type: 'success', text: '[SUCCESS] Output: App crash loop in v2.4.1 detected. Hotfix/Rollback recommended.' }
+  ],
+  clinical: [
+    { type: 'system', text: '[SYSTEM] Initializing Agent 07 (Clinical Trials Matcher)...' },
+    { type: 'router', text: '[ROUTER] Routing patient criteria search query to ClinicalTrials API' },
+    { type: 'tool', text: '[TOOL:DB] FAISS database search for eligibility criteria matching oncological profiles' },
+    { type: 'eval', text: '[EVAL] Semantic Relevance: 0.94 | Groundedness: 0.97 | Safety Check: PASS' },
+    { type: 'success', text: '[SUCCESS] Output: Candidate matches NCT-0428 trial. Patient invitation payload ready.' }
+  ],
+  legal: [
+    { type: 'system', text: '[SYSTEM] Initializing Agent 08 (Legal Agreement Auditor)...' },
+    { type: 'router', text: '[ROUTER] Routing contract clauses to AST-based compliance analyzer' },
+    { type: 'tool', text: '[TOOL:CODE] Python parser scanning text for liability limits and indemnity terms' },
+    { type: 'eval', text: '[EVAL] Compliance Score: 85% | Liability alert detected: PASS' },
+    { type: 'success', text: '[SUCCESS] Output: Liability limit clause is valid and within parameters. Audit approved.' }
+  ],
+  logistics: [
+    { type: 'system', text: '[SYSTEM] Initializing Agent 09 (E-Commerce Logistics Router)...' },
+    { type: 'router', text: '[ROUTER] Routing alert feed to delivery optimization solver' },
+    { type: 'tool', text: '[TOOL:CODE] Executing routing optimizer script: delivery_anomalies.py' },
+    { type: 'eval', text: '[EVAL] Accuracy rating: 0.97 | Out-of-bounds anomaly: 3 delay clusters detected' },
+    { type: 'success', text: '[SUCCESS] Output: 3 warehouse delays bypassed. Rerouted order flow to carrier-B.' }
+  ],
+  devops: [
+    { type: 'system', text: '[SYSTEM] Initializing Agent 10 (DevOps YAML build monitor)...' },
+    { type: 'router', text: '[ROUTER] Routing parser logs query to GitHub actions trace analyzer' },
+    { type: 'tool', text: '[TOOL:CODE] Executing log classification model matching error outputs' },
+    { type: 'eval', text: '[EVAL] Precision: 0.96 | Recall: 0.95 | Verdict: BUILD_FAIL_GATED' },
+    { type: 'success', text: '[SUCCESS] Output: Build failed on Node-18 dependency deprecation. Remediation patch ready.' }
   ]
 };
 
 const Hero = ({ onShowResume, onLaunchStudio }) => {
   const [time, setTime] = useState('');
+  const [selectedPreset, setSelectedPreset] = useState('finops');
   const [consoleLogs, setConsoleLogs] = useState([
-    { type: 'system', text: '[SYSTEM] Agent command console ready. Click a preset below to run agent trace...' }
+    { type: 'system', text: '[SYSTEM] Agent command console ready. Select a dataset and execute trace...' }
   ]);
   const [isRunning, setIsRunning] = useState(false);
-  const consoleEndRef = useRef(null);
+  const consoleRef = useRef(null);
 
-  // Auto-scroll console
+  // Auto-scroll console directly to bypass page scroll jumps
   useEffect(() => {
-    if (consoleEndRef.current) {
-      consoleEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    if (consoleRef.current) {
+      consoleRef.current.scrollTop = consoleRef.current.scrollHeight;
     }
   }, [consoleLogs]);
 
@@ -171,30 +222,48 @@ const Hero = ({ onShowResume, onLaunchStudio }) => {
                 <span className="t-dot yellow"></span>
                 <span className="t-dot green"></span>
               </div>
-              <span className="terminal-title">Agent Execution Trace Simulator</span>
+              <select 
+                value={selectedPreset} 
+                onChange={(e) => {
+                  setSelectedPreset(e.target.value);
+                  setConsoleLogs([{ type: 'system', text: `[SYSTEM] Preset set to ${e.target.value.toUpperCase()}. Ready.` }]);
+                }}
+                className="terminal-btn"
+                style={{ background: 'rgba(0,0,0,0.6)', border: '1px solid rgba(255,255,255,0.1)', cursor: 'pointer', outline: 'none', fontStyle: 'normal' }}
+                disabled={isRunning}
+              >
+                <option value="finops">AWS Billing Logs (CSV)</option>
+                <option value="security">MITRE Threat Alerts (JSON)</option>
+                <option value="rag_docs">Enterprise Manuals (MD)</option>
+                <option value="fraud">Fraud Transactions (CSV)</option>
+                <option value="protein">Protein Alignments (FASTA)</option>
+                <option value="sentiment">Reviews Sentiment (CSV)</option>
+                <option value="clinical">Clinical Trials (JSON)</option>
+                <option value="legal">Legal Contracts (TXT)</option>
+                <option value="logistics">Warehouse Logistics (CSV)</option>
+                <option value="devops">GitHub Action Logs (YAML)</option>
+              </select>
               <button onClick={clearConsole} className="terminal-btn" disabled={isRunning} title="Clear terminal">
                 <Trash2 size={12} />
               </button>
             </div>
 
-            <div className="terminal-console">
+            <div ref={consoleRef} className="terminal-console">
               {consoleLogs.map((log, i) => (
                 <div key={i} className={`log-line ${log.type}`}>
                   {log.text}
                 </div>
               ))}
-              <div ref={consoleEndRef} />
             </div>
 
-            <div className="terminal-actions-row">
-              <button onClick={() => runSimulation('finops')} className="terminal-btn" disabled={isRunning}>
-                <Play size={10} style={{ marginRight: '4px', display: 'inline' }} /> Run FinOps Agent
-              </button>
-              <button onClick={() => runSimulation('security')} className="terminal-btn" disabled={isRunning}>
-                <Play size={10} style={{ marginRight: '4px', display: 'inline' }} /> Run Security Agent
-              </button>
-              <button onClick={() => runSimulation('ragVerify')} className="terminal-btn" disabled={isRunning}>
-                <Play size={10} style={{ marginRight: '4px', display: 'inline' }} /> Verify RAG Pipeline
+            <div className="terminal-actions-row" style={{ justifyContent: 'center' }}>
+              <button 
+                onClick={() => runSimulation(selectedPreset)} 
+                className="terminal-btn" 
+                disabled={isRunning}
+                style={{ padding: '0.5rem 1.25rem', width: '100%', display: 'flex', justifyContent: 'center', gap: '0.5rem' }}
+              >
+                <Play size={12} style={{ display: 'inline' }} /> Execute Agent Simulation Trace
               </button>
             </div>
           </motion.div>

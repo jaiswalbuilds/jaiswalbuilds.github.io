@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { ArrowLeft, Play, Cpu, ShieldCheck, UserCheck, Activity, Database, GitBranch, Terminal } from 'lucide-react';
 import './GraphStudio.css';
 
-// 6 Diverse Datasets Configuration
+// 10 Stable and Diverse Datasets
 const DATASET_FEEDS = {
   csv_billing: {
     name: 'AWS Billing Logs (CSV)',
@@ -102,7 +102,7 @@ const DATASET_FEEDS = {
   csv_sentiment: {
     name: 'Customer Feedback Sentiment (CSV)',
     query: 'Classify rating spikes in AppStore reviews',
-    sample: 'Review,Rating,Date\nApp crashes on start,1,28-May\nLove the new interface,5,29-May',
+    sample: 'Review,Rating,Date\nApp crashes on start,1,28-May',
     trace: ['ingest', 'context', 'embed', 'router', 'tool_web', 'eval', 'output'],
     nodes: {
       ingest: { inputs: { query: 'Classify start crash reviews', format: 'CSV' }, outputs: { status: 'LOADED' } },
@@ -117,10 +117,86 @@ const DATASET_FEEDS = {
       approve: { inputs: {}, outputs: { status: 'BYPASSED_READ_ONLY_ALERT' } },
       output: { inputs: { compile: 'Developer incident log' }, outputs: { alert: 'App crash loop detected in v2.4.1 release. Rollback recommended.' } }
     }
+  },
+  json_clinical: {
+    name: 'Clinical Trials Registry (JSON)',
+    query: 'Map patient criteria oncology staging phase-III',
+    sample: '{"NCT_id": "NCT-0428", "condition": "Oncology", "stage": "Phase-III"}',
+    trace: ['ingest', 'context', 'embed', 'router', 'tool_db', 'eval', 'output'],
+    nodes: {
+      ingest: { inputs: { format: 'JSON', criteria: 'stage-3 oncology patient' }, outputs: { status: 'PARSED' } },
+      context: { inputs: { patient_profile: 'age=45, stage=3, type=breast_cancer' }, outputs: { data_points: 14 } },
+      embed: { inputs: { profile: 'Stage-III Oncology matching' }, outputs: { dimensions: 1536 } },
+      router: { inputs: { mode: 'criteria_matcher' }, outputs: { target_tool: 'Clinical_Trials_KB' } },
+      tool_db: { inputs: { vector_query: 'Oncology_Stage_III', k: 2 }, outputs: { matched_trials: ['NCT-0428', 'NCT-0993'], similarity: 0.94 } },
+      tool_web: { inputs: {}, outputs: { status: 'BYPASSED' } },
+      tool_code: { inputs: {}, outputs: { status: 'BYPASSED' } },
+      eval: { inputs: { criteria_verification: 'NCT-0428 breast cancer' }, outputs: { groundedness: 0.98, faithfulness: 0.95, decision: 'MATCH_VALIDATED' } },
+      safety: { inputs: {}, outputs: { status: 'BYPASSED' } },
+      approve: { inputs: {}, outputs: { status: 'AUTO_BYPASS_READ_ONLY_CLINICAL_QA' } },
+      output: { inputs: { match_verify: 'NCT-0428' }, outputs: { patient_cohort_matched: 'NCT-0428', reason: 'Stage-III breast cancer cohort criteria' } }
+    }
+  },
+  txt_legal: {
+    name: 'Legal Contracts Analysis (TXT)',
+    query: 'Audit indemnity and liability clauses compliance limit',
+    sample: 'LIABILITY: Limit of liability is $5,000,000.\nINDEMNITY: Contractor agrees to...',
+    trace: ['ingest', 'embed', 'router', 'tool_code', 'eval', 'approve', 'output'],
+    nodes: {
+      ingest: { inputs: { query: 'Indemnity caps', format: 'TXT' }, outputs: { status: 'LOADED', file: 'contract_draft_v3.txt' } },
+      context: { inputs: {}, outputs: { status: 'BYPASSED' } },
+      embed: { inputs: { clauses: 'indemnity limitations' }, outputs: { dimensions: 1536 } },
+      router: { inputs: { compliance_mode: 'AST_scanning' }, outputs: { target_tool: 'Python_AST_Contract_Scanner' } },
+      tool_db: { inputs: {}, outputs: { status: 'BYPASSED' } },
+      tool_web: { inputs: {}, outputs: { status: 'BYPASSED' } },
+      tool_code: { inputs: { script: 'compliance_audit.py' }, outputs: { liability_cap: '$5,000,000', deviation_flagged: false } },
+      eval: { inputs: { parsed_cap: '$5,000,000' }, outputs: { precision: 0.96, safety_rating: 0.98, decision: 'GATED_PASSED' } },
+      safety: { inputs: {}, outputs: { status: 'BYPASSED' } },
+      approve: { inputs: { risk_level: 'Low' }, outputs: { status: 'AWAITING_LEGAL_SIGN_OFF', user: 'General_Counsel' } },
+      output: { inputs: { approval: 'APPROVED' }, outputs: { status: 'APPROVED_FOR_SIGNING', compliance_metric: '100%' } }
+    }
+  },
+  csv_logistics: {
+    name: 'E-Commerce Orders Routing (CSV)',
+    query: 'Scan delivery logs warehouse delays Carrier-B',
+    sample: 'ID,Warehouse,Status,Carrier,Delay\nORD-209,WH-Chicago,Delayed,Carrier-B,48h',
+    trace: ['ingest', 'context', 'embed', 'router', 'tool_code', 'eval', 'output'],
+    nodes: {
+      ingest: { inputs: { query: 'Check WH-Chicago delays', format: 'CSV' }, outputs: { status: 'LOADED' } },
+      context: { inputs: { routes: 'warehouse_flows' }, outputs: { data_points: 320 } },
+      embed: { inputs: { log: 'WH-Chicago delayed Carrier-B' }, outputs: { dimensions: 1536 } },
+      router: { inputs: { solver: 'routing_optimizer' }, outputs: { target_tool: 'Delivery_Optimizer_Script' } },
+      tool_db: { inputs: {}, outputs: { status: 'BYPASSED' } },
+      tool_web: { inputs: {}, outputs: { status: 'BYPASSED' } },
+      tool_code: { inputs: { script: 'delivery_anomalies.py' }, outputs: { rerouting_path: 'Reroute through Carrier-A via transit-hub-3', latency_saving: '12hrs' } },
+      eval: { inputs: { rerouting_lat: '12hrs' }, outputs: { precision: 0.97, decision: 'OPTIMIZER_PASSED' } },
+      safety: { inputs: {}, outputs: { status: 'BYPASSED' } },
+      approve: { inputs: {}, outputs: { status: 'BYPASSED_AUTO_ROUTE' } },
+      output: { inputs: { trigger: 'REROUTE_CONFIRMED' }, outputs: { status: 'REROUTED', orders_affected: 42, new_carrier: 'Carrier-A' } }
+    }
+  },
+  yaml_devops: {
+    name: 'GitHub Action Build Logs (YAML)',
+    query: 'Scan pipeline Node-18 dependency linter deprecation',
+    sample: 'name: Build Pipeline\non: [push]\njobs:\n  build:\n    runs-on: ubuntu-latest',
+    trace: ['ingest', 'embed', 'router', 'tool_code', 'eval', 'output'],
+    nodes: {
+      ingest: { inputs: { format: 'YAML', file: 'ci_build.yaml' }, outputs: { status: 'LOADED' } },
+      context: { inputs: {}, outputs: { status: 'BYPASSED' } },
+      embed: { inputs: { yaml_code: 'uses: actions/checkout@v4' }, outputs: { dimensions: 1536 } },
+      router: { inputs: { validator: 'linter_compatibility' }, outputs: { target_tool: 'DevOps_Linter_Engine' } },
+      tool_db: { inputs: {}, outputs: { status: 'BYPASSED' } },
+      tool_web: { inputs: {}, outputs: { status: 'BYPASSED' } },
+      tool_code: { inputs: { script: 'lint_yaml.py' }, outputs: { deprecation_found: true, warning_line: 12 } },
+      eval: { inputs: { warning: 'actions/checkout@v4 deprecation' }, outputs: { precision: 0.96, recall: 0.95, decision: 'BUILD_FAIL_LOCKED' } },
+      safety: { inputs: {}, outputs: { status: 'BYPASSED' } },
+      approve: { inputs: {}, outputs: { status: 'BYPASSED_LOCK_FAIL' } },
+      output: { inputs: { trigger: 'GATED_REJECT' }, outputs: { remediation_patch: 'Patch checkout uses to v4.2.1', status: 'GATED_REJECTED' } }
+    }
   }
 };
 
-// SVG Node positions coordinates mapping
+// Node SVG coordinates config
 const NODES_CONFIG = {
   ingest: { label: 'Query Ingest', x: 100, y: 150, type: 'input' },
   context: { label: 'Context Aggregator', x: 100, y: 330, type: 'input' },
@@ -140,7 +216,7 @@ const NODES_CONFIG = {
   output: { label: 'Response Compiler', x: 1100, y: 240, type: 'output' }
 };
 
-// Connective edges
+// SVG Edges
 const EDGES_CONFIG = [
   { from: 'ingest', to: 'embed', path: 'M 100 150 L 280 150' },
   { from: 'context', to: 'router', path: 'M 100 330 L 280 330' },
@@ -190,7 +266,6 @@ const GraphStudio = ({ onBack }) => {
 
   const activeDataset = DATASET_FEEDS[selectedDataset];
 
-  // Price matrix
   const modelConfig = {
     claude: { promptPrice: 0.000003, compPrice: 0.000015, latencyMult: 1.0 },
     gpt4: { promptPrice: 0.000005, compPrice: 0.000015, latencyMult: 0.9 },
@@ -223,7 +298,6 @@ const GraphStudio = ({ onBack }) => {
       const nodeId = traceSteps[i];
       const nodeConf = NODES_CONFIG[nodeId];
       
-      // Node becomes active
       setActiveNodes([nodeId]);
       setSelectedNode(nodeId);
       
@@ -246,15 +320,14 @@ const GraphStudio = ({ onBack }) => {
         cost: parseFloat(currentCost.toFixed(4))
       });
 
-      // Special Logs per Node type
       if (nodeId === 'router') {
         const routeData = activeDataset.nodes.router.outputs;
-        setLogs(prev => [...prev, `[ROUTER] Classifying input schema. Routing signals to: ${routeData.target_tool || routeData.target_tools}`]);
+        setLogs(prev => [...prev, `[ROUTER] Routing signals to: ${routeData.target_tool || routeData.target_tools}`]);
       }
 
       if (nodeId === 'eval') {
         const evalData = activeDataset.nodes.eval.outputs;
-        setLogs(prev => [...prev, `[EVAL] Accuracy rating: ${evalData.groundedness || evalData.precision || evalData.similarity_confidence} | Verdict: ${evalData.decision}`]);
+        setLogs(prev => [...prev, `[EVAL] Quality rating: ${evalData.groundedness || evalData.precision || evalData.similarity_confidence} | Verdict: ${evalData.decision}`]);
       }
 
       if (nodeId === 'approve') {
@@ -267,6 +340,10 @@ const GraphStudio = ({ onBack }) => {
           setLogs(prev => [...prev, `[HITL_GATE] Gating transaction limit lock. Confirming with: ${appData.user}...`]);
           await new Promise(resolve => setTimeout(resolve, 1500));
           setLogs(prev => [...prev, `[HITL_GATE] Analyst clearance: VERIFIED.`]);
+        } else if (appData.status === 'AWAITING_LEGAL_SIGN_OFF' && hitlEnabled) {
+          setLogs(prev => [...prev, `[HITL_GATE] Liability limit risk check. Waiting for: ${appData.user}...`]);
+          await new Promise(resolve => setTimeout(resolve, 1500));
+          setLogs(prev => [...prev, `[HITL_GATE] Legal General Counsel signature: VERIFIED.`]);
         } else {
           setLogs(prev => [...prev, `[HITL_GATE] Human approval bypassed: ${appData.status}`]);
         }
@@ -274,7 +351,6 @@ const GraphStudio = ({ onBack }) => {
 
       await new Promise(resolve => setTimeout(resolve, 1000));
       
-      // Node complete
       setActiveNodes([]);
       setCompletedNodes(prev => [...prev, nodeId]);
     }
@@ -283,17 +359,10 @@ const GraphStudio = ({ onBack }) => {
     setIsRunning(false);
   };
 
-  // Helper check if connection is active/firing
   const isConnectionActive = (edge) => {
     if (!isRunning) return false;
-    const fromIndex = activeDataset.trace.indexOf(edge.from);
-    const toIndex = activeDataset.trace.indexOf(edge.to);
-    
-    // An edge is active if the "from" node is currently running or completed, and "to" is next or active
     const activeIndex = activeDataset.trace.indexOf(activeNodes[0]);
     if (activeIndex === -1) return false;
-
-    // Edge is currently firing if active node is "from" and "to" is the next step in trace
     return activeDataset.trace[activeIndex] === edge.from && activeDataset.trace[activeIndex + 1] === edge.to;
   };
 
@@ -305,7 +374,6 @@ const GraphStudio = ({ onBack }) => {
 
   return (
     <div className="studio-container animate-fade-in">
-      {/* Top Header */}
       <header className="studio-header">
         <div className="studio-title-row">
           <button onClick={onBack} className="btn btn-outline" style={{ padding: '0.5rem 1rem' }}>
@@ -319,10 +387,8 @@ const GraphStudio = ({ onBack }) => {
         </div>
       </header>
 
-      {/* Grid Layout */}
       <div className="studio-layout">
         
-        {/* Left Config Panel */}
         <aside className="config-sidebar">
           <h3 className="config-section-title"><GitBranch size={14} style={{ marginRight: '6px', verticalAlign: 'middle' }} /> Parameters</h3>
           
@@ -340,6 +406,10 @@ const GraphStudio = ({ onBack }) => {
               <option value="csv_fraud">Financial Fraud Spike (CSV)</option>
               <option value="fasta_protein">Protein Alignments (FASTA)</option>
               <option value="csv_sentiment">Reviews Sentiment (CSV)</option>
+              <option value="json_clinical">Clinical Trials (JSON)</option>
+              <option value="txt_legal">Legal Contracts (TXT)</option>
+              <option value="csv_logistics">Warehouse Logistics (CSV)</option>
+              <option value="yaml_devops">GitHub Action Logs (YAML)</option>
             </select>
           </div>
 
@@ -401,7 +471,6 @@ const GraphStudio = ({ onBack }) => {
           </div>
         </aside>
 
-        {/* Center Neural Canvas */}
         <main className="canvas-panel">
           <div className="canvas-controls">
             <div>
@@ -421,19 +490,16 @@ const GraphStudio = ({ onBack }) => {
           <div className="canvas-scroll-container">
             <div className="canvas-visual-area">
               
-              {/* Dynamic SVG Connections Overlay */}
               <svg className="svg-overlay">
                 {EDGES_CONFIG.map((edge, index) => {
                   const active = isConnectionActive(edge);
                   const completed = isConnectionCompleted(edge);
                   return (
                     <g key={index}>
-                      {/* Connection Line */}
                       <path 
                         d={edge.path} 
                         className={`edge-path ${active ? 'active' : ''} ${completed ? 'completed' : ''}`}
                       />
-                      {/* Firing Light Beam (Circle) moving along connection */}
                       {active && (
                         <circle r="4" className="firing-signal">
                           <animateMotion 
@@ -448,7 +514,6 @@ const GraphStudio = ({ onBack }) => {
                 })}
               </svg>
 
-              {/* Render Nodes relative to layout coordinates map */}
               <div className="nodes-layer">
                 {Object.entries(NODES_CONFIG).map(([nodeId, node]) => {
                   const isActive = activeNodes.includes(nodeId);
@@ -473,7 +538,6 @@ const GraphStudio = ({ onBack }) => {
             </div>
           </div>
 
-          {/* Typewriter logs */}
           <div ref={consoleRef} className="console-card">
             {logs.map((log, i) => (
               <div key={i} style={{ marginBottom: '2px' }}>
@@ -483,9 +547,7 @@ const GraphStudio = ({ onBack }) => {
           </div>
         </main>
 
-        {/* Right Info Sidebar */}
         <aside className="payload-sidebar">
-          {/* Performance Profile metrics */}
           <div className="config-sidebar" style={{ padding: '1.25rem' }}>
             <h3 className="config-section-title"><Activity size={14} style={{ marginRight: '6px', verticalAlign: 'middle' }} /> Performance Profile</h3>
             
@@ -513,7 +575,6 @@ const GraphStudio = ({ onBack }) => {
             </div>
           </div>
 
-          {/* Inspector Panel */}
           <div className="inspector-card">
             <div className="inspector-header">
               <h4 className="inspector-title">State Payload Inspector</h4>
