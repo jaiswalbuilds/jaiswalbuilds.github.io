@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ExternalLink, ChevronDown, ChevronUp, Cpu } from 'lucide-react';
+import { ExternalLink, ChevronDown, ChevronUp, Cpu, Video, Play } from 'lucide-react';
 import { FaGithub } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
 import './Projects.css';
@@ -259,6 +259,54 @@ const Projects = () => {
             </button>
           ))}
         </div>
+
+        {/* ── Featured Video Project ── */}
+        <motion.div
+          className="featured-video-section"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.7 }}
+        >
+          <div className="featured-video-header">
+            <span className="featured-badge">
+              <Play size={12} /> Featured · In Action
+            </span>
+            <h3 className="featured-video-title">Deterministic AI Claims Automation with Human Oversight</h3>
+            <p className="featured-video-desc">
+              End-to-end agentic insurance claims engine built with LangGraph — deterministic state machines,
+              human-in-the-loop approval gates, and full audit trails. Reduces claims processing time by 60%.
+            </p>
+            <div className="featured-tags">
+              {['LangGraph', 'Human-in-the-Loop', 'State Machine', 'Insurance', 'Deterministic AI'].map(t => (
+                <span key={t} className="tag">{t}</span>
+              ))}
+            </div>
+          </div>
+          <div className="featured-video-embed-wrapper">
+            <div style={{ position: 'relative', paddingBottom: '56.25%', height: 0 }}>
+              <iframe
+                src="https://www.loom.com/embed/501465a4829742c4a8d275ad03dafb51"
+                frameBorder="0"
+                webkitallowfullscreen="true"
+                mozallowfullscreen="true"
+                allowFullScreen
+                style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', borderRadius: '10px' }}
+                title="Deterministic AI Claims Automation"
+              />
+            </div>
+          </div>
+          <div className="featured-video-footer">
+            <a
+              href="https://github.com/jaiswalwrites/agentic-insurance-claims-engine"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="agent-link-btn featured-github-btn"
+            >
+              <FaGithub size={16} /> View on GitHub
+            </a>
+          </div>
+        </motion.div>
 
         <motion.div layout className="agents-grid">
           <AnimatePresence mode="popLayout">
