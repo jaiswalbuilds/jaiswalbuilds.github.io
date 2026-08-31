@@ -194,4 +194,12 @@
 @media (max-width: 768px) {
   .resume-body-grid { grid-template-columns: 1fr; gap: 15px; }
   .resume-paper { padding: 20px; }
+  .resume-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .resume-actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
 }
