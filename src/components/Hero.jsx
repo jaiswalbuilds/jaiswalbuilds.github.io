@@ -292,7 +292,7 @@ const Hero = ({ onShowResume, onLaunchStudio }) => {
           <motion.div className="bento-card bento-git-card glass-panel col-span-2" variants={cardVariants}>
             <div className="git-header">
               <h3 className="git-title">GitHub Velocity</h3>
-              <span className="git-badge">jaiswalwrites</span>
+              <span className="git-badge">jaiswalbuilds</span>
             </div>
             <div className="git-visual-mockup">
               {Array.from({ length: 42 }).map((_, i) => {

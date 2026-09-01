@@ -11,7 +11,7 @@ export const CONTACT = {
   email: 'jaiswalmanish060@gmail.com',
   phone: '+918015973380',
   linkedin: 'https://www.linkedin.com/in/manish-kumar-74ab6210a/',
-  github: 'https://github.com/jaiswalwrites',
+  github: 'https://github.com/jaiswalbuilds',
   discord: 'manishjaiswal9689',
   website: 'https://jaiswalbuilds.github.io/',
   calendly: 'https://calendly.com/jaiswalmanish060/book-a-call-with-manish',
@@ -88,7 +88,7 @@ export const ACTION_RESPONSES = {
     action: 'linkedin_card',
   },
   github: {
-    text: `Here's Manish's GitHub (jaiswalwrites) — all his code, projects, and contributions. 👨‍💻`,
+    text: `Here's Manish's GitHub (jaiswalbuilds) — all his code, projects, and contributions. 👨‍💻`,
     action: 'github_card',
   },
   discord: {

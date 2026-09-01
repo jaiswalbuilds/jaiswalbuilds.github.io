@@ -298,7 +298,7 @@ const Projects = () => {
           </div>
           <div className="featured-video-footer">
             <a
-              href="https://github.com/jaiswalwrites/agentic-insurance-claims-engine"
+              href="https://github.com/jaiswalbuilds/agentic-insurance-claims-engine"
               target="_blank"
               rel="noopener noreferrer"
               className="agent-link-btn featured-github-btn"

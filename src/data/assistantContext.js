@@ -77,7 +77,7 @@ CONTACT:
 - Email: jaiswalmanish060@gmail.com
 - Phone: (+91) 8015973380
 - LinkedIn: https://www.linkedin.com/in/manish-kumar-74ab6210a/
-- GitHub: https://github.com/jaiswalwrites
+- GitHub: https://github.com/jaiswalbuilds
 - Discord: manishjaiswal9689
 - Website: https://jaiswalbuilds.github.io/
 
@@ -139,7 +139,7 @@ export const SMART_QA = [
   },
   {
     triggers: ['contact', 'hire', 'available', 'reach', 'email', 'opportunity', 'role', 'open to', 'phone', 'discord', 'linkedin'],
-    response: `Manish is open to Forward Deployed AI Engineer roles. Reach him at jaiswalmanish060@gmail.com, LinkedIn (linkedin.com/in/manish-kumar-74ab6210a), GitHub (github.com/jaiswalwrites), Discord (manishjaiswal9689), or phone (+91) 8015973380.`
+    response: `Manish is open to Forward Deployed AI Engineer roles. Reach him at jaiswalmanish060@gmail.com, LinkedIn (linkedin.com/in/manish-kumar-74ab6210a), GitHub (github.com/jaiswalbuilds), Discord (manishjaiswal9689), or phone (+91) 8015973380.`
   },
   {
     triggers: ['neurals', 'current', 'now', 'latest', 'founding'],

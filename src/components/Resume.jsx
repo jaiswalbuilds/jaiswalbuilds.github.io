@@ -25,7 +25,7 @@ const Resume = ({ onBack }) => {
             <span><Phone size={12} /> (+91) 8015973380</span>
             <span><Globe size={12} /> jaiswalbuilds.github.io</span>
             <span><FaLinkedin size={12} /> linkedin.com/in/manish-kumar-74ab6210a</span>
-            <span><FaGithub size={12} /> github.com/jaiswalwrites</span>
+            <span><FaGithub size={12} /> github.com/jaiswalbuilds</span>
           </div>
         </header>
 
