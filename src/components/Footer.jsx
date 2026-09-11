@@ -1,46 +1,26 @@
 import React from 'react';
-import { Mail, BrainCircuit } from 'lucide-react';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
+import { Mail } from 'lucide-react';
 import './Footer.css';
 
-const Footer = () => {
+export default function Footer() {
   return (
-    <footer className="footer-section">
-      <div className="container footer-container">
-        <div className="footer-top">
-          <div className="footer-brand">
-            <a href="#" className="logo">
-              <BrainCircuit className="logo-icon" />
-              <span className="logo-text text-gradient">JaiswalBuilds</span>
-            </a>
-            <p className="footer-bio">
-              Forward Deployed AI Engineer architecting the future of intelligent systems. Let's build something extraordinary.
-            </p>
-          </div>
-          
-          <div className="footer-links-group">
-            <h4>Connect</h4>
-            <div className="footer-socials">
-              <a href="mailto:jaiswalmanish060@gmail.com" className="footer-link">
-                <Mail size={18} /> jaiswalmanish060@gmail.com
-              </a>
-              <a href="https://github.com/jaiswalbuilds" target="_blank" rel="noopener noreferrer" className="footer-link">
-                <FaGithub size={18} /> GitHub
-              </a>
-              <a href="https://www.linkedin.com/in/manish-kumar-74ab6210a/" target="_blank" rel="noopener noreferrer" className="footer-link">
-                <FaLinkedin size={18} /> LinkedIn
-              </a>
-            </div>
-          </div>
-        </div>
-        
-        <div className="footer-bottom">
-          <p>&copy; {new Date().getFullYear()} Manish Jaiswal. All rights reserved.</p>
-          <p className="powered-by">Powered by Agentic AI & Premium Engineering.</p>
+    <footer className="footer">
+      <div className="footer-inner">
+        <span className="footer-copy">© {new Date().getFullYear()} Manish Jaiswal · Built with React + Vite</span>
+        <div className="footer-links">
+          <a href="https://github.com/jaiswalbuilds" target="_blank" rel="noopener noreferrer" className="footer-link">
+            <FaGithub size={16} />
+          </a>
+          <a href="https://www.linkedin.com/in/manish-kumar-74ab6210a/" target="_blank" rel="noopener noreferrer" className="footer-link">
+            <FaLinkedin size={16} />
+          </a>
+          <a href="mailto:jaiswalmanish060@gmail.com" className="footer-link">
+            <Mail size={16} />
+          </a>
+          <span className="footer-badge">🟢 Open to FDE Roles</span>
         </div>
       </div>
     </footer>
   );
-};
-
-export default Footer;
+}

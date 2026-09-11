@@ -1,80 +1,53 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, BrainCircuit } from 'lucide-react';
+import { Cpu, Menu, X } from 'lucide-react';
 import './Navbar.css';
 
-const Navbar = ({ onLaunchStudio }) => {
+export default function Navbar({ onLaunchStudio }) {
   const [scrolled, setScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled((prev) => {
-        if (!prev && window.scrollY > 60) return true;
-        if (prev && window.scrollY < 20) return false;
-        return prev;
-      });
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener('scroll', onScroll);
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const navLinks = [
-    { name: 'Experience', href: '#experience' },
-    { name: 'Masterpieces', href: '#projects' },
-    { name: 'Skills', href: '#skills' },
-    { name: 'Neurals.in', href: 'https://neurals.in', external: true }
-  ];
+  const scrollTo = (id) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    setMobileOpen(false);
+  };
 
   return (
-    <header className={`navbar ${scrolled ? 'scrolled' : ''}`}>
-      <div className="container nav-container">
-        <a href="#" className="logo">
-          <BrainCircuit className="logo-icon" />
-          <span className="logo-text text-gradient">JaiswalBuilds</span>
+    <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
+      <div className="nav-inner">
+        <a href="/" className="nav-logo">
+          <Cpu size={20} className="nav-logo-icon" />
+          <span>JaiswalBuilds</span>
         </a>
 
-        <nav className={`nav-links ${mobileMenuOpen ? 'active' : ''}`}>
-          {navLinks.map((link) => (
-            <a 
-              key={link.name} 
-              href={link.href}
-              className={`nav-link ${link.external ? 'external-link' : ''}`}
-              target={link.external ? '_blank' : '_self'}
-              rel={link.external ? 'noopener noreferrer' : ''}
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              {link.name}
-            </a>
-          ))}
-          <button 
-            className="btn btn-outline" 
-            style={{ 
-              padding: '0.4rem 0.8rem', 
-              fontSize: '0.8rem', 
-              cursor: 'pointer', 
-              borderColor: 'rgba(0, 255, 255, 0.4)', 
-              color: 'var(--text-accent)',
-              marginLeft: '0.5rem'
-            }}
-            onClick={() => {
-              onLaunchStudio();
-              setMobileMenuOpen(false);
-            }}
-            title="Open the interactive Neural Graph Studio workspace"
-          >
-            Launch Studio
+        <div className="nav-desktop-cta">
+          <button className="nav-studio-btn" onClick={onLaunchStudio}>
+            <Cpu size={15} /> Graph Studio
           </button>
-        </nav>
+        </div>
 
-        <button 
-          className="mobile-menu-btn"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-        >
-          {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+        <button className="nav-hamburger" onClick={() => setMobileOpen(!mobileOpen)}>
+          {mobileOpen ? <X size={22} /> : <Menu size={22} />}
         </button>
       </div>
-    </header>
-  );
-};
 
-export default Navbar;
+      {mobileOpen && (
+        <div className="nav-mobile-menu">
+          {['hero','experience','projects','skills'].map(id => (
+            <button key={id} className="nav-mobile-link" onClick={() => scrollTo(id)}>
+              {id.charAt(0).toUpperCase() + id.slice(1)}
+            </button>
+          ))}
+          <button className="nav-studio-btn" onClick={() => { onLaunchStudio(); setMobileOpen(false); }}>
+            <Cpu size={15} /> Graph Studio
+          </button>
+        </div>
+      )}
+    </nav>
+  );
+}

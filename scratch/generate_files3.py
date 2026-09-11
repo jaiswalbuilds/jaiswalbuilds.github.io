@@ -1,4 +1,11 @@
-import React, { useState } from 'react';
+import os
+
+workspace_dir = r"C:\Users\jaisw\OneDrive\GitHub\jaiswalbuilds.github.io"
+src_dir = os.path.join(workspace_dir, "src")
+components_dir = os.path.join(src_dir, "components")
+
+# 13. src/components/Projects.jsx
+projects_jsx_content = """import React, { useState } from 'react';
 import { Play } from 'lucide-react';
 import { FaGithub } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -191,3 +198,310 @@ export default function Projects() {
     </div>
   );
 }
+"""
+with open(os.path.join(components_dir, "Projects.jsx"), "w", encoding="utf-8") as f:
+    f.write(projects_jsx_content)
+
+# 14. src/components/Projects.css
+projects_css_content = """.projects-section { padding: 5rem 2.5rem; }
+
+.featured-project {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  transition: border-color 0.3s ease;
+}
+.featured-project:hover { border-color: var(--border-hover); }
+
+.featured-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--accent-amber);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 0.75rem;
+}
+
+.featured-cols {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.featured-col-label {
+  font-size: 0.72rem;
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.5rem;
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.project-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: all 0.25s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.project-card:hover {
+  border-color: var(--border-hover);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(99,102,241,0.12);
+}
+
+.project-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.project-desc {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  flex: 1;
+  margin: 0;
+}
+
+.project-stack { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+
+.project-pill {
+  font-size: 0.7rem;
+  font-family: var(--font-mono);
+  background: rgba(6,182,212,0.08);
+  border: 1px solid rgba(6,182,212,0.15);
+  border-radius: 4px;
+  padding: 0.15rem 0.5rem;
+  color: var(--accent-cyan);
+}
+
+.project-links { display: flex; gap: 0.75rem; }
+
+.project-link {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  transition: color 0.2s ease;
+  min-height: 44px;
+  text-decoration: none;
+}
+.project-link:hover { color: var(--accent-cyan); }
+
+@media (max-width: 768px) {
+  .projects-section { padding: 4rem 1.25rem; }
+  .projects-grid { grid-template-columns: 1fr; }
+  .featured-cols { grid-template-columns: 1fr; }
+}
+"""
+with open(os.path.join(components_dir, "Projects.css"), "w", encoding="utf-8") as f:
+    f.write(projects_css_content)
+
+# 15. src/components/Skills.jsx
+skills_jsx_content = """import React from 'react';
+import './Skills.css';
+
+const STACK_LAYERS = [
+  {
+    category: 'Agentic Orchestration',
+    icon: '🤖',
+    color: 'var(--accent-violet)',
+    skills: ['LangGraph', 'LangChain', 'LlamaIndex', 'CrewAI', 'AutoGen', 'MCP']
+  },
+  {
+    category: 'LLM Serving & Gateway',
+    icon: '⚡',
+    color: 'var(--accent-cyan)',
+    skills: ['OpenAI', 'Anthropic', 'Gemini', 'Ollama', 'LiteLLM', 'AWS Bedrock']
+  },
+  {
+    category: 'Vector & Storage',
+    icon: '🗄️',
+    color: 'var(--accent-emerald)',
+    skills: ['FAISS', 'Pinecone', 'ChromaDB', 'Qdrant', 'pgvector', 'Redis']
+  },
+  {
+    category: 'Evaluation & Observability',
+    icon: '📊',
+    color: 'var(--accent-amber)',
+    skills: ['LangSmith', 'Ragas', 'TruLens', 'Arize Phoenix', 'OpenTelemetry']
+  },
+  {
+    category: 'Cloud & Infrastructure',
+    icon: '☁️',
+    color: '#60A5FA',
+    skills: ['AWS', 'GCP', 'Docker', 'Kubernetes', 'Terraform', 'GitHub Actions']
+  },
+  {
+    category: 'Languages & APIs',
+    icon: '💻',
+    color: '#F472B6',
+    skills: ['Python', 'FastAPI', 'SQL', 'Java', 'REST', 'GraphQL']
+  },
+];
+
+export default function Skills() {
+  return (
+    <div className="skills-section">
+      <div className="section-header">
+        <span className="section-label">// Stack</span>
+        <h2 className="section-title">Technical Skills</h2>
+      </div>
+
+      <div className="skills-grid">
+        {STACK_LAYERS.map((layer, idx) => (
+          <div key={idx} className="skill-layer">
+            <div className="skill-layer-header">
+              <span className="skill-layer-icon">{layer.icon}</span>
+              <span className="skill-layer-name" style={{ color: layer.color }}>{layer.category}</span>
+            </div>
+            <div className="skill-pills">
+              {layer.skills.map(skill => (
+                <span key={skill} className="skill-pill">{skill}</span>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+"""
+with open(os.path.join(components_dir, "Skills.jsx"), "w", encoding="utf-8") as f:
+    f.write(skills_jsx_content)
+
+# 16. src/components/Skills.css
+skills_css_content = """.skills-section { padding: 5rem 2.5rem; }
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.skill-layer {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+  transition: border-color 0.2s ease;
+}
+
+.skill-layer:hover { border-color: var(--border-hover); }
+
+.skill-layer-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.85rem;
+}
+
+.skill-layer-icon { font-size: 1rem; }
+
+.skill-layer-name {
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+}
+
+.skill-pills { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+
+.skill-pill {
+  font-size: 0.75rem;
+  font-family: var(--font-mono);
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: var(--text-secondary);
+  transition: all 0.2s ease;
+}
+
+.skill-pill:hover {
+  background: rgba(255,255,255,0.08);
+  color: var(--text-primary);
+}
+
+@media (max-width: 1200px) { .skills-grid { grid-template-columns: repeat(2,1fr); } }
+@media (max-width: 600px) {
+  .skills-section { padding: 4rem 1.25rem; }
+  .skills-grid { grid-template-columns: 1fr; }
+}
+"""
+with open(os.path.join(components_dir, "Skills.css"), "w", encoding="utf-8") as f:
+    f.write(skills_css_content)
+
+# 17. src/components/Footer.jsx
+footer_jsx_content = """import React from 'react';
+import { FaGithub, FaLinkedin } from 'react-icons/fa';
+import { Mail } from 'lucide-react';
+import './Footer.css';
+
+export default function Footer() {
+  return (
+    <footer className="footer">
+      <div className="footer-inner">
+        <span className="footer-copy">© {new Date().getFullYear()} Manish Jaiswal · Built with React + Vite</span>
+        <div className="footer-links">
+          <a href="https://github.com/jaiswalbuilds" target="_blank" rel="noopener noreferrer" className="footer-link">
+            <FaGithub size={16} />
+          </a>
+          <a href="https://www.linkedin.com/in/manish-kumar-74ab6210a/" target="_blank" rel="noopener noreferrer" className="footer-link">
+            <FaLinkedin size={16} />
+          </a>
+          <a href="mailto:jaiswalmanish060@gmail.com" className="footer-link">
+            <Mail size={16} />
+          </a>
+          <span className="footer-badge">🟢 Open to FDE Roles</span>
+        </div>
+      </div>
+    </footer>
+  );
+}
+"""
+with open(os.path.join(components_dir, "Footer.jsx"), "w", encoding="utf-8") as f:
+    f.write(footer_jsx_content)
+
+# 18. src/components/Footer.css
+footer_css_content = """.footer {
+  border-top: 1px solid var(--border-subtle);
+  padding: 1.5rem 2.5rem;
+}
+.footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.footer-copy { font-size: 0.8rem; color: var(--text-muted); font-family: var(--font-mono); }
+.footer-links { display: flex; align-items: center; gap: 1rem; }
+.footer-link { color: var(--text-muted); transition: color 0.2s ease; min-height: 44px; display: flex; align-items: center; text-decoration: none; }
+.footer-link:hover { color: var(--accent-cyan); }
+.footer-badge { font-size: 0.78rem; color: var(--accent-emerald); font-family: var(--font-mono); }
+"""
+with open(os.path.join(components_dir, "Footer.css"), "w", encoding="utf-8") as f:
+    f.write(footer_css_content)
+
+print("Third batch of files generated.")

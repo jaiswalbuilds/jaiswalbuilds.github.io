@@ -1,111 +1,68 @@
 import React from 'react';
-import { Database, Code2, Cpu, Network, PenTool } from 'lucide-react';
-import { motion } from 'framer-motion';
 import './Skills.css';
 
-const skillCategories = [
+const STACK_LAYERS = [
   {
-    title: 'Languages & Core',
-    icon: <Code2 className="skill-icon" />,
-    skills: ['Python', 'SQL', 'Java', 'Shell', 'Solidity']
+    category: 'Agentic Orchestration',
+    icon: '🤖',
+    color: 'var(--accent-violet)',
+    skills: ['LangGraph', 'LangChain', 'LlamaIndex', 'CrewAI', 'AutoGen', 'MCP']
   },
   {
-    title: 'Data Science',
-    icon: <Database className="skill-icon" />,
-    skills: ['NumPy', 'Pandas', 'Scikit-learn', 'Matplotlib', 'SciPy', 'Jupyter']
+    category: 'LLM Serving & Gateway',
+    icon: '⚡',
+    color: 'var(--accent-cyan)',
+    skills: ['OpenAI', 'Anthropic', 'Gemini', 'Ollama', 'LiteLLM', 'AWS Bedrock']
   },
   {
-    title: 'Deep Learning',
-    icon: <Cpu className="skill-icon" />,
-    skills: ['PyTorch', 'TensorFlow', 'Keras', 'Transformers', 'Hugging Face', 'ONNX', 'Embeddings']
+    category: 'Vector & Storage',
+    icon: '🗄️',
+    color: 'var(--accent-emerald)',
+    skills: ['FAISS', 'Pinecone', 'ChromaDB', 'Qdrant', 'pgvector', 'Redis']
   },
   {
-    title: 'LLMs & GenAI',
-    icon: <Network className="skill-icon" />,
-    skills: ['LangChain', 'LlamaIndex', 'RAG', 'Agentic AI', 'CrewAI', 'AutoGen', 'OpenAI', 'Gemini', 'Ollama']
+    category: 'Evaluation & Observability',
+    icon: '📊',
+    color: 'var(--accent-amber)',
+    skills: ['LangSmith', 'Ragas', 'TruLens', 'Arize Phoenix', 'OpenTelemetry']
   },
   {
-    title: 'Vector Databases',
-    icon: <Database className="skill-icon" />,
-    skills: ['FAISS', 'Pinecone', 'ChromaDB', 'PostgreSQL']
+    category: 'Cloud & Infrastructure',
+    icon: '☁️',
+    color: '#60A5FA',
+    skills: ['AWS', 'GCP', 'Docker', 'Kubernetes', 'Terraform', 'GitHub Actions']
   },
   {
-    title: 'Tools & Platforms',
-    icon: <PenTool className="skill-icon" />,
-    skills: ['FastAPI', 'Docker', 'Kubernetes', 'Terraform', 'AWS', 'GCP', 'GitHub Actions']
-  }
+    category: 'Languages & APIs',
+    icon: '💻',
+    color: '#F472B6',
+    skills: ['Python', 'FastAPI', 'SQL', 'Java', 'REST', 'GraphQL']
+  },
 ];
 
-const Skills = () => {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.1
-      }
-    }
-  };
-
-  const cardVariants = {
-    hidden: { y: 30, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] }
-    }
-  };
-
+export default function Skills() {
   return (
-    <section id="skills" className="skills-section">
-      <div className="container">
-        <motion.h2 
-          className="section-title text-gradient"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6 }}
-        >
-          Core ML Stack & Skills
-        </motion.h2>
-        
-        <motion.div 
-          className="skills-grid"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-        >
-          {skillCategories.map((category, index) => (
-            <motion.div 
-              key={index} 
-              className="skill-card glass-panel"
-              variants={cardVariants}
-              whileHover={{ scale: 1.03, translateY: -4 }}
-              transition={{ duration: 0.3 }}
-            >
-              <div className="skill-header">
-                {category.icon}
-                <h3 className="skill-title">{category.title}</h3>
-              </div>
-              <div className="skill-list">
-                {category.skills.map((skill, i) => (
-                  <motion.span 
-                    key={i} 
-                    className="skill-badge"
-                    whileHover={{ scale: 1.1, backgroundColor: 'rgba(59, 130, 246, 0.2)', borderColor: 'rgba(59, 130, 246, 0.5)' }}
-                  >
-                    {skill}
-                  </motion.span>
-                ))}
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
+    <div className="skills-section">
+      <div className="section-header">
+        <span className="section-label">// Stack</span>
+        <h2 className="section-title">Technical Skills</h2>
       </div>
-    </section>
-  );
-};
 
-export default Skills;
+      <div className="skills-grid">
+        {STACK_LAYERS.map((layer, idx) => (
+          <div key={idx} className="skill-layer">
+            <div className="skill-layer-header">
+              <span className="skill-layer-icon">{layer.icon}</span>
+              <span className="skill-layer-name" style={{ color: layer.color }}>{layer.category}</span>
+            </div>
+            <div className="skill-pills">
+              {layer.skills.map(skill => (
+                <span key={skill} className="skill-pill">{skill}</span>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
