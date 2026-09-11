@@ -1,6 +1,37 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { TrendingUp, Zap, Clock, Users } from 'lucide-react';
+import React, { useState, useRef, useEffect } from 'react';
+
+function useCountUp(target, duration = 1800, startOnView = true) {
+  const [count, setCount] = useState(0);
+  const [started, setStarted] = useState(false);
+  const ref = useRef(null);
+
+  useEffect(() => {
+    if (!startOnView) { setStarted(true); return; }
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setStarted(true); observer.disconnect(); } },
+      { threshold: 0.3 }
+    );
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, [startOnView]);
+
+  useEffect(() => {
+    if (!started) return;
+    let start = 0;
+    const end = parseFloat(target);
+    const step = end / (duration / 16);
+    const timer = setInterval(() => {
+      start += step;
+      if (start >= end) { setCount(end); clearInterval(timer); }
+      else setCount(Math.floor(start));
+    }, 16);
+    return () => clearInterval(timer);
+  }, [started, target, duration]);
+
+  return { count, ref };
+}
+import { Calendar, MapPin, ChevronLeft, ChevronRight, TrendingUp, Zap, Clock, Users } from 'lucide-react';
+import { motion, useMotionValue, useAnimation } from 'framer-motion';
 import './Experience.css';
 
 const impactStats = [
@@ -13,131 +44,316 @@ const impactStats = [
 const experiences = [
   {
     company: 'Neurals.in',
+    logo: 'https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://neurals.in&size=128',
     role: 'Forward Deployed AI Engineer',
     domain: 'FinOps Automation',
     period: 'April 2025 – Present',
     location: 'Remote',
-    bullets: [
+    context: 'Early-stage, fast-moving team building enterprise FinOps automation for cloud cost governance and anomaly detection.',
+    ownership: 'Owned agent orchestration layer, cost-analysis workflows, release reliability, and HITL approval flow.',
+    leadership: 'Drove technical design, incident debugging, and rollout coordination for agentic workflows.',
+    description: [
       'Architected an enterprise FinOps multi-agent orchestration platform using LangGraph, enabling automated cloud cost analysis, anomaly detection, and governance.',
       'Implemented stateful cyclic graph state machines with human-in-the-loop approvals for resource adjustments, leading to 30–40% cloud cost reductions.',
       'Developed Optimiser Agent: autonomous FinOps optimizer executing rolling z-score anomaly detection on CSV billing logs and generating auto-scaling plans.',
       'Engineered Research Agent: deep-research analyst using web search tools to compile market reports, reducing latency by 85%.',
       'Resolved high-concurrency event loop bottlenecks and memory leaks under heavy concurrent query loads.',
     ],
-    stack: ['Python', 'FastAPI', 'LangGraph', 'OpenAI', 'Ollama', 'Kubernetes', 'Docker', 'Terraform', 'MCP'],
+    tech: ['Python', 'FastAPI', 'LangGraph', 'OpenAI', 'Ollama', 'Kubernetes', 'Docker', 'Terraform', 'MCP'],
   },
   {
     company: 'Safe Security',
+    logo: 'https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://safe.security&size=128',
     role: 'Platform Engineer',
     domain: 'CRQM · CyberSecurity',
     period: 'August 2023 – March 2025',
     location: 'Bangalore, India',
-    bullets: [
+    context: 'Enterprise security platform team shipping multi-tenant GenAI and RAG capabilities for security workflows.',
+    ownership: 'Owned retrieval quality, ingestion microservices, chunking/ranking logic, and AI evaluation gates.',
+    leadership: 'Coordinated with security, product, and platform stakeholders to harden releases and improve quality standards.',
+    description: [
       'Designed and built the backend microservice architecture for Safex, a multi-tenant GenAI assistant with enterprise RAG pipelines for complex security semantic queries.',
       'Developed custom FAISS index tuning, hierarchical document chunking algorithms, and cross-encoder re-ranking models, raising query precision by 60% and cutting latency by 75%.',
       'Engineered async data ingestion microservices (FastAPI) parsing and indexing high-volume OpenAPI 3.0 specs and unstructured data into semantic clusters.',
       'Built automated AI evaluation suites measuring groundedness, hallucination risk, and citation accuracy before production releases.',
     ],
-    stack: ['Python', 'FAISS', 'ChromaDB', 'LlamaIndex', 'LangChain', 'OpenAI', 'FastAPI', 'OpenAPI', 'PostgreSQL'],
+    tech: ['Python', 'FAISS', 'ChromaDB', 'LlamaIndex', 'LangChain', 'OpenAI', 'FastAPI', 'OpenAPI', 'PostgreSQL'],
   },
   {
     company: 'Harness.io',
+    logo: 'https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://harness.io&size=128',
     role: 'Platform Engineer',
     domain: 'DevOps · ML · AI',
     period: 'March 2021 – July 2023',
     location: 'Bangalore, India',
-    bullets: [
+    context: 'Platform engineering supporting internal developer productivity across Kubernetes-based multi-cloud build infrastructure.',
+    ownership: 'Owned CI/CD automation, GitOps templates, Terraform/Helm delivery patterns, and policy enforcement logic.',
+    leadership: 'Helped take the developer platform from beta to GA in 3 months across core engineering and platform stakeholders.',
+    description: [
       'Designed and built containerized CI/CD infrastructure executing 1,000+ builds per day on Kubernetes clusters (EKS, GKE).',
       'Developed custom GitOps automation triggers, Terraform templates, and Helm charts for multi-cloud deployments.',
       'Created cloud cost-monitoring tooling and automated policy checks using Open Policy Agent (OPA) for secure resource provisioning.',
       'Delivered the developer platform from beta to GA in 3 months working across engineering and platform teams.',
     ],
-    stack: ['Kubernetes', 'Docker', 'Terraform', 'Jenkins', 'AWS', 'GCP', 'GitHub Actions', 'Helm', 'OPA'],
+    tech: ['Kubernetes', 'Docker', 'Terraform', 'Jenkins', 'AWS', 'GCP', 'GitHub Actions', 'Helm', 'OPA'],
   },
   {
     company: 'McAfee',
+    logo: 'https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://mcafee.com&size=128',
     role: 'Software Engineer',
     domain: 'Cloud Security',
     period: 'November 2018 – April 2021',
     location: 'Bangalore, India',
-    bullets: [
+    context: 'Enterprise Cloud Access Security Broker platform intercepting and inspecting SaaS data streams for Fortune 500 tenants.',
+    ownership: 'Owned security middleware, IAM compliance pipelines, and tenant synchronization workers.',
+    leadership: '',
+    description: [
       'Developed security middleware and policy enforcement engines for McAfee CASB, intercepting and inspecting enterprise SaaS data streams.',
       'Wrote high-throughput REST APIs (Java/Python) and background worker queues managing customer tenant synchronization and IAM compliance.',
       'Optimized microservice communication overhead by implementing gRPC streaming and caching mechanisms.',
     ],
-    stack: ['Java', 'Python', 'gRPC', 'REST APIs', 'IAM', 'CASB'],
+    tech: ['Java', 'Python', 'gRPC', 'REST APIs', 'IAM', 'CASB'],
   },
   {
     company: 'KanTime',
+    logo: 'https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://kantime.com&size=128',
     role: 'Software Engineer',
     domain: 'Healthcare · SaaS',
     period: 'December 2015 – November 2018',
     location: 'Bangalore, India',
-    bullets: [
+    context: 'Large-scale healthcare SaaS platform serving enterprise healthcare providers across the US.',
+    ownership: 'Owned backend API modules, database optimization, and HIPAA-compliant billing integrations.',
+    leadership: '',
+    description: [
       'Designed and developed scalable backend API modules for a healthcare SaaS platform using Java, Spring Boot, and PostgreSQL.',
       'Optimized slow-running queries, redesigned complex relational tables, and implemented Redis caching to reduce query latency by 40%.',
       'Engineered secure, HIPAA-compliant XML/JSON billing integration adapters communicating with external healthcare clearinghouse gateways.',
     ],
-    stack: ['Java', 'Spring Boot', 'PostgreSQL', 'Redis', 'XML', 'JSON', 'HIPAA'],
+    tech: ['Java', 'Spring Boot', 'PostgreSQL', 'Redis', 'XML', 'JSON', 'HIPAA'],
   },
 ];
 
-export default function Experience() {
+const CARD_WIDTH_PERCENT = 0.65;
+const CARD_GAP = 32;
+
+const Experience = () => {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
+  const containerRef = useRef(null);
+  const x = useMotionValue(0);
+  const controls = useAnimation();
+
+  const getCardWidth = () => {
+    if (!containerRef.current) return 600;
+    return containerRef.current.offsetWidth * CARD_WIDTH_PERCENT;
+  };
+
+  const getOffset = (index) => {
+    const cardWidth = getCardWidth();
+    const containerWidth = containerRef.current ? containerRef.current.offsetWidth : window.innerWidth;
+    return (containerWidth / 2) - (cardWidth / 2) - index * (cardWidth + CARD_GAP);
+  };
+
+  const snapToIndex = (index) => {
+    const clamped = Math.max(0, Math.min(experiences.length - 1, index));
+    setActiveIndex(clamped);
+    controls.start({
+      x: getOffset(clamped),
+      transition: { type: 'spring', stiffness: 300, damping: 35, mass: 0.8 },
+    });
+  };
+
+  const handleDragEnd = (_, info) => {
+    setIsDragging(false);
+    const cardWidth = getCardWidth();
+    const threshold = cardWidth * 0.2;
+    const velocity = info.velocity.x;
+    if (velocity < -300 || info.offset.x < -threshold) snapToIndex(activeIndex + 1);
+    else if (velocity > 300 || info.offset.x > threshold) snapToIndex(activeIndex - 1);
+    else snapToIndex(activeIndex);
+  };
+
   return (
-    <div className="experience-section">
-      <div className="section-header">
-        <span className="section-label">// Work History</span>
-        <h2 className="section-title">Experience</h2>
-      </div>
+    <section id="experience" className="experience-section">
+      <div className="container">
 
-      <div className="exp-impact-row" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem', marginBottom: '3rem' }}>
-        {impactStats.map((stat, i) => {
-          const Icon = stat.icon;
-          return (
-            <div key={i} className="impact-tile glass-panel" style={{ padding: '1rem', borderRadius: '12px' }}>
-              <Icon size={20} className="impact-icon" style={{ color: 'var(--accent-cyan)' }} />
-              <div className="impact-value" style={{ fontSize: '1.25rem', fontWeight: 700, margin: '0.5rem 0 0.25rem' }}>{stat.value}</div>
-              <div className="impact-metric-label" style={{ fontSize: '0.85rem', color: 'var(--text-primary)', fontWeight: 500 }}>{stat.label}</div>
-              <div className="impact-sub" style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '0.25rem' }}>{stat.sub}</div>
-            </div>
-          );
-        })}
-      </div>
+        {/* Section heading */}
+        <motion.h2
+          className="section-title text-gradient"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          Professional Experience
+        </motion.h2>
 
-      <div className="timeline">
-        {experiences.map((exp, i) => (
+        {/* Impact Banner */}
+        <div className="impact-banner">
+          <p className="impact-label">⚡ Impact Driven</p>
+          <div className="impact-grid">
+            {impactStats.map((stat, i) => {
+              const Icon = stat.icon;
+              // Parse number for count up, keeping prefix/suffix
+              const numMatch = stat.value.match(/(\d+)/);
+              const targetNum = numMatch ? numMatch[1] : 0;
+              const { count, ref } = useCountUp(targetNum, 1600);
+              const displayValue = numMatch 
+                ? stat.value.replace(targetNum, count)
+                : stat.value;
+
+              return (
+                <motion.div
+                  key={i}
+                  className="impact-tile glass-panel"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: i * 0.1 }}
+                  ref={ref}
+                >
+                  <Icon size={20} className="impact-icon" />
+                  <span className="impact-value count-animated">{displayValue}</span>
+                  <span className="impact-metric-label">{stat.label}</span>
+                  <span className="impact-sub">{stat.sub}</span>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Carousel header row */}
+        <div className="section-header-row">
+          <p className="exp-subtitle">Drag to explore · Click a card to focus</p>
+          <div className="slider-controls">
+            <button
+              onClick={() => snapToIndex(activeIndex - 1)}
+              className="slider-btn"
+              disabled={activeIndex === 0}
+              style={{ opacity: activeIndex === 0 ? 0.3 : 1 }}
+              aria-label="Previous"
+            >
+              <ChevronLeft size={20} />
+            </button>
+            <button
+              onClick={() => snapToIndex(activeIndex + 1)}
+              className="slider-btn"
+              disabled={activeIndex === experiences.length - 1}
+              style={{ opacity: activeIndex === experiences.length - 1 ? 0.3 : 1 }}
+              aria-label="Next"
+            >
+              <ChevronRight size={20} />
+            </button>
+          </div>
+        </div>
+
+        {/* Dot indicators */}
+        <div className="slider-dots">
+          {experiences.map((_, i) => (
+            <button
+              key={i}
+              className={`slider-dot ${i === activeIndex ? 'active' : ''}`}
+              onClick={() => snapToIndex(i)}
+              aria-label={`Go to card ${i + 1}`}
+            />
+          ))}
+        </div>
+
+        {/* Drag track */}
+        <div ref={containerRef} className="experience-slider-wrapper">
           <motion.div
-            key={i}
-            className="timeline-entry"
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: i * 0.1 }}
+            className="experience-track"
+            drag="x"
+            dragElastic={0.08}
+            dragMomentum={false}
+            animate={controls}
+            style={{ x }}
+            initial={{ x: 0 }}
+            onDragStart={() => setIsDragging(true)}
+            onDragEnd={handleDragEnd}
           >
-            <div className="timeline-dot" />
-            <div className="timeline-card glass-panel" style={{ width: '100%', padding: '1.5rem', borderRadius: '12px' }}>
-              <div className="timeline-header" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem', flexWrap: 'wrap', gap: '0.5rem' }}>
-                <div className="timeline-left">
-                  <div className="timeline-company">{exp.company}</div>
-                  <div className="timeline-role">{exp.role}</div>
-                </div>
-                <div className="timeline-right">
-                  <div className="timeline-period">{exp.period}</div>
-                  <div className="timeline-location">{exp.location}</div>
-                </div>
-              </div>
-              <ul className="timeline-bullets">
-                {exp.bullets.map((b, j) => (
-                  <li key={j}>{b}</li>
-                ))}
-              </ul>
-              <div className="timeline-stack" style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginTop: '1rem' }}>
-                {exp.stack?.map(t => <span key={t} className="stack-pill">{t}</span>)}
-              </div>
-            </div>
+            {experiences.map((exp, index) => {
+              const isActive = index === activeIndex;
+              const distance = Math.abs(index - activeIndex);
+              return (
+                <motion.div
+                  key={index}
+                  className={`experience-card glass-panel ${isActive ? 'is-selected' : ''}`}
+                  onClick={() => { if (!isDragging && !isActive) snapToIndex(index); }}
+                  animate={{
+                    scale: isActive ? 1.04 : Math.max(0.82, 1 - distance * 0.09),
+                    opacity: isActive ? 1 : Math.max(0.28, 1 - distance * 0.38),
+                    filter: isActive
+                      ? 'grayscale(0%) blur(0px)'
+                      : `grayscale(${Math.min(90, distance * 55)}%) blur(${distance * 0.8}px)`,
+                    y: isActive ? -12 : distance * 6,
+                    zIndex: isActive ? 10 : Math.max(0, 5 - distance),
+                  }}
+                  transition={{ type: 'spring', stiffness: 320, damping: 32 }}
+                  style={{
+                    cursor: isActive ? 'grab' : 'pointer',
+                    boxShadow: isActive
+                      ? '0 30px 80px rgba(123, 97, 255, 0.35), 0 0 0 1px rgba(123, 97, 255, 0.4)'
+                      : '0 4px 20px rgba(0,0,0,0.2)',
+                    border: isActive
+                      ? '1px solid rgba(123, 97, 255, 0.5)'
+                      : '1px solid var(--glass-border)',
+                  }}
+                >
+                  {/* Card header */}
+                  <div className="exp-card-header">
+                    {exp.logo && (
+                      <img
+                        src={exp.logo}
+                        alt={`${exp.company} logo`}
+                        className="exp-card-logo"
+                        onError={(e) => { e.target.style.display = 'none'; }}
+                      />
+                    )}
+                    <div style={{ flex: 1 }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
+                        <h3 className="exp-card-role">{exp.role}</h3>
+                        <span className="domain-badge">{exp.domain}</span>
+                      </div>
+                      <div className="exp-card-company">{exp.company}</div>
+                    </div>
+                  </div>
+
+                  {/* Meta */}
+                  <div className="exp-card-meta">
+                    <span className="meta-item"><Calendar size={13} style={{ flexShrink: 0 }} /> {exp.period}</span>
+                    <span className="meta-item"><MapPin size={13} style={{ flexShrink: 0 }} /> {exp.location}</span>
+                  </div>
+
+                  {/* Context / Ownership / Leadership callouts */}
+                  <div className="callout-row">
+                    <div className="callout"><span className="callout-label">Context</span>{exp.context}</div>
+                    <div className="callout"><span className="callout-label">Ownership</span>{exp.ownership}</div>
+                    {exp.leadership && <div className="callout"><span className="callout-label">Leadership</span>{exp.leadership}</div>}
+                  </div>
+
+                  {/* Bullet achievements */}
+                  <ul className="exp-card-bullets">
+                    {exp.description.map((item, i) => (
+                      <li key={i}>{item}</li>
+                    ))}
+                  </ul>
+
+                  {/* Tech pills */}
+                  <div className="tech-pills">
+                    {exp.tech.map((t, i) => (
+                      <span key={i} className="tech-pill">{t}</span>
+                    ))}
+                  </div>
+                </motion.div>
+              );
+            })}
           </motion.div>
-        ))}
+        </div>
+
       </div>
-    </div>
+    </section>
   );
-}
+};
+
+export default Experience;
